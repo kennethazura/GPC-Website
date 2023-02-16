@@ -1,14 +1,24 @@
 const express = require('express');
 const path = require('path');
+const ejs = require('ejs');
 
-const app = express();
+const env = {
+  server: 'local',
+};
+
+const server = express();
 const port = 3000;
-app.use('/dist', express.static(path.join(__dirname, 'dist')));
+server.use('/dist', express.static(path.join(__dirname, 'dist')));
+// TO DO : Add Environment variables
+if (env.server === 'local') {
+  server.use('/assets', express.static(path.join(__dirname, 'assets')));
+}
+server.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/pages/home/home.html'));
+server.get('/', (req, res) => {
+  res.render('home.ejs');
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+server.listen(port, () => {
+  console.log(`Example server listening on port ${port}`);
 });
