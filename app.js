@@ -7,7 +7,7 @@ const env = {
 };
 
 const server = express();
-const port = 3000;
+const port = 80;
 server.use('/dist', express.static(path.join(__dirname, 'dist')));
 // TO DO : Add Environment variables
 if (env.server === 'local') {

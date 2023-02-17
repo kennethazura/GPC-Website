@@ -1,0 +1,19 @@
+@font-face {
+  font-family: Monseratt;
+  src: url('/dist/fonts/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: MonserattBold;
+  src: url('/dist/fonts/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: NotoSans;
+  src: url('/dist/fonts/NotoSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: NotoSansBold;
+  src: url('/dist/fonts/NotoSans-Bold.ttf');
+}

@@ -20,4 +20,9 @@ module.exports = {
     'no-new': 0,
     'no-param-reassign': ['error', { props: false }],
   },
+  globals: {
+    gsap: true,
+    u: true,
+    TweenMax: true,
+  },
 };
