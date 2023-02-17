@@ -24,5 +24,7 @@ module.exports = {
     gsap: true,
     u: true,
     TweenMax: true,
+    ScrollMagic: true,
+    Linear: true,
   },
 };
