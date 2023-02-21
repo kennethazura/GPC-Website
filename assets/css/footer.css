@@ -33,6 +33,7 @@
   align-items: center;
   border-top: 1px solid white;
   padding-top: 20px;
+  padding-bottom: 30px;
 }
 
 .footer__icon {
@@ -86,6 +87,8 @@
   background: rgb(35, 199, 253);
   padding-top: 10px;
   padding-bottom: 10px;
+  width: 100vw;
+  margin-left: -150px;
 }
 
 .footer__rights {
