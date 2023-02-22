@@ -102,6 +102,11 @@
   color: #FFFFFF;
 }
 
+.navbar--white .navbar__sign-up-btn:hover {
+  cursor: pointer;
+  color: #1B25AB;
+}
+
 .navbar__login-btn {
   font-family: NotoSansBold, sans-serif;
   padding: 6px 25px;
