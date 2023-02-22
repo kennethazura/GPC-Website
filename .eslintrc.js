@@ -19,6 +19,7 @@ module.exports = {
     'space-before-function-paren': ['error', 'never'],
     'no-new': 0,
     'no-param-reassign': ['error', { props: false }],
+    'no-underscore-dangle': 0,
   },
   globals: {
     gsap: true,

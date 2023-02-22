@@ -1,6 +1,7 @@
 .footer {
   background: rgb(0, 20, 84);
   height: unset;
+  min-height: unset;
   padding-top: 50px;
 }
 
