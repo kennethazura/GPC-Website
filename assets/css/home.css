@@ -96,6 +96,22 @@ body {
 
 /** Hero Section - End **/
 
+/** How GPC Works Section - Start **/
+.how-gpc-works {
+  background-color: white;
+  padding-top: 90px;
+  padding-bottom: 95px;
+}
+
+.how__header {
+  width: 100%;
+  font-family: MonserattBold, sans-serif;
+  font-size: 70px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #273E90;
+}
+
 /** Job Categories Section - Start **/
 
 .job-categories {
