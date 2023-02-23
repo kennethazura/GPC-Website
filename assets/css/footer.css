@@ -20,6 +20,7 @@
   margin-bottom: 15px;
   transition: 0.2s all ease;
   border-bottom: 1px solid transparent;
+  text-decoration: none;
 }
 
 .footer__link:hover {

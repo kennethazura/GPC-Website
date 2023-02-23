@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oDocument = u(document);
   const oNavButtons = u('.navbar__link');
+  const oFooterLinks = u('.footer__link');
   const oScrollMagicController = new ScrollMagic.Controller();
   const aScrollAnchors = ['hero-section', 'how-section', 'why-section', 'job-categories-section', 'pricing-section'];
 
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function initEventListeners() {
     oDocument.on('scroll', toggleNavbarState);
     oNavButtons.on('click', function(eEvent) { scrollToSection(eEvent); });
+    oFooterLinks.on('click', function(eEvent) { scrollToSection(eEvent); });
   }
 
   function init() {
