@@ -110,6 +110,23 @@ body {
   text-align: center;
   text-transform: uppercase;
   color: #273E90;
+  padding-bottom: 90px;
+}
+
+.steps__container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.steps__icon {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.icon__par {
+  display: flex;
+  flex-direction: row;
 }
 
 /** Job Categories Section - Start **/
