@@ -27,5 +27,6 @@ module.exports = {
     TweenMax: true,
     ScrollMagic: true,
     Linear: true,
+    Swiper: true,
   },
 };
