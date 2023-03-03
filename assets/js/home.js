@@ -39,6 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // .setTween(_runJobCategoriesAnimation())
     .addTo(oScrollMagicController);
 
+  const oHowGPCWorksScene = new ScrollMagic.Scene({
+    triggerElement: '.how-gpc-works.section',
+    duration: 1000,
+  }).setClassToggle('.navbar', 'section--how-gpc-works')
+  // .setTween(_runJobCategoriesAnimation())
+    .addTo(oScrollMagicController);
+
+  const oWhyGPCWorksScene = new ScrollMagic.Scene({
+    triggerElement: '.why-gpc.section',
+    duration: 1000,
+  }).setClassToggle('.navbar', 'section--why-gpc')
+    // .setTween(_runJobCategoriesAnimation())
+    .addTo(oScrollMagicController);
+
   function _isTopOfPage() {
     return document.documentElement.scrollTop < 1;
   }
@@ -62,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function init() {
     initEventListeners();
     toggleNavbarState();
-    if (_isTopOfPage()) _runHeroAnimation();
+    _runHeroAnimation();
     _runJobCategoriesAnimation();
   }
 
