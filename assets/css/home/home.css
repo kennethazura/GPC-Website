@@ -136,6 +136,7 @@ body {
   cursor: pointer;
   border: 2px solid #FFFFFF;
   color: #FFFFFF;
+  transform: scale(1.05) !important;
   background: transparent;
 }
 
@@ -414,7 +415,7 @@ body {
 .job-categories__button:hover {
   cursor: pointer;
   color: #FFFFFF;
-  transform: scale(0.98) !important;
+  transform: scale(1.05) !important;
   background: #30B2E6;
 }
 

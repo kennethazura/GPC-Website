@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function _isScrollPositionCorrect(iSectionNumber) {
-    console.log(document.documentElement.scrollTop, window.screen.height * iSectionNumber - (window.screen.height * 0.5));
     return document.documentElement.scrollTop < window.screen.height * iSectionNumber - (window.screen.height * 0.5);
   }
 
