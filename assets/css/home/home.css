@@ -36,7 +36,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  background: url('/dist/img/home/hero-section__background.png');
+  background: url('/dist/img/home/hero-section/hero-section__background.png');
   background-size: cover;
   background-repeat: no-repeat;
   animation: animate__hero-background 5s linear;
@@ -189,7 +189,7 @@ body {
   padding-bottom: 165px;
   border: 2px solid #273E90;
   border-radius: 3px;
-  background: url('/dist/img/home/job-categories__hover-background.png');
+  background: url('/dist/img/home/job-categories/job-categories__hover-background.png');
   background-repeat: no-repeat;
   background-size: 0%;
   background-position: center;

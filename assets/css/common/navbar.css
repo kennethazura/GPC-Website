@@ -26,12 +26,12 @@
   height: 102px;
   margin-left: -10px;
   margin-right: auto;
-  content: url('/dist/img/gpc-logo-white.png');
+  content: url('/dist/img/common/gpc-logo-white.png');
   transition: all 0.5s ease;
 }
 
 .navbar--white .navbar__icon {
-  content: url('/dist/img/gpc-logo.png');
+  content: url('/dist/img/common/gpc-logo.png');
 }
 
 .navbar__link {
