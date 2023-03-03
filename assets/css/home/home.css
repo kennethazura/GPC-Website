@@ -152,6 +152,7 @@ body {
 /** Hero Section - End **/
 
 /** How GPC Works Section - Start **/
+
 .how-gpc-works {
   background-color: white;
   padding-top: 90px;
@@ -171,18 +172,133 @@ body {
 .steps__container {
   display: flex;
   flex-flow: row wrap;
+  row-gap: 80px;
   justify-content: center;
+  align-items: center;
+}
+
+.step__images {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(110px);
+}
+
+.step__body:nth-of-type(3) .step__images {
+  transform: translateX(25px);
+}
+
+.step__body:nth-of-type(4) .step__images {
+  transform: translateX(55px);
+}
+
+.step__body:nth-of-type(4) img:nth-of-type(1) {
+  transform: translateX(-25px);
 }
 
 .steps__icon {
+  display: inline-block;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.steps__arrows {
+  display: inline-block;
+}
+
+.step__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 450px;
+}
+
+.steps__title {
+  display: block;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 21px;
+  white-space: normal;
+  text-transform: uppercase;
+  text-align: center;
+  color: #36B3E5;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.icon__par {
+  font-family: NotoSans, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  max-width: 330px;
+}
+
+/** How GPC Works Section - End **/
+
+/** Why Choose GPC Section - Start **/
+
+.why-gpc {
+  display: block;
+  background: url('/dist/img/home/3rd-Section/3rd-section_bg.png');
+  padding: 0 160px 90px;
+}
+
+.why__header {
+  width: 100%;
+  font-family: MonserattBold, sans-serif;
+  font-size: 70px;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  padding-bottom: 90px;
+  padding-top: 90px;
+}
+
+.why__body {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 85px;
+  row-gap: 100px;
+}
+
+.why__icons {
+  display: inline-block;
   max-width: 150px;
   max-height: 150px;
 }
 
-.icon__par {
+.why__item {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  max-width: 340px;
 }
+
+.why__title {
+  display: block;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 18px;
+  white-space: normal;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  padding-top: 35px;
+  padding-bottom: 30px;
+}
+
+.why__par {
+  font-family: NotoSans, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  width: 100%;
+  max-width: 330px;
+}
+
+/** Why Choose GPC Section - End **/
 
 /** Job Categories Section - Start **/
 
