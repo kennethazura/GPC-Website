@@ -20,6 +20,7 @@ module.exports = {
     'no-new': 0,
     'no-param-reassign': ['error', { props: false }],
     'no-underscore-dangle': 0,
+    'max-len': 0,
   },
   globals: {
     gsap: true,
@@ -28,5 +29,6 @@ module.exports = {
     ScrollMagic: true,
     Linear: true,
     Swiper: true,
+    screen: true,
   },
 };

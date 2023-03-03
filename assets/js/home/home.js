@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const oScrollMagicController = new ScrollMagic.Controller();
   const oAnimationStatus = {
     heroSection: false,
+    howSection: false,
+    whySection: false,
     jobCategories: false,
   };
 
@@ -31,14 +33,37 @@ document.addEventListener('DOMContentLoaded', function() {
     return oHeroTimeline;
   }
 
+  function _runHowSectionAnimation() {
+    const oHowSectionTimeline = gsap.timeline();
+    oHowSectionTimeline.fromTo('.how__header', 1, { opacity: 0, y: 50 }, { opacity: 1, y: 0 });
+    oHowSectionTimeline.fromTo('.step__body', 1, { opacity: 0, x: -250 }, { opacity: 1, x: 0, stagger: 0.5 });
+
+    return oHowSectionTimeline;
+  }
+
+  function _runWhySectionAnimation() {
+    const oWhySectionTimeline = gsap.timeline();
+    oWhySectionTimeline.fromTo('.why__header', 1, { opacity: 0, y: 50 }, { opacity: 1, y: 0 });
+    oWhySectionTimeline.fromTo('.why__item', 0.5, { opacity: 0, scale: 0.5 }, {
+      opacity: 1, scale: 1, stagger: 0.25, ease: 'back.out(1.7)',
+    });
+
+    return oWhySectionTimeline;
+  }
+
   function _runJobCategoriesAnimation() {
     const oJobCatTimeline = gsap.timeline();
     oJobCatTimeline.fromTo(['.job-categories__header'], 1, { opacity: 0, y: 50 }, { opacity: 1, y: 0 });
-    oJobCatTimeline.fromTo(['.job-item', '.job-categories__button'], 1.5, { opacity: 0, y: 500, pointerEvents: 'none' }, {
-      opacity: 1, y: 0, stagger: 0.25,
+    oJobCatTimeline.fromTo(['.job-item', '.job-categories__button'], 0.5, { opacity: 0, scale: 0.5, pointerEvents: 'none' }, {
+      opacity: 1, scale: 1, stagger: 0.2,
     }).set(['.job-item', '.job-categories__button'], { pointerEvents: 'unset' });
 
     return oJobCatTimeline;
+  }
+
+  function _isScrollPositionCorrect(iSectionNumber) {
+    console.log(document.documentElement.scrollTop, window.screen.height * iSectionNumber - (window.screen.height * 0.5));
+    return document.documentElement.scrollTop < window.screen.height * iSectionNumber - (window.screen.height * 0.5);
   }
 
   const oHeroScene = new ScrollMagic.Scene({
@@ -46,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     duration: 1000,
   }).setClassToggle('.navbar', 'section--hero')
     .on('enter', function() {
-      if (oAnimationStatus.heroSection === false && document.documentElement.scrollTop < 550) {
+      if (oAnimationStatus.heroSection === false && _isScrollPositionCorrect(1)) {
         oAnimationStatus.heroSection = true;
         _runHeroAnimation();
       }
@@ -57,30 +82,40 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .addTo(oScrollMagicController);
 
-  const oJobCategoriesScene = new ScrollMagic.Scene({
-    triggerElement: '.job-categories.section',
-    duration: 1000,
-  }).setClassToggle('.navbar', 'section--job-categories')
-    .on('enter', function() {
-      if (oAnimationStatus.jobCategories === false) {
-        oAnimationStatus.jobCategories = true;
-        _runJobCategoriesAnimation();
-      }
-    })
-    .addTo(oScrollMagicController);
-
-  const oHowGPCWorksScene = new ScrollMagic.Scene({
+  const oHowSectionWorksScene = new ScrollMagic.Scene({
     triggerElement: '.how-gpc-works.section',
     duration: 1000,
   }).setClassToggle('.navbar', 'section--how-gpc-works')
-  // .setTween(_runJobCategoriesAnimation())
+    .on('enter', function() {
+      if (oAnimationStatus.howSection === false && _isScrollPositionCorrect(2)) {
+        oAnimationStatus.howSection = true;
+        _runHowSectionAnimation();
+      }
+    })
     .addTo(oScrollMagicController);
 
   const oWhyGPCWorksScene = new ScrollMagic.Scene({
     triggerElement: '.why-gpc.section',
     duration: 1000,
   }).setClassToggle('.navbar', 'section--why-gpc')
-    // .setTween(_runJobCategoriesAnimation())
+    .on('enter', function() {
+      if (oAnimationStatus.whySection === false && _isScrollPositionCorrect(3)) {
+        oAnimationStatus.whySection = true;
+        _runWhySectionAnimation();
+      }
+    })
+    .addTo(oScrollMagicController);
+
+  const oJobCategoriesScene = new ScrollMagic.Scene({
+    triggerElement: '.job-categories.section',
+    duration: 1000,
+  }).setClassToggle('.navbar', 'section--job-categories')
+    .on('enter', function() {
+      if (oAnimationStatus.jobCategories === false && _isScrollPositionCorrect(4)) {
+        oAnimationStatus.jobCategories = true;
+        _runJobCategoriesAnimation();
+      }
+    })
     .addTo(oScrollMagicController);
 
   function _isTopOfPage() {
