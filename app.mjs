@@ -13,6 +13,7 @@ const server = express();
 const port = process.env.SERVER_PORT;
 server.set('view engine', 'ejs');
 server.engine('ejs', ejs.__express);
+server.use('/dist', express.static(path.join(__dirname, 'dist')));
 server.use('/public', express.static(path.join(__dirname, 'public')));
 
 if (process.env.ENVIRONMENT === 'local') {
