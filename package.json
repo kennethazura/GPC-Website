@@ -27,12 +27,12 @@
   "name": "gpc",
   "version": "1.0.0",
   "description": "Corporate Website - GPC",
-  "main": "./dist/web/app.js",
+  "main": "app.mjs",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
-    "start": "node ./dist/web/app.js",
+    "start": "node app.mjs",
     "build": "webpack --config build/webpack.prod.conf.js && webpack --config build/webpack.script.conf.js",
     "dev": "webpack --config build/webpack.dev.conf.js && webpack --config build/webpack.script.conf.js"
   },

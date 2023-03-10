@@ -39,7 +39,7 @@
 }
 
 .footer__icon {
-  content: url('/dist/public/img/common/gpc-logo-white.png');
+  content: url('/public/img/common/gpc-logo-white.png');
   width: 175px;
   padding-right: 40px;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
@@ -60,7 +60,7 @@
 }
 
 .footer__iconfb {
-  content: url('/dist/public/img/common/fb.png');
+  content: url('/public/img/common/fb.png');
   width: 45px;
   display: inline-block;
   padding-left: 25px;
@@ -68,7 +68,7 @@
 }
 
 .footer__iconin {
-  content: url('/dist/public/img/common/linkedin.png');
+  content: url('/public/img/common/linkedin.png');
   width: 45px;
   display: inline-block;
   padding-left: 25px;

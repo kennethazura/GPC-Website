@@ -10,6 +10,6 @@ module.exports = {
   output: {
     filename: 'app.js',
     path: resolve(__dirname, './../dist/web'),
-    publicPath: '/dist/public',
+    publicPath: '/public',
   },
 };
