@@ -30,7 +30,7 @@
   "main": "app.mjs",
   "scripts": {
     "start": "node dist/web/app.js",
-    "build": "rm -rf ./dist/js && rm -rf ./dist/web && webpack --config build/webpack.prod.conf.js",
+    "build": "rm -rf ./dist/js && rm -rf ./dist/web && webpack --config build/webpack.prod.conf.js && node dist/web/app.js",
     "dev": "webpack --config build/webpack.dev.conf.js && webpack --config build/webpack.script.conf.js"
   },
   "author": "Kenneth Jayson Azura",
