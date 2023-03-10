@@ -27,10 +27,13 @@
   "name": "gpc",
   "version": "1.0.0",
   "description": "Corporate Website - GPC",
-  "main": "app.mjs",
+  "main": "app.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "node dist/web/app.js",
-    "build": "rm -rf ./dist/js && rm -rf ./dist/web && webpack --config build/webpack.prod.conf.js && node dist/web/app.js",
+    "build": "rm -rf ./dist/js && rm -rf ./dist/web && webpack --config build/webpack.prod.conf.js",
     "dev": "webpack --config build/webpack.dev.conf.js && webpack --config build/webpack.script.conf.js"
   },
   "author": "Kenneth Jayson Azura",
