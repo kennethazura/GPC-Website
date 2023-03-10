@@ -1,7 +1,7 @@
 {
     "functions": {
         "app.mjs": {
-          "memory": 3008
+          "memory": 1024
         }
     }
 }
