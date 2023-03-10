@@ -6,10 +6,9 @@ module.exports = {
     __dirname: false,
     __filename: false,
   },
-  entry: ['./app.js'],
+  entry: ['./app.mjs'],
   output: {
     filename: 'app.js',
-    path: resolve(__dirname, './../dist/web'),
-    publicPath: '/public',
+    path: resolve(__dirname, './../dist'),
   },
 };
