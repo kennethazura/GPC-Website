@@ -1,5 +1,4 @@
 import express from 'express';
-import * as ejs from 'ejs';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
@@ -12,7 +11,6 @@ dotenv.config();
 const server = express();
 const port = process.env.SERVER_PORT;
 server.set('view engine', 'ejs');
-server.engine('ejs', ejs.__express);
 server.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 if (process.env.ENVIRONMENT === 'local') {
