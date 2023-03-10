@@ -20,6 +20,13 @@ if (process.env.ENVIRONMENT === 'local') {
   server.use('/assets', express.static(path.join(__dirname, 'assets')));
 }
 
+server.use(function(req, res, next) {
+  res.set('x-timestamp', Date.now());
+  res.set('x-powered-by', 'cyclic.sh');
+  console.log(`[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`);
+  next();
+});
+
 server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
   const sJobCategoriesDataURL = process.env.DOMAIN + process.env.ASSET_LINK + '/data/job-categories.json';
 
