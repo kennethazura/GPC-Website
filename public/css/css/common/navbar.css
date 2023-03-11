@@ -1,0 +1,134 @@
+.navbar {
+  z-index: 1000;
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  gap: 35px;
+  position: fixed;
+  width: 100vw;
+  max-width: 100vw;
+  box-sizing: border-box;
+  padding: 10px 190px;
+  transition: all 0.5s ease;
+}
+
+.navbar--white {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -10px 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__icon {
+  display: inline-block;
+  width: 232px;
+  height: 102px;
+  margin-left: -10px;
+  margin-right: auto;
+  content: url('/public/img/common/gpc-logo-white.png');
+  transition: all 0.5s ease;
+}
+
+.navbar--white .navbar__icon {
+  content: url('/public/img/common/gpc-logo.png');
+}
+
+.navbar__link {
+  display: inline-block;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  font-family: NotoSans, sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #FFFFFF;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.navbar--white .navbar__link {
+  color: #1B25AB;
+}
+
+.navbar__link::after {
+  content: '';
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transform: translate(0, 5px) scaleX(0);
+  transition: all 0.3s ease;
+}
+
+.navbar--white .navbar__link::after {
+  background-color: #1B25AB;
+}
+
+.navbar__link:hover {
+  cursor: pointer;
+}
+
+.navbar.section--hero .navbar__link:nth-of-type(1)::after,
+.navbar.section--how-gpc-works .navbar__link:nth-of-type(2)::after,
+.navbar.section--why-gpc .navbar__link:nth-of-type(3)::after,
+.navbar.section--job-categories .navbar__link:nth-of-type(4)::after,
+.navbar__link:hover::after {
+  transform: translate(0, 5px) scaleX(1);
+}
+
+.navbar__separator {
+  display: inline-block;
+  height: 30px;
+  border-right: 0.2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.5s ease;
+}
+
+.navbar--white .navbar__separator {
+  border-right: 0.2px solid #1B25AB;
+}
+
+.navbar__sign-up-btn,
+.navbar__login-btn {
+  display: inline-block;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.navbar__sign-up-btn {
+  font-family: NotoSans, sans-serif;
+  border: none;
+  outline: inherit;
+  color: #3CB5E5;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.navbar__sign-up-btn:hover {
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+.navbar--white .navbar__sign-up-btn:hover {
+  cursor: pointer;
+  color: #1B25AB;
+}
+
+.navbar__login-btn {
+  font-family: NotoSansBold, sans-serif;
+  padding: 6px 25px;
+  border: 2px solid #3CB5E5;
+  border-radius: 50px;
+  outline: inherit;
+  color: #FFFFFF;
+  background-color: #3CB5E5;
+  transition: all 0.2s ease;
+}
+
+.navbar__login-btn:hover {
+  cursor: pointer;
+  border: 2px solid #3CB5E5;
+  color: #3CB5E5;
+  background-color: transparent;
+}
