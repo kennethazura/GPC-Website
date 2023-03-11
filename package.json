@@ -8,6 +8,10 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennethazura/GPC-Website.git"
+  },
   "author": "Kenneth Jayson Azura",
   "license": "MIT",
   "dependencies": {
