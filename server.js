@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv');
-dotenv.config();
+if (process.env.ENVIRONMENT !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.config();
+}
 
 const server = express();
 const port = process.env.SERVER_PORT || 3000;
@@ -9,14 +11,14 @@ server.set('view engine', 'ejs');
 
 // #############################################################################
 // Logs all request paths and method
-app.use(function (req, res, next) {
+server.use(function (req, res, next) {
   res.set('x-timestamp', Date.now())
   res.set('x-powered-by', 'cyclic.sh')
   console.log(`[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`);
   next();
 });
 
-app.use('/public', express.static(path.join(__dirname, 'public')));
+server.use('/public', express.static(path.join(__dirname, 'public')));
 
 if (process.env.ENVIRONMENT === 'local') {
   server.use('/assets', express.static(path.join(__dirname, 'assets')));
@@ -36,12 +38,12 @@ server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
 });
 
 server.get('/', (req, res) => {
-  // fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
-  //   .then(async(oResponse) => {
-  //     const aJobCategories = await oResponse.json();
-  //     res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
-  //   });
-    res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: process.env.ASSET_LINK });
+  fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
+    .then(async(oResponse) => {
+      const aJobCategories = await oResponse.json();
+      res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
+    });
+    // res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: process.env.ASSET_LINK });
 });
 
 server.listen(port, () => {
