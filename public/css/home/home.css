@@ -335,10 +335,12 @@ body {
 .job-item {
   opacity: 0;
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   flex: 0 0 32%;
+  max-height: 480px;
   row-gap: 30px;
   padding-top: 110px;
   padding-bottom: 165px;
@@ -354,48 +356,70 @@ body {
 .job-item:hover {
   cursor: pointer;
   background-size: 110%;
-  border-color: #333333;
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-  transform: scale(0.98) !important;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.15);
+  transform: scale(1.03) !important;
 }
 
 .job-item:hover .job-item__title {
   color: #FFFFFF;
 }
 
-.job-item:hover .job-item__icon {
-  filter: contrast(0) brightness(100);
-}
-
 .job-item__icon {
+  height: 100%;
   max-width: 150px;
   max-height: 150px;
+  transition: all 0.3s ease;
 }
 
 .job-item__icon.controller {
   transform: translateX(22px);
 }
 
+.job-item:hover .job-item__icon {
+  height: 0;
+}
+
+.job-item:hover .job-item__icon.controller {
+  height: 0;
+  transform: translateX(11px);
+}
+
 .job-item__title {
-  max-width: 265px;
+  max-width: 310px;
   font-family: NotoSansBold, sans-serif;
   font-size: 21px;
   white-space: normal;
   text-transform: uppercase;
   text-align: center;
   color: #36B3E5;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+}
+
+.job-item:hover .job-item__title {
+  font-size: 24px;
+  white-space: nowrap;
 }
 
 .job-item__description {
-  display: none;
+  pointer-events: none;
+  display: block;
   opacity: 0;
   max-width: 300px;
+  height: 0;
   font-family: NotoSans, sans-serif;
   font-size: 14px;
   white-space: normal;
   text-align: left;
-  color: #36B3E5;
+  text-align: justify;
+  line-height: 18px;
+  text-indent: 14px;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.job-item:hover .job-item__description {
+  opacity: 1;
+  height: 100%;
 }
 
 .job-categories__button {
@@ -418,6 +442,36 @@ body {
   color: #FFFFFF;
   transform: scale(1.05) !important;
   background: #30B2E6;
+}
+
+@keyframes animate__display-none-to-block {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  99.99% {
+    opacity: 1;
+  }
+
+  100% {
+    display: block;
+  }
+}
+
+@keyframes animate__display-block-to-none {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+
+  99.99% {
+    opacity: 0;
+  }
+
+  100% {
+    display: none;
+  }
 }
 
 /** Job Categories Section - End **/

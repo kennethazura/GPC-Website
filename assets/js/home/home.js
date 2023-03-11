@@ -107,10 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const oJobCategoriesScene = new ScrollMagic.Scene({
     triggerElement: '.job-categories.section',
-    duration: 1000,
+    duration: 2000,
   }).setClassToggle('.navbar', 'section--job-categories')
     .on('enter', function() {
-      if (oAnimationStatus.jobCategories === false && _isScrollPositionCorrect(4)) {
+      if (oAnimationStatus.jobCategories === false && _isScrollPositionCorrect(5)) {
         oAnimationStatus.jobCategories = true;
         _runJobCategoriesAnimation();
       }
