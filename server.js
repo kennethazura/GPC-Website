@@ -38,6 +38,7 @@ server.get(`${process.env.API_ROUTE}/job-categories`, (req, res) => {
 });
 
 server.get('/', (req, res) => {
+  console.log(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-categories?count=6`);
   fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-categories?count=6`)
     .then(async(oResponse) => {
       const aJobCategories = await oResponse.json();
