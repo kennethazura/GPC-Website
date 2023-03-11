@@ -1,51 +1,56 @@
-// import * as path from 'path';
-// import * as dotenv from 'dotenv';
-// import { fileURLToPath } from 'url';
+const express = require('express')
+const path = require("path");
+const app = express()
 
-const express = require('express');
-// const ejs = require('ejs');
-const path = require('path');
-const dotenv = require('dotenv');
+const port = process.env.PORT || 3000;
+app.set('view engine', 'ejs');
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+// #############################################################################
+// Logs all request paths and method
+app.use(function (req, res, next) {
+  res.set('x-timestamp', Date.now())
+  res.set('x-powered-by', 'cyclic.sh')
+  console.log(`[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`);
+  next();
+});
 
-dotenv.config();
-
-const server = express();
-const port = process.env.SERVER_PORT;
-server.set('view engine', 'ejs');
-// server.engine('ejs', ejs.__express);
-// Webpack build
-// server.use('/dist', express.static(path.join(__dirname, 'dist')));
-server.use('/public', express.static(path.join(__dirname, 'public')));
-
-if (process.env.ENVIRONMENT === 'local') {
-  server.use('/assets', express.static(path.join(__dirname, 'assets')));
+// #############################################################################
+// This configures static hosting for files in /public that have the extensions
+// listed in the array.
+var options = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
+  index: ['index.html'],
+  maxAge: '1m',
+  redirect: false
 }
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
-server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
-  const sJobCategoriesDataURL = process.env.DOMAIN + process.env.ASSET_LINK + '/data/job-categories.json';
+// #############################################################################
+// Catch all handler for all other request.
+// app.use('*', (req,res) => {
+//   res.json({
+//       at: new Date().toISOString(),
+//       method: req.method,
+//       hostname: req.hostname,
+//       ip: req.ip,
+//       query: req.query,
+//       headers: req.headers,
+//       cookies: req.cookies,
+//       params: req.params
+//     })
+//     .end()
+// })
 
-  fetch(sJobCategoriesDataURL, { method: 'Get' })
-    .then((oResponse) => oResponse.json())
-    .then((oJobCategories) => {
-      const aJobCategories = oJobCategories.jobCategories;
-      const iStart = (req.query.start) ? parseInt(req.query.start, 10) : 0;
-      const iCount = (req.query.count) ? iStart + parseInt(req.query.count, 10) : iStart + 3;
-      return res.send(aJobCategories.slice(iStart, iCount));
-    });
-});
+app.get('/test', (req,res) => {
+  res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: '/public' });
+})
 
-server.get('/', (req, res) => {
-  // fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
-  //   .then(async(oResponse) => {
-  //     const aJobCategories = await oResponse.json();
-  //     res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
-  //   });
-    res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: process.env.ASSET_LINK });
-});
+app.get('/', (req,res) => {
+  res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: '/public' });
+})
 
-server.listen(port, () => {
-  console.log(`Server has started on port ${port}`);
-});
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
