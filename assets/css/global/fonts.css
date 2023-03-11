@@ -22,3 +22,8 @@
   font-family: RalewayBold;
   src: url('/public/fonts/Raleway-Bold.ttf');
 }
+
+@font-face {
+  font-family: RalewayBold;
+  src: url('/dist/fonts/Raleway-Bold.ttf');
+}
