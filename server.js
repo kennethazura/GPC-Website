@@ -24,8 +24,8 @@ if (process.env.ENVIRONMENT === 'local') {
   server.use('/assets', express.static(path.join(__dirname, 'assets')));
 }
 
-server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
-  const sJobCategoriesDataURL = process.env.DOMAIN + process.env.ASSET_LINK + '/data/job-categories.json';
+server.get(`${process.env.API_ROUTE}/job-categories`, (req, res) => {
+  const sJobCategoriesDataURL = `${process.env.DOMAIN}${process.env.ASSET_LINK}/data/job-categories.json`;
 
   fetch(sJobCategoriesDataURL, { method: 'Get' })
     .then((oResponse) => oResponse.json())
@@ -38,7 +38,7 @@ server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
 });
 
 server.get('/', (req, res) => {
-  fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
+  fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-categories?count=6`)
     .then(async(oResponse) => {
       const aJobCategories = await oResponse.json();
       res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
