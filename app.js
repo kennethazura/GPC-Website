@@ -11,7 +11,7 @@ server.use('/dist', express.static(path.join(__dirname, 'dist')));
 if (process.env.ENVIRONMENT === 'local') {
   server.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-  server.get(process.env.API_SERVER + '/job-categories', (req, res) => {
+  server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
     const oJobCategories = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets/data/job-categories.json'), 'utf8'));
     const aJobCategories = oJobCategories.jobCategories;
     const iStart = (req.query.start) ? parseInt(req.query.start, 10) : 0;
