@@ -27,9 +27,9 @@
   "name": "gpc",
   "version": "1.0.0",
   "description": "Corporate Website - GPC",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "author": "Kenneth Jayson Azura",
   "license": "ISC"
