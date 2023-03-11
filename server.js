@@ -1,28 +1,26 @@
-// import * as path from 'path';
-// import * as dotenv from 'dotenv';
-// import { fileURLToPath } from 'url';
-
 const express = require('express');
-// const ejs = require('ejs');
 const path = require('path');
 const dotenv = require('dotenv');
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
 dotenv.config();
 
 const server = express();
-const port = process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT || 3000;
 server.set('view engine', 'ejs');
-// server.engine('ejs', ejs.__express);
-// Webpack build
-// server.use('/dist', express.static(path.join(__dirname, 'dist')));
-server.use('/public', express.static(path.join(__dirname, 'public')));
 
-if (process.env.ENVIRONMENT === 'local') {
-  server.use('/assets', express.static(path.join(__dirname, 'assets')));
-}
+// #############################################################################
+// Logs all request paths and method
+app.use(function (req, res, next) {
+  res.set('x-timestamp', Date.now())
+  res.set('x-powered-by', 'cyclic.sh')
+  console.log(`[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`);
+  next();
+});
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+// if (process.env.ENVIRONMENT === 'local') {
+  // server.use('/assets', express.static(path.join(__dirname, 'assets')));
+// }
 
 // server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
 //   const sJobCategoriesDataURL = process.env.DOMAIN + process.env.ASSET_LINK + '/data/job-categories.json';
@@ -37,14 +35,22 @@ if (process.env.ENVIRONMENT === 'local') {
 //     });
 // });
 
-server.get('/', (req, res) => {
-  // fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
-  //   .then(async(oResponse) => {
-  //     const aJobCategories = await oResponse.json();
-  //     res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
-  //   });
-    res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: process.env.ASSET_LINK });
-});
+// server.get('/', (req, res) => {
+//   // fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
+//   //   .then(async(oResponse) => {
+//   //     const aJobCategories = await oResponse.json();
+//   //     res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
+//   //   });
+//     res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: process.env.ASSET_LINK });
+// });
+
+app.get('/test', (req,res) => {
+  res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: '/public' });
+})
+
+app.get('/', (req,res) => {
+  res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: '/public' });
+})
 
 server.listen(port, () => {
   console.log(`Server has started on port ${port}`);
