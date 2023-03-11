@@ -15,6 +15,7 @@
   "author": "Kenneth Jayson Azura",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.17.1"
   },
