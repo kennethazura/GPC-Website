@@ -32,7 +32,8 @@
     "node": "18.x"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "rm -rf ./public/js && rm -rf ./dist && webpack --config build/webpack.prod.conf.js && webpack --config build/webpack.script.conf.js"
   },
   "author": "Kenneth Jayson Azura",
   "license": "ISC"
