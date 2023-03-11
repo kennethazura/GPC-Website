@@ -25,7 +25,6 @@ if (process.env.ENVIRONMENT === 'local') {
 }
 
 server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
-  console.log( process.env.DOMAIN + process.env.ASSET_LINK + '/data/job-categories.json');
   const sJobCategoriesDataURL = process.env.DOMAIN + process.env.ASSET_LINK + '/data/job-categories.json';
 
   fetch(sJobCategoriesDataURL, { method: 'Get' })
