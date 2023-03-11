@@ -38,11 +38,12 @@ server.get(process.env.API_ROUTE + '/job-categories', (req, res) => {
 });
 
 server.get('/', (req, res) => {
-  fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
-    .then(async(oResponse) => {
-      const aJobCategories = await oResponse.json();
-      res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
-    });
+  // fetch(process.env.DOMAIN + process.env.API_ROUTE + '/job-categories?count=6')
+  //   .then(async(oResponse) => {
+  //     const aJobCategories = await oResponse.json();
+  //     res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
+  //   });
+    res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: process.env.ASSET_LINK });
 });
 
 server.listen(port, () => {
