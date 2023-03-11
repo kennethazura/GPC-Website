@@ -17,3 +17,8 @@
   font-family: NotoSansBold;
   src: url('/dist/fonts/NotoSans-Bold.ttf');
 }
+
+@font-face {
+  font-family: RalewayBold;
+  src: url('/dist/fonts/Raleway-Bold.ttf');
+}
