@@ -44,7 +44,11 @@ server.get('/', (req, res) => {
       const aJobCategories = await oResponse.json();
       res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
     });
-    // res.render('home.ejs', { jobCategories: 'aJobCategories', assetLink: process.env.ASSET_LINK });
+});
+
+server.get('/job/:jobTitle', (req, res) => {
+  console.log(req.params);
+  res.render('job-posting.ejs', { assetLink: process.env.ASSET_LINK });
 });
 
 server.listen(port, () => {
