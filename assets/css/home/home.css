@@ -479,7 +479,6 @@ body {
 /** Pricing and Terms and Conditions - Start **/
 
 .price-tc {
-  display: block;
   background-color: rgb(39, 61, 144);
   padding-top: 90px;
 }
@@ -518,6 +517,44 @@ body {
   font-size: 20px;
   color: white;
   margin-left: auto;
+}
+
+.price__body {
+  display: flex;
+  flex-flow: row wrap;
+  padding-top: 45px;
+  column-gap: 25px;
+  row-gap: 30px;
+}
+
+.price__container {
+  display: inline-block;
+  border: 1px solid white;
+  color: white;
+  max-width: 475px;
+}
+
+.price__title {
+  font-family: RalewayBold, sans-serif;
+  font-size: 30px;
+  padding: 0 35px;
+  min-width: 405px;
+  min-height: 150px;
+  border-bottom: 1px solid;
+  background-color: rgb(54, 180, 229);
+  display: flex;
+  align-items: center;
+}
+
+.price__description {
+  font-family: Raleway, sans-serif;
+  font-size: 25px;
+  padding: 20px 35px 45px;
+  min-width: 405px;
+  min-height: 125px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 /** Pricing and Terms and Conditions - End **/

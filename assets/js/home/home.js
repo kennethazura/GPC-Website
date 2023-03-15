@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     howSection: false,
     whySection: false,
     jobCategories: false,
+    pricetc: false,
   };
 
   const oHeroSwiper = new Swiper('.swiper', {
@@ -113,6 +114,18 @@ document.addEventListener('DOMContentLoaded', function() {
       if (oAnimationStatus.jobCategories === false && _isScrollPositionCorrect(5)) {
         oAnimationStatus.jobCategories = true;
         _runJobCategoriesAnimation();
+      }
+    })
+    .addTo(oScrollMagicController);
+
+  const oPriceTermsandConditionScene = new ScrollMagic.Scene({
+    triggerElement: '.price-tc.section',
+    duration: 1000,
+  }).setClassToggle('.navbar', 'section--price-tc')
+    .on('enter', function() {
+      if (oAnimationStatus.pricetc === false && _isScrollPositionCorrect(6)) {
+        oAnimationStatus.pricetc = true;
+        // _runJobCategoriesAnimation();
       }
     })
     .addTo(oScrollMagicController);

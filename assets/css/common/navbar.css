@@ -75,6 +75,7 @@
 .navbar.section--how-gpc-works .navbar__link:nth-of-type(2)::after,
 .navbar.section--why-gpc .navbar__link:nth-of-type(3)::after,
 .navbar.section--job-categories .navbar__link:nth-of-type(4)::after,
+.navbar.section--price-tc .navbar__link:nth-of-type(5)::after,
 .navbar__link:hover::after {
   transform: translate(0, 5px) scaleX(1);
 }
