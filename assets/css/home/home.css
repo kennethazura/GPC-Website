@@ -332,7 +332,14 @@ body {
   flex-flow: row wrap;
   gap: 20px;
   justify-content: center;
-  padding: 62px 0;
+  padding: 62px 0 0;
+}
+
+.job-categories__list a {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 32%;
+  text-decoration: none;
 }
 
 .job-item {
@@ -425,7 +432,7 @@ body {
   height: 100%;
 }
 
-.job-categories__button {
+/* .job-categories__button {
   opacity: 0;
   display: block;
   position: relative;
@@ -445,7 +452,7 @@ body {
   color: #FFFFFF;
   transform: scale(1.05) !important;
   background: #30B2E6;
-}
+} */
 
 @keyframes animate__display-none-to-block {
   0% {
@@ -484,6 +491,7 @@ body {
 .price-tc {
   background-color: rgb(39, 61, 144);
   padding-top: 90px;
+  padding-bottom: 85px;
 }
 
 .price-tc__header {
