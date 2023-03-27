@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function _runJobCategoriesAnimation() {
     const oJobCatTimeline = gsap.timeline();
     oJobCatTimeline.fromTo(['.job-categories__header'], 1, { opacity: 0, y: 50 }, { opacity: 1, y: 0 });
-    oJobCatTimeline.fromTo(['.job-item', '.job-categories__button'], 0.5, { opacity: 0, scale: 0.5, pointerEvents: 'none' }, {
+    oJobCatTimeline.fromTo(['.job-item'], 0.5, { opacity: 0, scale: 0.5, pointerEvents: 'none' }, {
       opacity: 1, scale: 1, stagger: 0.2,
-    }).set(['.job-item', '.job-categories__button'], { pointerEvents: 'unset' });
+    }).set(['.job-item'], { pointerEvents: 'unset' });
 
     return oJobCatTimeline;
   }
