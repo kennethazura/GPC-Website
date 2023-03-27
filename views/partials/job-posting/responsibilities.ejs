@@ -1,0 +1,11 @@
+<div class="responsibilities section">
+    <h4 class="responsibilities__header">Responsibilities</h4>
+    <div class="responsibilities__container">
+        <% for(var i=0; i < jobDetails.responsibilities.length; i++) { %>
+            <div class="responsibilities__item">
+                <div src="" class="responsibilities__icon"></div>
+                <p class="responsibilities__text"><%= jobDetails.responsibilities[i] %></p>
+            </div>
+        <% } %>
+    </div>
+</div>

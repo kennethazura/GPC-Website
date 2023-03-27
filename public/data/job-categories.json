@@ -3,47 +3,56 @@
         {
             "jobTitle": "Controller",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/controller-icon.png"
+            "jobIcon": "/public/img/home/job-categories/controller-icon.png",
+            "link": "/job/controller"
         },
         {
             "jobTitle": "Accounting Manager",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/account-manager-icon.png"
+            "jobIcon": "/public/img/home/job-categories/account-manager-icon.png",
+            "link": "/job/accounting-manager"
         },
         {
             "jobTitle": "Staff Accountant/Bookkeeper",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/bookkeeper-icon.png"
+            "jobIcon": "/public/img/home/job-categories/bookkeeper-icon.png",
+            "link": "/job/bookkeeper"
         },
         {
             "jobTitle": "Accounts Receivable",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/accounts-receivable-icon.png"
+            "jobIcon": "/public/img/home/job-categories/accounts-receivable-icon.png",
+            "link": "/job/accounts-receivable"
         },
         {
             "jobTitle": "Accounts Payable",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/accounts-payable-icon.png"
+            "jobIcon": "/public/img/home/job-categories/accounts-payable-icon.png",
+            "link": "/job/accounts-payable"
         },
         {
             "jobTitle": "Payroll Accountant",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/payroll-accountant-icon.png"
+            "jobIcon": "/public/img/home/job-categories/payroll-accountant-icon.png",
+            "link": "/job/payroll-accountant"
         },
         {
             "jobTitle": "Financial Analyst",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/financial-analyst-icon.png"
+            "jobIcon": "/public/img/home/job-categories/financial-analyst-icon.png",
+            "link": "/job/financial-analyst"
         },
         {
             "jobTitle": "Tax Accountant",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/tax-accountant-icon.png"
+            "jobIcon": "/public/img/home/job-categories/tax-accountant-icon.png",
+            "link": "/job/tax-accountant"
         },
         {
             "jobTitle": "Executive Assistant",
             "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            "jobIcon": "/public/img/home/job-categories/executive-assistant-icon.png"
+            "jobIcon": "/public/img/home/job-categories/executive-assistant-icon.png",
+            "link": "/job/executive-assistant"
         }
     ]
 }

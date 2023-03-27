@@ -1,6 +1,7 @@
 .navbar {
   z-index: 1000;
   opacity: 0;
+  top: 0;
   display: flex;
   flex-direction: row;
   align-items: center;

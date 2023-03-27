@@ -1,0 +1,11 @@
+<div class="qualifications section">
+    <h4 class="qualifications__header">Qualifications/Requirements</h4>
+    <div class="qualifications__container">
+        <% for(var i=0; i < jobDetails.qualifications.length; i++) { %>
+            <div class="qualifications__item">
+                <img class="qualifications__icon"/>
+                <p class="qualifications__text"><%= jobDetails.qualifications[i] %></p>
+            </div>
+        <% } %>
+    </div>
+</div>
