@@ -534,7 +534,6 @@ body {
   display: flex;
   flex-flow: row wrap;
   padding-top: 45px;
-  padding-bottom: 85px;
   column-gap: 25px;
   row-gap: 30px;
 }
