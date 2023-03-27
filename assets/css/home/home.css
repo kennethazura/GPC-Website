@@ -244,6 +244,9 @@ body {
 .why-gpc {
   display: block;
   background: url('/public/img/home/3rd-Section/3rd-section_bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   padding: 0 160px 90px;
 }
 
@@ -523,6 +526,7 @@ body {
   display: flex;
   flex-flow: row wrap;
   padding-top: 45px;
+  padding-bottom: 85px;
   column-gap: 25px;
   row-gap: 30px;
 }
@@ -532,6 +536,7 @@ body {
   border: 1px solid white;
   color: white;
   max-width: 475px;
+  padding-bottom: 30px;
 }
 
 .price__title {
