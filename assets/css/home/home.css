@@ -488,6 +488,7 @@ body {
 .price-tc {
   background-color: rgb(39, 61, 144);
   padding-top: 90px;
+  padding-bottom: 85px;
 }
 
 .price-tc__header {
