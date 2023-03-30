@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.heroSection === false && _isScrollPositionCorrect(1)) {
         oAnimationStatus.heroSection = true;
-        _runHeroAnimation();
+        // _runHeroAnimation();
       }
       oHeroSwiper.autoplay.start();
     })
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.howSection === false && _isScrollPositionCorrect(2)) {
         oAnimationStatus.howSection = true;
-        _runHowSectionAnimation();
+        // _runHowSectionAnimation();
       }
     })
     .addTo(oScrollMagicController);
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.whySection === false && _isScrollPositionCorrect(3)) {
         oAnimationStatus.whySection = true;
-        _runWhySectionAnimation();
+        // _runWhySectionAnimation();
       }
     })
     .addTo(oScrollMagicController);
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.jobCategories === false && _isScrollPositionCorrect(5)) {
         oAnimationStatus.jobCategories = true;
-        _runJobCategoriesAnimation();
+        // _runJobCategoriesAnimation();
       }
     })
     .addTo(oScrollMagicController);

@@ -1,6 +1,7 @@
 .navbar {
   z-index: 1000;
-  opacity: 0;
+
+  /* opacity: 0; */
   top: 0;
   display: flex;
   flex-direction: row;
@@ -41,7 +42,7 @@
   margin-top: 5px;
   padding-bottom: 5px;
   font-family: NotoSans, sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   text-transform: uppercase;
   text-decoration: none;
   color: #FFFFFF;
@@ -94,7 +95,7 @@
 .navbar__sign-up-btn,
 .navbar__login-btn {
   display: inline-block;
-  font-size: 14px;
+  font-size: 0.875rem;
   text-transform: uppercase;
 }
 
