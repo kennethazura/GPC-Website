@@ -11,12 +11,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #26A7DE;
+  background: #444444;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444444;
+  background: #222222;
 }
 
 .section {
@@ -48,7 +48,7 @@ body {
   display: block;
   max-width: 700px;
   font-family: MonserattBold, sans-serif;
-  font-size: 80px;
+  font-size: 5rem;
   text-transform: uppercase;
   color: #FFFFFF;
 }
@@ -58,7 +58,7 @@ body {
   max-width: 610px;
   margin-top: 20px;
   font-family: NotoSans, sans-serif;
-  font-size: 30px;
+  font-size: 1.875rem;
   line-height: 40px;
   color: #CAEFFF;
 }
@@ -72,7 +72,7 @@ body {
   border-radius: 35px 0;
   outline: inherit;
   font-family: NotoSansBold, sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #3DBAF7;
   background: #FFFFFF;
   transition: all 0.15s ease;
@@ -107,7 +107,7 @@ body {
 .job-description__paragraph {
   max-width: 700px;
   font-family: NotoSans, sans-serif;
-  font-size: 21px;
+  font-size: 1.3125rem;
   line-height: 26px;
   color: #606060;
 }
@@ -126,7 +126,7 @@ body {
 .responsibilities__header {
   margin-bottom: 20px;
   font-family: NotoSansBold, sans-serif;
-  font-size: 21px;
+  font-size: 1.3125rem;
   text-transform: uppercase;
   color: #273E90;
 }
@@ -168,7 +168,7 @@ body {
   display: inline-block;
   max-width: 680px;
   font-family: NotoSans, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 22px;
   color: #606060;
 }
@@ -186,7 +186,7 @@ body {
 .qualifications__header {
   margin-bottom: 15px;
   font-family: NotoSansBold, sans-serif;
-  font-size: 21px;
+  font-size: 1.3125rem;
   text-transform: uppercase;
   color: #273E90;
 }
@@ -215,7 +215,7 @@ body {
   display: inline-block;
   max-width: 680px;
   font-family: NotoSans, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 22px;
   color: #606060;
 }

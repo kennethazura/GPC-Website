@@ -49,10 +49,10 @@ server.get(`${process.env.API_ROUTE}/job-details`, (req, res) => {
       let oJob = '';
 
       for (let iCount = 0; iCount < iLength; iCount += 1) {
-        if (aJobs[iCount].title.replace(/[^a-zA-Z]/g, '').toLowerCase().includes(req.query.title.replace(/[^a-zA-Z]/g, ''))) oJob = aJobs[iCount];
+        if (aJobs[iCount].title.replace(/[^a-zA-Z]/g, '').toLowerCase().includes(req.query.title.replace(/[^a-zA-Z]/g, '').toLowerCase())) oJob = aJobs[iCount];
       }
 
-      if (oJob === '') return res.send(`Error! "${req.query.title}" not found.`);
+      if (oJob === '') return res.send({ error: `Error! "${req.query.title}" not found.` });
       return res.send(oJob);
     });
 });
@@ -69,7 +69,8 @@ server.get('/job/:jobTitle', (req, res) => {
   fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
     .then(async(oResponse) => {
       const oJobDetails = await oResponse.json();
-      res.render('job-posting.ejs', { jobDetails: oJobDetails, assetLink: process.env.ASSET_LINK });
+      if (Object.prototype.hasOwnProperty.call(oJobDetails, 'error')) res.send(`Error! "${req.params.jobTitle}" not found.`);
+      else { res.render('job-posting.ejs', { jobDetails: oJobDetails, assetLink: process.env.ASSET_LINK }); }
     });
 });
 
