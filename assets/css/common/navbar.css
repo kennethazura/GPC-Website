@@ -1,3 +1,7 @@
+body.no-scroll {
+  overflow-y: hidden;
+}
+
 .navbar {
   z-index: 1000;
   top: 0;
@@ -17,7 +21,120 @@
   display: none;
 }
 
-.navbar.navbar--mobile {
+.navbar.navbar--mobile.active {
+  background: #FFFFFF;
+}
+
+.navbar__burger-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: url('/public/img/common/navbar__hamburger.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: invert(95%) sepia(100%) saturate(20%) hue-rotate(326deg) brightness(106%) contrast(105%);
+}
+
+.navbar--white .navbar__burger-btn {
+  filter: invert(16%) sepia(47%) saturate(3655%) hue-rotate(222deg) brightness(98%) contrast(91%);
+}
+
+.navbar.navbar--mobile.active .navbar__burger-btn {
+  width: 19px;
+  height: 21px;
+  background: url('/public/img/common/navbar__close.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: invert(16%) sepia(47%) saturate(3655%) hue-rotate(222deg) brightness(98%) contrast(91%);
+}
+
+.navbar-menu {
+  position: fixed;
+  top: 113px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: #FFFFFF;
+  transform: translateX(100vw);
+  transition: all 250ms ease;
+}
+
+.navbar.navbar--mobile.active .navbar-menu {
+  transform: translateX(0);
+}
+
+.navbar-menu .search {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.75rem 2.25rem;
+  background: #E6E6E6;
+}
+
+.navbar-menu .search__bar {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.8125rem 1.125rem;
+  outline: none;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+.navbar-menu .search__icon {
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  top: 1.275rem;
+  right: 3.4rem;
+  width: 28px;
+  height: 28px;
+  background: url('/public/img/common/navbar__search.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: invert(80%) sepia(0%) saturate(308%) hue-rotate(203deg) brightness(89%) contrast(96%);
+}
+
+.navbar-menu .search__bar::-webkit-input-placeholder {
+  color: #B3B3B3;
+}
+
+.navbar-menu .navbar-menu__link,
+.navbar-menu .navbar-menu__sign-up-btn,
+.navbar-menu .navbar-menu__login-btn {
+  font-family: NotoSans, sans-serif;
+  font-size: 1.5rem;
+  line-height: 2.0625rem;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.navbar-menu .navbar-menu__link {
+  margin-top: 1.625rem;
+  color: #273D90;
+}
+
+.navbar-menu .navbar-menu__link:nth-of-type(1) {
+  margin-top: 2.1875rem;
+}
+
+.navbar-menu .navbar-menu__sign-up-btn {
+  margin-top: 4.0625rem;
+  color: #3CB4E5;
+}
+
+.navbar-menu .navbar-menu__login-btn {
+  margin-top: 1.125rem;
+  padding: 0.625rem 2.5rem;
+  border-radius: 26px;
+  font-family: NotoSansBold, sans-serif;
+  color: white;
+  background: #273D90;
 }
 
 .navbar--white {
@@ -36,7 +153,8 @@
   transition: all 0.5s ease;
 }
 
-.navbar--white .navbar__icon {
+.navbar--white .navbar__icon,
+.navbar.navbar--mobile.active .navbar__icon {
   content: url('/public/img/common/gpc-logo.png');
 }
 

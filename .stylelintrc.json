@@ -9,7 +9,8 @@
       "selector-id-pattern": "^[a-z][a-z0-9_-]+$",
       "keyframes-name-pattern": "^[a-z][a-z0-9_-]+$",
       "color-function-notation": null,
-      "alpha-value-notation": null
+      "alpha-value-notation": null,
+      "selector-no-vendor-prefix": null
     },
     "overrides": [
       {

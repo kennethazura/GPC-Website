@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oDocument = u(document);
+  const oBody = u('body');
   const oNavButtons = u('.navbar__link');
   const oFooterLinks = u('.footer__link');
+  const oNavbarMenuBtn = u('.navbar__burger-btn');
   const oScrollMagicController = new ScrollMagic.Controller();
   const oAnimationStatus = {
     heroSection: false,
@@ -148,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
     oDocument.on('scroll', toggleNavbarState);
     oNavButtons.on('click', function(eEvent) { scrollToSection(eEvent); });
     oFooterLinks.on('click', function(eEvent) { scrollToSection(eEvent); });
+    oNavbarMenuBtn.on('click', function() { oNavbar.toggleClass('active'); oBody.toggleClass('no-scroll'); });
     oHeroSwiper.on('touchMove', function() { oHeroSwiper.autoplay.stop(); });
     oHeroSwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
   }
