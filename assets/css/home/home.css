@@ -158,25 +158,25 @@ body {
 
 .how-gpc-works {
   background-color: white;
-  padding-top: 90px;
-  padding-bottom: 95px;
+  padding-top: 10rem;
+  padding-bottom: 2.5rem;
 }
 
 .how__header {
   /* opacity: 0; */
   width: 100%;
   font-family: MonserattBold, sans-serif;
-  font-size: 4.375rem;
+  font-size: 1.75rem;
   text-align: center;
   text-transform: uppercase;
   color: #273E90;
-  padding-bottom: 90px;
+  padding-bottom: 2.3125rem;
 }
 
 .steps__container {
   display: flex;
   flex-flow: row wrap;
-  row-gap: 80px;
+  row-gap: 2.0625rem;
   justify-content: center;
   align-items: center;
 }
@@ -186,10 +186,11 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  transform: translateX(110px);
+
+  /* transform: translateX(110px); */
 }
 
-.step__body:nth-of-type(3) .step__images {
+/* .step__body:nth-of-type(3) .step__images {
   transform: translateX(25px);
 }
 
@@ -199,16 +200,16 @@ body {
 
 .step__body:nth-of-type(4) img:nth-of-type(1) {
   transform: translateX(-25px);
-}
+} */
 
 .steps__icon {
   display: inline-block;
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 190px;
+  max-height: 180px;
 }
 
-.steps__arrows {
-  display: inline-block;
+.steps__arrow {
+  display: none;
 }
 
 .step__body {
@@ -216,27 +217,27 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 450px;
+  width: 15.3125rem;
 }
 
 .steps__title {
   display: block;
   font-family: NotoSansBold, sans-serif;
-  font-size: 1.3125rem;
+  font-size: 1.125rem;
   white-space: normal;
   text-transform: uppercase;
   text-align: center;
   color: #36B3E5;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 18px;
+  padding-bottom: 5px;
 }
 
 .icon__par {
   font-family: NotoSans, sans-serif;
-  font-size: 0.875rem;
+  font-size: 1rem;
   text-align: center;
   width: 100%;
-  max-width: 330px;
+  max-width: 15.3125rem;
 }
 
 /** How GPC Works Section - End **/
@@ -459,18 +460,18 @@ body {
 
 .price-tc {
   background-color: rgb(39, 61, 144);
-  padding-top: 90px;
-  padding-bottom: 85px;
+  padding-top: 10rem;
+  padding-bottom: 2.5rem;
 }
 
 .price-tc__header {
   font-family: MonserattBold, sans-serif;
-  font-size: 4.375rem;
-  text-align: left;
+  font-size: 1.75rem;
+  text-align: center;
   text-transform: uppercase;
   color: white;
-  max-width: 900px;
-  padding-bottom: 60px;
+  max-width: 20rem;
+  padding-bottom: 3.4375rem;
 }
 
 .sched__border {
@@ -483,18 +484,20 @@ body {
 .pricing__schedule {
   display: block;
   font-family: MonserattBold, sans-serif;
-  font-size: 2.1875rem;
+  font-size: 1rem;
+  text-align: justify;
+  white-space: nowrap;
   color: rgb(39, 61, 144);
-  width: max-content;
-  padding: 25px 210px 25px 30px;
-  border-radius: 0 100px 0 0;
+  max-width: 10.625rem;
+  padding: 0.75rem 1.125rem 0.5rem 0.4375rem;
+  border-radius: 0 13.75rem 0 0;
   border: 2px solid white;
   background-color: white;
 }
 
 .tnc__link {
   font-family: NotoSansRegular, sans-serif;
-  font-size: 1.25rem;
+  font-size: 0.75rem;
   color: white;
   margin-left: auto;
 }
@@ -502,40 +505,40 @@ body {
 .price__body {
   display: flex;
   flex-flow: row wrap;
-  padding-top: 45px;
+  padding-top: 1.25rem;
   column-gap: 25px;
-  row-gap: 30px;
+  row-gap: 0.625rem;
 }
 
 .price__container {
   display: inline-block;
   border: 1px solid white;
   color: white;
-  max-width: 475px;
-  padding-bottom: 30px;
+  max-width: 20.125rem;
 }
 
 .price__title {
-  font-family: RalewayBold, sans-serif;
-  font-size: 1.875rem;
-  padding: 0 35px;
-  min-width: 405px;
-  min-height: 150px;
-  border-bottom: 1px solid;
-  background-color: rgb(54, 180, 229);
   display: flex;
   align-items: center;
+  font-family: RalewayBold, sans-serif;
+  font-size: 1.125rem;
+  padding: 0 1.5625rem;
+  min-width: 17rem;
+  min-height: 5.25rem;
+  border-bottom: 1px solid;
+  background-color: rgb(54, 180, 229);
 }
 
 .price__description {
-  font-family: Raleway, sans-serif;
-  font-size: 1.5625rem;
-  padding: 20px 35px 45px;
-  min-width: 405px;
-  min-height: 125px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  font-family: Raleway, sans-serif;
+  font-size: 1.125rem;
+  padding-left: 1.5625rem;
+  padding-right: 1.5625rem;
+  min-width: 17.1875rem;
+  min-height: 5.25rem;
 }
 
 /** Pricing and Terms and Conditions - End **/
@@ -600,4 +603,243 @@ body {
   }
 
   /** Hero Section - End **/
+
+  /** How GPC Works Section - Start **/
+
+  .how-gpc-works {
+    background-color: white;
+    padding-top: 90px;
+    padding-bottom: 95px;
+  }
+
+  .how__header {
+    /* opacity: 0; */
+    width: 100%;
+    font-family: MonserattBold, sans-serif;
+    font-size: 4.375rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: #273E90;
+    padding-bottom: 90px;
+  }
+
+  .steps__container {
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 80px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .step__images {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(110px);
+  }
+
+  .step__body:nth-of-type(3) .step__images {
+    transform: translateX(25px);
+  }
+
+  .step__body:nth-of-type(4) .step__images {
+    transform: translateX(55px);
+  }
+
+  .step__body:nth-of-type(4) img:nth-of-type(1) {
+    transform: translateX(-25px);
+  }
+
+  .steps__icon {
+    display: inline-block;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .steps__arrow {
+    display: inline-block;
+  }
+
+  .step__body {
+    /* opacity: 0; */
+    width: 450px;
+  }
+
+  .steps__title {
+    display: block;
+    font-family: NotoSansBold, sans-serif;
+    font-size: 1.3125rem;
+    white-space: normal;
+    text-transform: uppercase;
+    text-align: center;
+    color: #36B3E5;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .icon__par {
+    font-family: NotoSans, sans-serif;
+    font-size: 0.875rem;
+    text-align: center;
+    width: 100%;
+    max-width: 330px;
+  }
+
+  /** How GPC Works Section - End **/
+
+  /** Why Choose GPC Section - Start **/
+
+  .why-gpc {
+    display: block;
+    background: url('/public/img/home/3rd-Section/3rd-section_bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0 160px 90px;
+  }
+
+  .why__header {
+    /* opacity: 0; */
+    width: 100%;
+    font-family: MonserattBold, sans-serif;
+    font-size: 4.375rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    padding-bottom: 90px;
+    padding-top: 90px;
+  }
+
+  .why__body {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 85px;
+    row-gap: 70px;
+  }
+
+  .why__icons {
+    display: inline-block;
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .why__item {
+    /* opacity: 0; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 340px;
+    min-height: 330px;
+  }
+
+  .why__title {
+    display: block;
+    font-family: NotoSansBold, sans-serif;
+    font-size: 1.125rem;
+    white-space: normal;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    padding-top: 35px;
+    padding-bottom: 30px;
+  }
+
+  .why__par {
+    font-family: NotoSans, sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    color: white;
+    width: 100%;
+    max-width: 330px;
+  }
+
+  /** Why Choose GPC Section - End **/
+
+  /** Pricing and Terms and Conditions - Start **/
+
+  .price-tc {
+    background-color: rgb(39, 61, 144);
+    padding-top: 90px;
+    padding-bottom: 85px;
+  }
+
+  .price-tc__header {
+    font-family: MonserattBold, sans-serif;
+    font-size: 4.375rem;
+    text-align: left;
+    text-transform: uppercase;
+    color: white;
+    max-width: 900px;
+    padding-bottom: 60px;
+  }
+
+  .sched__border {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid white;
+  }
+
+  .pricing__schedule {
+    display: block;
+    font-family: MonserattBold, sans-serif;
+    font-size: 2.1875rem;
+    color: rgb(39, 61, 144);
+    width: max-content;
+    padding: 25px 210px 25px 30px;
+    border-radius: 0 100px 0 0;
+    border: 2px solid white;
+    background-color: white;
+  }
+
+  .tnc__link {
+    font-family: NotoSansRegular, sans-serif;
+    font-size: 1.25rem;
+    color: white;
+    margin-left: auto;
+  }
+
+  .price__body {
+    display: flex;
+    flex-flow: row wrap;
+    padding-top: 45px;
+    column-gap: 25px;
+    row-gap: 30px;
+  }
+
+  .price__container {
+    display: inline-block;
+    border: 1px solid white;
+    color: white;
+    max-width: 475px;
+    padding-bottom: 30px;
+  }
+
+  .price__title {
+    font-family: RalewayBold, sans-serif;
+    font-size: 1.875rem;
+    padding: 0 35px;
+    min-width: 405px;
+    min-height: 150px;
+    border-bottom: 1px solid;
+    background-color: rgb(54, 180, 229);
+    display: flex;
+    align-items: center;
+  }
+
+  .price__description {
+    font-family: Raleway, sans-serif;
+    font-size: 1.5625rem;
+    padding: 20px 35px 45px;
+    min-width: 405px;
+    min-height: 125px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /** Pricing and Terms and Conditions - End **/
 }
