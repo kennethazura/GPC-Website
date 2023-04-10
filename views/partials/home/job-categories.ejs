@@ -1,15 +1,6 @@
 <div id="job-categories-section" class="job-categories section">
     <h1 class="job-categories__header">Browse Job Categories</h1>
     <div class="job-categories__list">
-        <% for(var i=0; i < jobCategories.length; i++) { %>
-            <a href="<%= jobCategories[i].link %>">
-                <div class="job-item">
-                    <img src="<%= jobCategories[i].jobIcon %>" class="job-item__icon"/>
-                    <h3 class="job-item__title"><%= jobCategories[i].jobTitle %></h3>
-                    <p class="job-item__description"><%= jobCategories[i].jobDescription %></p>
-                </div>
-            </a>
-         <% } %>
     </div>
-    <!-- <button class="job-categories__button">See More Skills</button> -->
+    <button class="job-categories__button">See More Skills</button>
 </div>

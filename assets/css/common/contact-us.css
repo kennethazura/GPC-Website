@@ -1,0 +1,189 @@
+.contact-us__backdrop {
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1900;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  background: rgba(0, 0, 0, 0.6);
+  transition: all 200ms ease;
+}
+
+.contact-us__backdrop.active {
+  pointer-events: unset;
+  opacity: 1;
+}
+
+.contact-us {
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2000;
+  position: fixed;
+  top: 50%;
+  left: 5%;
+  width: 90vw;
+  box-sizing: border-box;
+  transform: translateY(-45%);
+  transition: all 200ms ease;
+}
+
+.contact-us.active {
+  pointer-events: unset;
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+.contact-us__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background: rgb(54, 180, 229);
+}
+
+.contact-us__title {
+  position: relative;
+  display: inline-block;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.5rem;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.contact-us__close-btn {
+  position: relative;
+  display: inline-block;
+  align-self: center;
+  width: 19px;
+  height: 21px;
+  margin-left: auto;
+  border: none;
+  background: url('/public/img/common/navbar__close.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: invert(100%) sepia(4%) saturate(7439%) hue-rotate(154deg) brightness(106%) contrast(106%);
+}
+
+.contact-us__contents {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem 1.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  background: rgb(39, 61, 144);
+}
+
+.contact-us input,
+.contact-us textarea {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: none;
+  font-family: NotoSans, sans-serif;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  border-radius: 0.25rem;
+}
+
+.contact-us input:focus,
+.contact-us textarea:focus {
+  border: 2px solid rgb(54, 180, 229);
+}
+
+.contact-us__contents label {
+  pointer-events: none;
+  z-index: 1;
+  position: relative;
+  display: block;
+  width: 100%;
+  font-family: NotoSansBold, sans-serif;
+  color: #777777;
+  transform: translate(1rem, -2.55rem);
+  transition: all 200ms ease;
+}
+
+.contact-us__contents input:focus + label,
+.contact-us__contents input:not(:placeholder-shown) + label {
+  color: #FFFFFF;
+  transform: translate(0.5rem, -4.75rem);
+}
+
+.contact-us__contents label img {
+  max-width: 1rem;
+  max-height: 1rem;
+  filter: invert(48%) sepia(16%) saturate(3%) hue-rotate(320deg) brightness(93%) contrast(83%);
+}
+
+.contact-us__contents input:focus + label img,
+.contact-us__contents input:not(:placeholder-shown) + label img,
+.contact-us__contents textarea:focus ~ .contact-us__message-label img,
+.contact-us__contents textarea:not(:placeholder-shown) ~ .contact-us__message-label img {
+  filter: invert(100%) sepia(4%) saturate(7439%) hue-rotate(154deg) brightness(106%) contrast(106%);
+}
+
+.contact-us__message {
+  resize: none;
+  height: 6rem;
+}
+
+.contact-us__message-label {
+  transform: translate(1rem, -5.8rem) !important;
+}
+
+.contact-us__contents textarea:focus ~ .contact-us__message-label,
+.contact-us__contents textarea:not(:placeholder-shown) ~ .contact-us__message-label {
+  color: #FFFFFF;
+  transform: translate(0.5rem, -8.4rem) !important;
+}
+
+.contact-us__button {
+  margin: 1rem auto 0;
+  padding: 0.5rem 2.5rem;
+  border: 2px solid #FFFFFF;
+  border-radius: 1.5rem 0;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  text-transform: uppercase;
+  color: rgb(39, 61, 144);
+  background: #FFFFFF;
+}
+
+/** Tablets and above */
+@media only screen and (min-width: 768px) {
+}
+
+/** PC - Small Screens */
+@media only screen and (min-width: 1024px) {
+  .contact-us {
+    max-width: 70vw;
+    left: 50%;
+    transform: translate(-50%, -45%);
+  }
+
+  .contact-us.active {
+    transform: translate(-50%, -50%);
+  }
+
+  .contact-us__header {
+    padding: 2rem 3rem;
+  }
+
+  .contact-us__contents {
+    padding: 3rem;
+  }
+}
+
+/** PC */
+@media only screen and (min-width: 1599px) {
+  .contact-us {
+    max-width: 50vw;
+  }
+}

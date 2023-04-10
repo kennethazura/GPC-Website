@@ -58,11 +58,21 @@ server.get(`${process.env.API_ROUTE}/job-details`, (req, res) => {
 });
 
 server.get('/', (req, res) => {
-  fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-categories?count=9`)
-    .then(async(oResponse) => {
-      const aJobCategories = await oResponse.json();
-      res.render('home.ejs', { jobCategories: aJobCategories, assetLink: process.env.ASSET_LINK });
-    });
+  // fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-categories?count=9`)
+  //   .then(async(oResponse) => {
+  //     const aJobCategories = await oResponse.json();
+  //     res.render('home.ejs', {
+  //       jobCategories: aJobCategories,
+  //       assetLink: process.env.ASSET_LINK,
+  //       domain: process.env.DOMAIN,
+  //       apiRoute: process.env.API_ROUTE,
+  //     });
+  //   });
+  res.render('home.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
 });
 
 server.get('/job/:jobTitle', (req, res) => {
@@ -70,7 +80,14 @@ server.get('/job/:jobTitle', (req, res) => {
     .then(async(oResponse) => {
       const oJobDetails = await oResponse.json();
       if (Object.prototype.hasOwnProperty.call(oJobDetails, 'error')) res.send(`Error! "${req.params.jobTitle}" not found.`);
-      else { res.render('job-posting.ejs', { jobDetails: oJobDetails, assetLink: process.env.ASSET_LINK }); }
+      else {
+        res.render('job-posting.ejs', {
+          jobDetails: oJobDetails,
+          assetLink: process.env.ASSET_LINK,
+          domain: process.env.DOMAIN,
+          apiRoute: process.env.API_ROUTE,
+        });
+      }
     });
 });
 

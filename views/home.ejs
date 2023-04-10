@@ -4,11 +4,12 @@
     <%- include('partials/home/head', { assetLink }); %>
 </head>
 <body>
-    <%- include('partials/common/navbar'); %>
+    <%- include('partials/common/contact-us') %>    
+    <%- include('partials/common/navbar', {domain, apiRoute}); %>
     <%- include('partials/home/hero-section'); %>
     <%- include('partials/home/how-gpc-works'); %>
     <%- include('partials/home/why-gpc'); %>
-    <%- include('partials/home/job-categories', { jobCategories }); %>
+    <%- include('partials/home/job-categories');%>
     <%- include('partials/home/price-tc'); %>
     <%- include('partials/common/footer'); %>
 

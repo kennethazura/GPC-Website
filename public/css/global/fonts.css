@@ -19,6 +19,11 @@
 }
 
 @font-face {
+  font-family: Raleway;
+  src: url('/public/fonts/Raleway-Regular.ttf');
+}
+
+@font-face {
   font-family: RalewayBold;
   src: url('/public/fonts/Raleway-Bold.ttf');
 }

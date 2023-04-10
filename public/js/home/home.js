@@ -1,14 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
+  const DOMAIN = u('#domain').nodes[0].value;
+  const API_ROUTE = u('#api-route').nodes[0].value;
   const oNavbar = u('.navbar');
   const oDocument = u(document);
+  const oBody = u('body');
+  const oContactUsBackdrop = u('.contact-us__backdrop');
+  const oContactUs = u('.contact-us');
+  const oContactUsOpenBtn = u('.contact-us__open-btn');
+  const oContactUsCloseBtn = u('.contact-us__close-btn');
   const oNavButtons = u('.navbar__link');
+  const oNavButtonsMobile = u('.navbar-menu__link');
   const oFooterLinks = u('.footer__link');
+  const oNavbarMenuBtn = u('.navbar__burger-btn');
   const oScrollMagicController = new ScrollMagic.Controller();
+  const oJobCategoriesList = u('.job-categories__list');
+  const oLoadMoreJobsBtn = u('.job-categories__button');
+  const iDeviceWidth = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
+  const sDevice = (iDeviceWidth >= 1024) ? 'pc' : 'mobile';
+  const iTotalAvailableJobs = 9;
+  let iLoadedJobs = 3;
   const oAnimationStatus = {
     heroSection: false,
     howSection: false,
     whySection: false,
     jobCategories: false,
+    pricetc: false,
   };
 
   const oHeroSwiper = new Swiper('.swiper', {
@@ -72,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.heroSection === false && _isScrollPositionCorrect(1)) {
         oAnimationStatus.heroSection = true;
-        _runHeroAnimation();
+        // _runHeroAnimation();
       }
       oHeroSwiper.autoplay.start();
     })
@@ -88,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.howSection === false && _isScrollPositionCorrect(2)) {
         oAnimationStatus.howSection = true;
-        _runHowSectionAnimation();
+        // _runHowSectionAnimation();
       }
     })
     .addTo(oScrollMagicController);
@@ -100,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.whySection === false && _isScrollPositionCorrect(3)) {
         oAnimationStatus.whySection = true;
-        _runWhySectionAnimation();
+        // _runWhySectionAnimation();
       }
     })
     .addTo(oScrollMagicController);
@@ -112,7 +128,19 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.jobCategories === false && _isScrollPositionCorrect(5)) {
         oAnimationStatus.jobCategories = true;
-        _runJobCategoriesAnimation();
+        // _runJobCategoriesAnimation();
+      }
+    })
+    .addTo(oScrollMagicController);
+
+  const oPriceTermsandConditionScene = new ScrollMagic.Scene({
+    triggerElement: '.price-tc.section',
+    duration: 1000,
+  }).setClassToggle('.navbar', 'section--price-tc')
+    .on('enter', function() {
+      if (oAnimationStatus.pricetc === false && _isScrollPositionCorrect(6)) {
+        oAnimationStatus.pricetc = true;
+        // _runJobCategoriesAnimation();
       }
     })
     .addTo(oScrollMagicController);
@@ -131,12 +159,36 @@ document.addEventListener('DOMContentLoaded', function() {
     u('#' + sTargetSection).scroll();
   }
 
-  function initEventListeners() {
-    oDocument.on('scroll', toggleNavbarState);
-    oNavButtons.on('click', function(eEvent) { scrollToSection(eEvent); });
-    oFooterLinks.on('click', function(eEvent) { scrollToSection(eEvent); });
-    oHeroSwiper.on('touchMove', function() { oHeroSwiper.autoplay.stop(); });
-    oHeroSwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
+  /**
+   * Creates a Job item card to be appended to the job categories list
+   *
+   * @param {String} sJobTitle - Job title
+   * @param {String} sJobDescription - Job short description
+   * @param {URL} sJobIconLink - Job icon image link
+   * @param {URL} sJobRedirectLink - Redirect link when clicking on the job item
+   * @returns DOM
+   */
+  function _createJobItem(sJobTitle, sJobDescription, sJobIconLink, sJobRedirectLink) {
+    const oJobItem = `<a href="${sJobRedirectLink}">
+        <div class="job-item">
+          <img src="${sJobIconLink}" class="job-item__icon"/>
+          <h3 class="job-item__title">${sJobTitle}</h3>
+          <img class="job-item__expand-icon"/>
+          <p class="job-item__description job-item__description--pc">${sJobDescription}</p>
+        </div>
+        <p class="job-item__description job-item__description--mobile">${sJobDescription}</p>
+      </a>`;
+
+    oJobCategoriesList.append(oJobItem);
+  }
+
+  function toggleActiveJobCategory(eEvent) {
+    eEvent.preventDefault();
+    const oTarget = u(eEvent.target);
+    const sCurrentState = (oTarget.hasClass('active')) ? 'open' : 'close';
+    u('.job-item').removeClass('active');
+    if (sCurrentState === 'open') oTarget.removeClass('active');
+    else oTarget.addClass('active');
   }
 
   function _cleanUp() {
@@ -152,9 +204,66 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function init() {
-    initEventListeners();
+  async function loadJobCategories(iStart, iCount) {
+    const oResponse = await fetch(`${DOMAIN}${API_ROUTE}/job-categories?start=${iStart}&count=${iCount}`);
+    return oResponse.json();
+  }
+
+  async function initJobCategories() {
+    const aJobCategories = (sDevice === 'pc') ? await loadJobCategories(0, 9) : await loadJobCategories(0, 3);
+    const iLength = aJobCategories.length;
+    for (let iCnt = 0; iCnt < iLength; iCnt += 1) {
+      _createJobItem(aJobCategories[iCnt].jobTitle, aJobCategories[iCnt].jobDescription, aJobCategories[iCnt].jobIcon, aJobCategories[iCnt].link);
+    }
+  }
+
+  async function loadMoreJobs() {
+    const aJobCategories = await loadJobCategories(iLoadedJobs, 3);
+    const iLength = aJobCategories.length;
+    iLoadedJobs += 3;
+    if (iLoadedJobs >= iTotalAvailableJobs) oLoadMoreJobsBtn.nodes[0].style.display = 'none';
+    for (let iCnt = 0; iCnt < iLength; iCnt += 1) {
+      _createJobItem(aJobCategories[iCnt].jobTitle, aJobCategories[iCnt].jobDescription, aJobCategories[iCnt].jobIcon, aJobCategories[iCnt].link);
+    }
+  }
+
+  function initEventListeners() {
+    oDocument.on('scroll', toggleNavbarState);
+    oNavButtons.on('click', function(eEvent) { scrollToSection(eEvent); });
+    oFooterLinks.on('click', function(eEvent) { scrollToSection(eEvent); });
+    oNavbarMenuBtn.on('click', function() { oNavbar.toggleClass('active'); oBody.toggleClass('no-scroll'); });
+    oHeroSwiper.on('touchMove', function() { oHeroSwiper.autoplay.stop(); });
+    oHeroSwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
+    if (sDevice === 'mobile') {
+      oJobCategoriesList.on('click', function(eEvent) {
+        if (u(eEvent.target).hasClass('job-item')) toggleActiveJobCategory(eEvent);
+      });
+    }
+    oLoadMoreJobsBtn.on('click', loadMoreJobs);
+    oNavButtonsMobile.on('click', function(eEvent) {
+      eEvent.preventDefault();
+      oNavbar.removeClass('active');
+      oBody.removeClass('no-scroll');
+      setTimeout(function() {
+        scrollToSection(eEvent);
+      }, 300);
+    });
+    oContactUsOpenBtn.on('click', function() {
+      oContactUs.addClass('active');
+      oContactUsBackdrop.addClass('active');
+      oBody.addClass('no-scroll');
+    });
+    oContactUsCloseBtn.on('click', function() {
+      oContactUs.removeClass('active');
+      oContactUsBackdrop.removeClass('active');
+      oBody.removeClass('no-scroll');
+    });
+  }
+
+  async function init() {
     toggleNavbarState();
+    await initJobCategories();
+    initEventListeners();
     _cleanUp();
   }
 
