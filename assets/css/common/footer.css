@@ -2,13 +2,11 @@
   background: rgb(0, 20, 84);
   height: unset;
   min-height: unset;
-  padding-top: 50px;
+  padding-top: 2.5rem;
 }
 
 .footer__link-container {
-  padding-right: 70px;
-  padding-bottom: 25px;
-  display: inline-block;
+  display: none;
 }
 
 .footer__link {
@@ -17,7 +15,7 @@
   font-size: 1rem;
   text-transform: uppercase;
   display: inline-block;
-  margin-bottom: 15px;
+  margin-bottom: 0.625rem;
   transition: 0.2s all ease;
   border-bottom: 1px solid transparent;
   text-decoration: none;
@@ -29,19 +27,28 @@
   border-bottom: 1px solid rgb(54, 180, 229);
 }
 
+.footer__link--mobile {
+  padding-bottom: 2.5rem;
+}
+
+.footer__link--mobile .footer__link-container {
+  display: inline-block;
+}
+
 .contacts {
   display: flex;
-  flex-direction: row;
   align-items: center;
   border-top: 1px solid white;
-  padding-top: 20px;
-  padding-bottom: 30px;
+  border-bottom: 1px solid white;
+  padding-top: 1.875rem;
+  padding-bottom: 1.875rem;
+  min-width: 100%;
 }
 
 .footer__icon {
   content: url('/public/img/common/gpc-logo-white.png');
-  width: 175px;
-  padding-right: 40px;
+  width: 155px;
+  padding-right: 1.375rem;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
   display: inline-block;
 }
@@ -50,11 +57,14 @@
   display: inline-block;
   color: white;
   font-family: NotoSans, sans-serif;
-  font-size: 1rem;
-  padding-left: 35px;
+  font-size: 0.875rem;
+  max-width: 8.5rem;
+  max-height: 3.4375rem;
+  padding-left: 1.375rem;
 }
 
 .contacts__description:nth-of-type(2) {
+  display: none;
   margin-left: auto;
   font-size: 0.875rem;
 }
@@ -62,16 +72,16 @@
 .footer__iconfb {
   content: url('/public/img/common/fb.png');
   width: 45px;
-  display: inline-block;
-  padding-left: 25px;
+  display: none;
+  padding-left: 1.5625rem;
   transition: 0.2s all ease;
 }
 
 .footer__iconin {
   content: url('/public/img/common/linkedin.png');
   width: 45px;
-  display: inline-block;
-  padding-left: 25px;
+  display: none;
+  padding-left: 1.5625rem;
   transition: 0.2s all ease;
 }
 
@@ -82,15 +92,41 @@
   transform: scale(0.95);
 }
 
+.soc-med--mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  font-family: NotoSans, sans-serif;
+  font-size: 1rem;
+  padding-top: 1.625rem;
+  padding-bottom: 1.5625rem;
+}
+
+.footer__iconfb--mobile {
+  content: url('/public/img/common/fb.png');
+  width: 30px;
+  padding-left: 1.5625rem;
+  transition: 0.2s all ease;
+}
+
+.footer__iconin--mobile {
+  content: url('/public/img/common/linkedin.png');
+  width: 30px;
+  padding-left: 1.5625rem;
+  transition: 0.2s all ease;
+}
+
 .copyright {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   background: rgb(35, 199, 253);
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  margin-left: -2.25rem;
   width: 100vw;
-  margin-left: -200px;
 }
 
 .footer__rights {
@@ -98,4 +134,130 @@
   font-family: NotoSans, sans-serif;
   font-size: 0.875rem;
   text-align: center;
+}
+
+/** Tablets and above */
+@media only screen and (min-width: 768px) {
+
+}
+
+/** PC - Small Screens */
+@media only screen and (min-width: 1024px) {
+
+}
+
+/** PC */
+@media only screen and (min-width: 1599px) {
+  .footer {
+    background: rgb(0, 20, 84);
+    height: unset;
+    min-height: unset;
+    padding-top: 3.125rem;
+  }
+
+  .footer__link-container {
+    padding-right: 4.375rem;
+    padding-bottom: 1.5625rem;
+    display: inline-block;
+  }
+
+  .footer__link {
+    color: white;
+    font-family: NotoSans, sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0.9375rem;
+    transition: 0.2s all ease;
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+  }
+
+  .footer__link:hover {
+    cursor: pointer;
+    color: rgb(54, 180, 229);
+    border-bottom: 1px solid rgb(54, 180, 229);
+  }
+
+  .footer__link--mobile {
+    display: none;
+  }
+
+  .contacts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid white;
+    border-bottom: none;
+    padding-top: 1.25rem;
+    padding-bottom: 1.875rem;
+  }
+
+  .footer__icon {
+    content: url('/public/img/common/gpc-logo-white.png');
+    width: 175px;
+    padding-right: 2.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    display: inline-block;
+  }
+
+  .contacts__description {
+    display: inline-block;
+    color: white;
+    font-family: NotoSans, sans-serif;
+    font-size: 1rem;
+    padding-left: 2.1875rem;
+    max-width: unset;
+  }
+
+  .contacts__description:nth-of-type(2) {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 0.875rem;
+  }
+
+  .soc-med--mobile {
+    display: none;
+  }
+
+  .footer__iconfb {
+    content: url('/public/img/common/fb.png');
+    width: 45px;
+    display: inline-block;
+    padding-left: 1.5625rem;
+    transition: 0.2s all ease;
+  }
+
+  .footer__iconin {
+    content: url('/public/img/common/linkedin.png');
+    width: 45px;
+    display: inline-block;
+    padding-left: 1.5625rem;
+    transition: 0.2s all ease;
+  }
+
+  .footer__iconin:hover,
+  .footer__iconfb:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+
+  .copyright {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: rgb(35, 199, 253);
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    width: 100vw;
+    margin-left: -200px;
+  }
+
+  .footer__rights {
+    color: white;
+    font-family: NotoSans, sans-serif;
+    font-size: 0.875rem;
+    text-align: center;
+  }
 }
