@@ -91,6 +91,10 @@ server.get('/job/:jobTitle', (req, res) => {
     });
 });
 
+server.get('/terms-and-conditions', (req, res) => {
+  res.render('terms-and-conditions.ejs', { assetLink: process.env.ASSET_LINK });
+});
+
 server.listen(port, () => {
   console.log(`Server has started on port ${port}`);
 });
