@@ -134,7 +134,8 @@ body.no-scroll {
   border-radius: 26px;
   font-family: NotoSansBold, sans-serif;
   color: white;
-  background: #273D90;
+  background: #3CB4E5;
+  box-shadow: 0 3px 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 .navbar--white {
@@ -199,6 +200,7 @@ body.no-scroll {
 .navbar.section--why-gpc .navbar__link:nth-of-type(3)::after,
 .navbar.section--job-categories .navbar__link:nth-of-type(4)::after,
 .navbar.section--price-tc .navbar__link:nth-of-type(5)::after,
+.navbar.section--contact-us .navbar__link:nth-of-type(6)::after,
 .navbar__link:hover::after {
   transform: translate(0, 5px) scaleX(1);
 }

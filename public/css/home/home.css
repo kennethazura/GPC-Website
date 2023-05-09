@@ -79,18 +79,13 @@ body {
   opacity: 1;
   width: 12px;
   height: 12px;
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   background-color: white;
   transition: all 0.1s ease;
 }
 
-.hero .swiper .swiper-pagination-bullet:hover:not(.swiper-pagination-bullet-active) {
-  opacity: 0.8;
-  transform: scale(0.9);
-}
-
 .hero .swiper .swiper-pagination-bullet-active {
-  margin: 0 0.8125rem;
+  margin: 0 0.375rem;
   border: 3px solid white;
   background: #1A87BE;
   transition: all 0.1s ease;
@@ -110,7 +105,7 @@ body {
 .hero__description {
   /* opacity: 0; */
   display: block;
-  max-width: 322px;
+  max-width: 290px;
   margin-top: 1.75rem;
   font-family: NotoSans, sans-serif;
   font-size: 1.25rem;
@@ -247,22 +242,22 @@ body {
 .why-gpc {
   display: block;
   background: url('/public/img/home/3rd-Section/3rd-section_bg.png');
-  background-size: cover;
+  background-size: 1900px;
   background-repeat: no-repeat;
-  background-position: center;
-  padding: 0 160px 90px;
+  background-position: top right;
 }
 
 .why__header {
   /* opacity: 0; */
   width: 100%;
   font-family: MonserattBold, sans-serif;
-  font-size: 4.375rem;
+  font-size: 1.75rem;
+  line-height: 2.125rem;
   text-align: center;
   text-transform: uppercase;
   color: white;
-  padding-bottom: 90px;
-  padding-top: 90px;
+  padding-bottom: 55px;
+  padding-top: 160px;
 }
 
 .why__body {
@@ -274,10 +269,36 @@ body {
   row-gap: 70px;
 }
 
+.why-gpc .swiper-wrapper {
+  height: 65vh !important;
+}
+
+.why-gpc .swiper .swiper-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.why-gpc .swiper .swiper-pagination-bullet {
+  opacity: 1;
+  width: 12px;
+  height: 12px;
+  margin: 0 0.5rem;
+  background-color: white;
+  transition: all 0.1s ease;
+}
+
+.why-gpc .swiper .swiper-pagination-bullet-active {
+  margin: 0 0.375;
+  border: 3px solid white;
+  background: #1A87BE;
+  transition: all 0.1s ease;
+}
+
 .why__icons {
   display: inline-block;
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 230px;
+  max-height: 230px;
 }
 
 .why__item {
@@ -285,7 +306,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 340px;
+  max-width: 100%;
   min-height: 330px;
 }
 
@@ -293,21 +314,27 @@ body {
   display: block;
   font-family: NotoSansBold, sans-serif;
   font-size: 1.125rem;
+  line-height: 1.25rem;
   white-space: normal;
   text-transform: uppercase;
   text-align: center;
   color: white;
-  padding-top: 35px;
-  padding-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 15px;
 }
 
 .why__par {
   font-family: NotoSans, sans-serif;
-  font-size: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.25rem;
   text-align: center;
   color: white;
   width: 100%;
   max-width: 330px;
+}
+
+.why__body--pc {
+  display: none;
 }
 
 /** Why Choose GPC Section - End **/
@@ -396,35 +423,58 @@ body {
 }
 
 .job-item.active .job-item__expand-icon {
-  transform: rotate(45deg);
+  content: url('/public/img/home/job-categories/job-categories__minus.svg');
 }
 
-.job-item__description {
+.job-item.active + .job-item__description-container {
+  padding: 2.5rem 1.5rem 2.25rem;
+  height: 204px;
+}
+
+.job-item__description-container {
   pointer-events: none;
   z-index: 0;
   opacity: 1;
-  display: block;
-  width: 95%;
+  width: 100%;
   box-sizing: border-box;
   margin: auto;
   height: 0;
   padding: 0 1rem;
-  border-radius: 0 0 10px 10px;
-  font-family: NotoSans, sans-serif;
-  font-size: 0.875rem;
-  white-space: normal;
-  text-align: left;
-  line-height: 18px;
-  text-indent: 14px;
+  border-radius: 0 0 20px 20px;
   color: #FFFFFF;
   background: #36B3E5;
+  box-shadow: 0 3px 6px #00000029;
+  transform: translateY(-8px);
   transition: all 0.3s ease;
 }
 
-.job-item.active + .job-item__description {
-  padding: 1.25rem 1rem;
-  height: 100%;
-  max-height: min-content;
+.job-item__description {
+  pointer-events: none;
+  overflow: hidden;
+  display: -webkit-box;
+  margin: 0 0 2.25rem;
+  -webkit-line-clamp: 4;
+  text-overflow: clip;
+  -webkit-box-orient: vertical;
+  font-family: NotoSans, sans-serif;
+  font-size: 0.875rem;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: left;
+  color: #FFFFFF;
+  line-height: 18px;
+  transition: all 0.3s ease;
+}
+
+.job-item__link {
+  display: block;
+  width: 100%;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 0.875rem;
+  text-align: right;
+  text-decoration: underline;
+  color: #FFFFFF;
+  line-height: 18px;
 }
 
 .job-item__description--pc {
@@ -506,7 +556,7 @@ body {
   display: inline-block;
   border: 1px solid white;
   color: white;
-  max-width: 20.125rem;
+  width: 100%;
 }
 
 .price__title {
@@ -515,7 +565,6 @@ body {
   font-family: RalewayBold, sans-serif;
   font-size: 1.125rem;
   padding: 0 1.5625rem;
-  min-width: 17rem;
   min-height: 5.25rem;
   border-bottom: 1px solid;
   background-color: rgb(54, 180, 229);
@@ -529,15 +578,154 @@ body {
   font-size: 1.125rem;
   padding-left: 1.5625rem;
   padding-right: 1.5625rem;
-  min-width: 17.1875rem;
   min-height: 5.25rem;
 }
 
 /** Pricing and Terms and Conditions - End **/
 
+/** Contact Us - Start **/
+
+.contact-us__title {
+  display: block;
+  max-width: 100%;
+  padding: 9.375rem 0 6rem;
+  font-family: MonserattBold, sans-serif;
+  font-size: 1.75rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgb(39, 61, 144);
+}
+
+.contact-us__header {
+  display: block;
+  max-width: max-content;
+  padding: 0.75rem 1.125rem 0.5rem 0.4375rem;
+  border-radius: 0 13.75rem 0 0;
+  font-family: MonserattBold, sans-serif;
+  font-size: 1rem;
+  text-align: justify;
+  white-space: nowrap;
+  color: rgb(39, 61, 144);
+  background-color: rgb(54, 180, 229);
+}
+
+.contact-us__header-border {
+  display: block;
+  width: 100%;
+  margin-bottom: 2.5rem;
+  border-bottom: 3px solid rgb(54, 180, 229);
+}
+
+.contact-us__description {
+  display: block;
+  width: 95%;
+  margin-bottom: 2.5rem;
+  font-family: Monseratt, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: #636363;
+}
+
+.contact-us__form {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.contact-us__field,
+.contact-us__message {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+  border: none;
+  outline: none;
+  font-family: Monseratt, sans-serif;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.contact-us__message {
+  resize: none;
+  height: 12.75rem;
+  line-height: 1.5rem;
+}
+
+.contact-us__footer .g-recaptcha {
+  display: block;
+  position: relative;
+  height: 4.25rem;
+  width: max-content;
+  margin: auto;
+}
+
+.contact-us__footer .g-recaptcha > div {
+  width: 243px !important;
+}
+
+.contact-us__footer .g-recaptcha iframe {
+  width: 100%;
+}
+
+.contact-us__button {
+  display: block;
+  position: relative;
+  margin: 2rem auto 3rem;
+  padding: 0.375rem 1rem;
+  border: 2px solid #1A86BE;
+  border-radius: 1rem 0;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.1875rem;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: #1A86BE;
+  transition: all 0.2s ease;
+}
+
+/** Contact Us - End **/
+
 /** Tablets and above */
 @media only screen and (min-width: 768px) {
+  .hero__title {
+    max-width: 40.625rem;
+    font-size: 2.6875rem;
+    line-height: 3.0625rem;
+  }
 
+  .hero__description {
+    max-width: 40.625rem;
+    font-size: 2rem;
+    line-height: 2.375rem;
+  }
+
+  .hero__btn {
+    padding: 1rem 2rem;
+    border-radius: 30px 0;
+    font-size: 1.5rem;
+  }
+
+  .why-gpc {
+    background-size: 2300px;
+  }
+
+  .why__icons {
+    max-width: 350px;
+    max-height: 350px;
+  }
+
+  .why__title {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    padding-top: 20px;
+    padding-bottom: 15px;
+  }
+
+  .why__par {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    max-width: 500px;
+  }
 }
 
 /** PC - Small Screens */
@@ -568,6 +756,11 @@ body {
     width: 15px;
     height: 15px;
     margin: 4px 21px;
+  }
+
+  .hero .swiper .swiper-pagination-bullet:hover:not(.swiper-pagination-bullet-active) {
+    opacity: 0.8;
+    transform: scale(0.9);
   }
 
   .hero .swiper .swiper-pagination-bullet-active {
@@ -748,6 +941,10 @@ body {
     max-width: 330px;
   }
 
+  .why__body--mobile {
+    display: none;
+  }
+
   /** Why Choose GPC Section - End **/
 
   /** Job Categories Section - Start **/
@@ -782,7 +979,7 @@ body {
     max-height: 480px;
     row-gap: 30px;
     padding-top: 110px;
-    padding-bottom: 165px;
+    padding-bottom: 135px;
     border: 2px solid #273E90;
     border-radius: 3px;
   }
@@ -833,7 +1030,11 @@ body {
     opacity: 0;
     max-width: 300px;
     height: 0;
+    margin: 0;
     text-align: center;
+    overflow: unset;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
   }
 
   .job-item:hover .job-item__description {
@@ -940,4 +1141,101 @@ body {
   }
 
   /** Pricing and Terms and Conditions - End **/
+
+  /** Contact Us - Start **/
+
+  .contact-us__title {
+    padding: 90px 0 60px;
+    font-size: 4.375rem;
+    text-align: left;
+  }
+
+  .contact-us__header {
+    max-width: max-content;
+    padding: 25px 90px 25px 30px;
+    border-radius: 0 100px 0 0;
+    font-size: 2.1875rem;
+    text-align: left;
+    color: white;
+  }
+
+  .contact-us__header-border {
+    display: block;
+    width: 100%;
+    margin-bottom: 2.5rem;
+    border-bottom: 3px solid rgb(54, 180, 229);
+  }
+
+  .contact-us__contents {
+    display: flex;
+  }
+
+  .contact-us__description {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    width: 50%;
+    margin-bottom: unset;
+    padding-right: 15%;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    color: rgb(96, 96, 96);
+  }
+
+  .contact-us__form {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+  }
+
+  .contact-us__field,
+  .contact-us__message {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .contact-us__message {
+    resize: none;
+    height: 20.625rem;
+  }
+
+  .contact-us__footer {
+    display: flex;
+    margin: 2rem 0 3rem;
+  }
+
+  .contact-us__footer .g-recaptcha {
+    display: inline-block;
+    position: relative;
+    height: 5rem;
+    width: 19rem;
+    margin: unset;
+  }
+
+  .contact-us__footer .g-recaptcha iframe {
+    width: unset;
+  }
+
+  .contact-us__button {
+    display: inline-block;
+    position: relative;
+    align-self: center;
+    height: max-content;
+    margin: unset;
+    margin-left: auto;
+    padding: 20px 40px;
+    border: 2px solid #1A86BE;
+    border-radius: 30px 0;
+    font-size: 1.25rem;
+    line-height: 1.1875rem;
+  }
+
+  .contact-us__button:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: #1A86BE;
+  }
+
+  /** Contact Us - End **/
 }

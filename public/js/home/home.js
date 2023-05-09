@@ -4,10 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oDocument = u(document);
   const oBody = u('body');
-  const oContactUsBackdrop = u('.contact-us__backdrop');
-  const oContactUs = u('.contact-us');
-  const oContactUsOpenBtn = u('.contact-us__open-btn');
-  const oContactUsCloseBtn = u('.contact-us__close-btn');
   const oNavButtons = u('.navbar__link');
   const oNavButtonsMobile = u('.navbar-menu__link');
   const oFooterLinks = u('.footer__link');
@@ -19,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const sDevice = (iDeviceWidth >= 1024) ? 'pc' : 'mobile';
   const iTotalAvailableJobs = 9;
   let iLoadedJobs = 3;
+  let oWhySwiper;
   const oAnimationStatus = {
     heroSection: false,
     howSection: false,
@@ -27,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     pricetc: false,
   };
 
-  const oHeroSwiper = new Swiper('.swiper', {
+  const oHeroSwiper = new Swiper('#hero-section .swiper', {
     direction: 'horizontal',
     speed: 1000,
     autoplay: {
@@ -35,10 +32,25 @@ document.addEventListener('DOMContentLoaded', function() {
       disableOnInteraction: false,
     },
     pagination: {
-      el: '.swiper-pagination',
+      el: '#hero-section .swiper-pagination',
       clickable: true,
     },
   });
+
+  if (sDevice === 'mobile') {
+    oWhySwiper = new Swiper('#why-section .swiper', {
+      direction: 'horizontal',
+      speed: 1000,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '#why-section .swiper-pagination',
+        clickable: true,
+      },
+    });
+  }
 
   function _runHeroAnimation() {
     const oHeroTimeline = gsap.timeline();
@@ -123,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const oJobCategoriesScene = new ScrollMagic.Scene({
     triggerElement: '.job-categories.section',
-    duration: 2000,
+    duration: 1500,
   }).setClassToggle('.navbar', 'section--job-categories')
     .on('enter', function() {
       if (oAnimationStatus.jobCategories === false && _isScrollPositionCorrect(5)) {
@@ -140,6 +152,18 @@ document.addEventListener('DOMContentLoaded', function() {
     .on('enter', function() {
       if (oAnimationStatus.pricetc === false && _isScrollPositionCorrect(6)) {
         oAnimationStatus.pricetc = true;
+        // _runJobCategoriesAnimation();
+      }
+    })
+    .addTo(oScrollMagicController);
+
+  const oContactUsScene = new ScrollMagic.Scene({
+    triggerElement: '.contact-us.section',
+    duration: 1000,
+  }).setClassToggle('.navbar', 'section--contact-us')
+    .on('enter', function() {
+      if (oAnimationStatus.pricetc === false && _isScrollPositionCorrect(6)) {
+        // oAnimationStatus.pricetc = true;
         // _runJobCategoriesAnimation();
       }
     })
@@ -176,7 +200,10 @@ document.addEventListener('DOMContentLoaded', function() {
           <img class="job-item__expand-icon"/>
           <p class="job-item__description job-item__description--pc">${sJobDescription}</p>
         </div>
-        <p class="job-item__description job-item__description--mobile">${sJobDescription}</p>
+        <div class="job-item__description-container job-item__description--mobile">
+          <p class="job-item__description">${sJobDescription}</p>
+          <p class="job-item__link">Read More</p>
+        </div>
       </a>`;
 
     oJobCategoriesList.append(oJobItem);
@@ -235,6 +262,10 @@ document.addEventListener('DOMContentLoaded', function() {
     oHeroSwiper.on('touchMove', function() { oHeroSwiper.autoplay.stop(); });
     oHeroSwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
     if (sDevice === 'mobile') {
+      if (oWhySwiper !== undefined) {
+        oWhySwiper.on('touchMove', function() { oHeroSwiper.autoplay.stop(); });
+        oWhySwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
+      }
       oJobCategoriesList.on('click', function(eEvent) {
         if (u(eEvent.target).hasClass('job-item')) toggleActiveJobCategory(eEvent);
       });
@@ -247,16 +278,6 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         scrollToSection(eEvent);
       }, 300);
-    });
-    oContactUsOpenBtn.on('click', function() {
-      oContactUs.addClass('active');
-      oContactUsBackdrop.addClass('active');
-      oBody.addClass('no-scroll');
-    });
-    oContactUsCloseBtn.on('click', function() {
-      oContactUs.removeClass('active');
-      oContactUsBackdrop.removeClass('active');
-      oBody.removeClass('no-scroll');
     });
   }
 

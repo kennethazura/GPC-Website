@@ -103,17 +103,21 @@
   padding-bottom: 1.5625rem;
 }
 
+.soc-med--mobile .contacts__description {
+  padding-left: 0;
+}
+
 .footer__iconfb--mobile {
   content: url('/public/img/common/fb.png');
   width: 30px;
-  padding-left: 1.5625rem;
+  padding-left: 1rem;
   transition: 0.2s all ease;
 }
 
 .footer__iconin--mobile {
   content: url('/public/img/common/linkedin.png');
   width: 30px;
-  padding-left: 1.5625rem;
+  padding-left: 0.875rem;
   transition: 0.2s all ease;
 }
 
