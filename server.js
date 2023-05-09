@@ -72,6 +72,7 @@ server.get('/', (req, res) => {
     assetLink: process.env.ASSET_LINK,
     domain: process.env.DOMAIN,
     apiRoute: process.env.API_ROUTE,
+    reCaptchaKey: process.env.RECAPTCHA_SITE_KEY,
   });
 });
 
