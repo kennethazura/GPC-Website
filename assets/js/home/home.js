@@ -176,7 +176,10 @@ document.addEventListener('DOMContentLoaded', function() {
           <img class="job-item__expand-icon"/>
           <p class="job-item__description job-item__description--pc">${sJobDescription}</p>
         </div>
-        <p class="job-item__description job-item__description--mobile">${sJobDescription}</p>
+        <div class="job-item__description-container job-item__description--mobile">
+          <p class="job-item__description">${sJobDescription}</p>
+          <p class="job-item__link">Read More</p>
+        </div>
       </a>`;
 
     oJobCategoriesList.append(oJobItem);
@@ -251,12 +254,10 @@ document.addEventListener('DOMContentLoaded', function() {
     oContactUsOpenBtn.on('click', function() {
       oContactUs.addClass('active');
       oContactUsBackdrop.addClass('active');
-      oBody.addClass('no-scroll');
     });
     oContactUsCloseBtn.on('click', function() {
       oContactUs.removeClass('active');
       oContactUsBackdrop.removeClass('active');
-      oBody.removeClass('no-scroll');
     });
   }
 
