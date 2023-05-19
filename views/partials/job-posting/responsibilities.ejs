@@ -1,11 +1,66 @@
 <div class="responsibilities section">
     <h4 class="responsibilities__header">Responsibilities</h4>
-    <div class="responsibilities__container">
+    <div class="responsibilities__container responsibilities__container--pc">
         <% for(var i=0; i < jobDetails.responsibilities.length; i++) { %>
             <div class="responsibilities__item">
                 <div src="" class="responsibilities__icon"></div>
                 <p class="responsibilities__text"><%= jobDetails.responsibilities[i] %></p>
             </div>
         <% } %>
+    </div>
+    <div class="responsibilities__container responsibilities__container--mobile">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <% if (jobDetails.responsibilities.length > 1) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=0; i < 6; i++) { %>
+                            <% if(typeof jobDetails.responsibilities[i] !== 'undefined') { %>
+                                <div class="responsibilities__item">
+                                    <div src="" class="responsibilities__icon"></div>
+                                    <p class="responsibilities__text"><%= jobDetails.responsibilities[i] %></p>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <% } %>
+                <% if (jobDetails.responsibilities.length > 6) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=6; i < 12; i++) { %>
+                            <% if(typeof jobDetails.responsibilities[i] !== 'undefined') { %>
+                                <div class="responsibilities__item">
+                                    <div src="" class="responsibilities__icon"></div>
+                                    <p class="responsibilities__text"><%= jobDetails.responsibilities[i] %></p>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <%} %>
+                <% if (jobDetails.responsibilities.length > 12) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=12; i < 18; i++) { %>
+                            <% if(typeof jobDetails.responsibilities[i] !== 'undefined') { %>  
+                                <div class="responsibilities__item">
+                                    <div src="" class="responsibilities__icon"></div>
+                                    <p class="responsibilities__text"><%= jobDetails.responsibilities[i] %></p>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <%} %>
+                <% if (jobDetails.responsibilities.length > 18) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=18; i < 24; i++) { %>
+                            <% if(typeof jobDetails.responsibilities[i] !== 'undefined') { %>
+                                <div class="responsibilities__item">
+                                    <div src="" class="responsibilities__icon"></div>
+                                    <p class="responsibilities__text"><%= jobDetails.responsibilities[i] %></p>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <%} %>
+            </div> 
+            <div class="swiper-pagination"></div>
+        </div>
     </div>
 </div>
