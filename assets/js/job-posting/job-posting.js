@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
       direction: 'horizontal',
       speed: 1000,
       autoplay: {
-        delay: 400000,
+        delay: 10000,
         disableOnInteraction: false,
       },
       slidesPerView: 'auto',
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
       direction: 'horizontal',
       speed: 1000,
       autoplay: {
-        delay: 4000,
+        delay: 10000,
         disableOnInteraction: false,
       },
       slidesPerView: 'auto',
