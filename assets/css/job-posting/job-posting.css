@@ -23,9 +23,10 @@ body {
   display: block;
   position: relative;
   width: 100vw;
-  max-width: 100vw;
+  max-width: 100%;
   min-height: 100vh;
-  padding: 0 200px;
+  min-height: 100svh;
+  padding: 0 2.1875rem;
   box-sizing: border-box;
 }
 
@@ -36,54 +37,46 @@ body {
   flex-direction: column;
   justify-content: center;
   min-height: unset;
-  margin-top: 123px;
+  margin-top: 114px;
   padding-top: 55px;
-  padding-bottom: 70px;
+  padding-bottom: 55px;
   background: url('/public/img/job-posting/hero-section/job-posting__hero-background.png');
   background-size: cover;
-  background-position: center;
+  background-position: 600px;
 }
 
 .hero__title {
   display: block;
   max-width: 700px;
   font-family: MonserattBold, sans-serif;
-  font-size: 5rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   color: #FFFFFF;
 }
 
 .hero__description {
   display: block;
-  max-width: 610px;
+  max-width: 285px;
   margin-top: 20px;
   font-family: NotoSans, sans-serif;
-  font-size: 1.875rem;
-  line-height: 40px;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
   color: #CAEFFF;
 }
 
 .hero__btn {
   display: block;
   width: max-content;
-  margin-top: 60px;
-  padding: 15px 60px;
+  margin-top: 30px;
+  padding: 5px 25px;
   border: 2px solid #FFFFFF;
-  border-radius: 35px 0;
+  border-radius: 15px 0;
   outline: inherit;
   font-family: NotoSansBold, sans-serif;
-  font-size: 1.25rem;
+  font-size: 0.75rem;
   color: #3DBAF7;
   background: #FFFFFF;
   transition: all 0.15s ease;
-}
-
-.hero__btn:hover {
-  cursor: pointer;
-  border: 2px solid #FFFFFF;
-  color: #FFFFFF;
-  transform: scale(1.05) !important;
-  background: transparent;
 }
 
 /** Hero Section - End **/
@@ -91,24 +84,20 @@ body {
 /** Job Description Section - Start **/
 
 .job-description {
-  min-height: 490px;
-  padding-top: 45px;
-  padding-bottom: 65px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .job-description__container {
   display: flex;
-  flex-flow: column wrap;
-  row-gap: 35px;
-  column-gap: 70px;
-  max-height: 415px;
+  flex-flow: row wrap;
+  row-gap: 1.5rem;
 }
 
 .job-description__paragraph {
-  max-width: 700px;
   font-family: NotoSans, sans-serif;
-  font-size: 1.3125rem;
-  line-height: 26px;
+  font-size: 1rem;
+  line-height: 1.25rem;
   color: #606060;
 }
 
@@ -119,12 +108,12 @@ body {
 .responsibilities {
   min-height: unset;
   background: #E5E5E5;
-  padding-top: 55px;
-  padding-bottom: 60px;
+  padding-top: 7.5rem;
+  padding-bottom: 2rem;
 }
 
 .responsibilities__header {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
   font-family: NotoSansBold, sans-serif;
   font-size: 1.3125rem;
   text-transform: uppercase;
@@ -136,17 +125,58 @@ body {
   flex-flow: column wrap;
   row-gap: 25px;
   column-gap: 70px;
-  max-height: 585px;
+}
+
+.responsibilities__container .swiper {
+  max-width: 100vw;
+  box-sizing: border-box;
+  margin-left: -2.1875rem;
+}
+
+.responsibilities__container .swiper .swiper-pagination-bullet {
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  margin: 0 0.5rem;
+  background-color: #B4B4B4;
+  transition: all 0.1s ease;
+}
+
+.responsibilities__container .swiper .swiper-pagination-bullet-active {
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  margin: 0 0.375rem;
+  border: 3px solid #B4B4B4;
+  background: #1A86BE;
+  transform: translateY(1.5px);
+  transition: all 0.1s ease;
+}
+
+.responsibilities__container--mobile {
+  display: flex;
+}
+
+.responsibilities__container--pc {
+  display: none;
 }
 
 .responsibilities__item {
   display: flex;
   gap: 8px;
+  margin-bottom: 1.5rem;
+  padding-left: 2.1875rem;
+  padding-right: 2.1875rem;
+}
+
+.responsibilities__item:last-of-type {
+  margin-bottom: 4rem;
 }
 
 .responsibilities__icon {
   display: inline-block;
   width: 20px;
+  min-width: 20px;
   height: 20px;
   border-radius: 50px;
   border: 2px solid #1F96CD;
@@ -168,8 +198,8 @@ body {
   display: inline-block;
   max-width: 680px;
   font-family: NotoSans, sans-serif;
-  font-size: 1rem;
-  line-height: 22px;
+  font-size: 0.875rem;
+  line-height: 1rem;
   color: #606060;
 }
 
@@ -179,12 +209,12 @@ body {
 
 .qualifications {
   min-height: unset;
-  padding-top: 70px;
-  padding-bottom: 85px;
+  padding-top: 7.5rem;
+  padding-bottom: 2rem;
 }
 
 .qualifications__header {
-  margin-bottom: 15px;
+  margin-bottom: 2rem;
   font-family: NotoSansBold, sans-serif;
   font-size: 1.3125rem;
   text-transform: uppercase;
@@ -196,12 +226,52 @@ body {
   flex-flow: column wrap;
   row-gap: 25px;
   column-gap: 70px;
-  max-height: 570px;
+}
+
+.qualifications__container .swiper {
+  max-width: 100vw;
+  box-sizing: border-box;
+  margin-left: -2.1875rem;
+}
+
+.qualifications__container .swiper .swiper-pagination-bullet {
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  margin: 0 0.5rem;
+  background-color: #B4B4B4;
+  transition: all 0.1s ease;
+}
+
+.qualifications__container .swiper .swiper-pagination-bullet-active {
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  margin: 0 0.375rem;
+  border: 3px solid #B4B4B4;
+  background: #1A86BE;
+  transform: translateY(1.5px);
+  transition: all 0.1s ease;
+}
+
+.qualifications__container--mobile {
+  display: flex;
+}
+
+.qualifications__container--pc {
+  display: none;
 }
 
 .qualifications__item {
   display: flex;
   gap: 4px;
+  margin-bottom: 1.5rem;
+  padding-left: 2.1875rem;
+  padding-right: 2.1875rem;
+}
+
+.qualifications__item:last-of-type {
+  margin-bottom: 4rem;
 }
 
 .qualifications__icon {
@@ -215,9 +285,177 @@ body {
   display: inline-block;
   max-width: 680px;
   font-family: NotoSans, sans-serif;
-  font-size: 1rem;
-  line-height: 22px;
+  font-size: 0.875rem;
+  line-height: 1rem;
   color: #606060;
 }
 
 /** Qualifications Section - End **/
+
+/** Tablets and above */
+@media only screen and (min-width: 768px) {
+  .section {
+    min-height: unset;
+  }
+
+  .hero {
+    background-position: center;
+  }
+
+  .hero__description {
+    max-width: 400px;
+  }
+}
+
+/** PC - Small Screens */
+@media only screen and (min-width: 1024px) {
+  .section {
+    padding: 0 200px;
+  }
+
+  /** Hero Section - Start **/
+
+  .hero {
+    padding-top: 55px !important;
+    padding-bottom: 70px !important;
+    margin-top: 123px !important;
+    background-position: center;
+  }
+
+  .hero__title {
+    max-width: 700px;
+    font-size: 5rem;
+  }
+
+  .hero__description {
+    max-width: 610px;
+    margin-top: 20px;
+    font-size: 1.875rem;
+    line-height: 40px;
+  }
+
+  .hero__btn {
+    margin-top: 60px;
+    padding: 15px 60px;
+    border-radius: 35px 0;
+    font-size: 1.25rem;
+  }
+
+  .hero__btn:hover {
+    cursor: pointer;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    transform: scale(1.05) !important;
+    background: transparent;
+  }
+
+  /** Hero Section - End **/
+
+  /** Job Description Section - Start **/
+
+  .job-description {
+    min-height: unset;
+    padding-top: 45px;
+    padding-bottom: 65px;
+  }
+
+  .job-description__container {
+    flex-flow: column wrap;
+    row-gap: 35px;
+    column-gap: 70px;
+    max-height: 415px;
+  }
+
+  .job-description__paragraph {
+    max-width: 700px;
+    font-size: 1.3125rem;
+    line-height: 26px;
+  }
+
+  /** Job Description Section - End **/
+
+  /** Responsibilities Section - Start **/
+
+  .responsibilities {
+    padding-top: 55px;
+    padding-bottom: 60px;
+  }
+
+  .responsibilities__header {
+    margin-bottom: 20px;
+  }
+
+  .responsibilities__container--mobile {
+    display: none;
+  }
+
+  .responsibilities__container--pc {
+    display: flex;
+    max-height: 615px;
+  }
+
+  .responsibilities__item {
+    padding-left: unset;
+    padding-right: unset;
+    margin-bottom: unset;
+  }
+
+  .responsibilities__text {
+    font-size: 1rem;
+    line-height: 22px;
+  }
+
+  /** Responsibilities Section - End **/
+
+  /** Qualifications Section - Start **/
+
+  .qualifications {
+    min-height: unset;
+    padding-top: 70px;
+    padding-bottom: 85px;
+  }
+
+  .qualifications__header {
+    margin-bottom: 15px;
+    font-family: NotoSansBold, sans-serif;
+    font-size: 1.3125rem;
+    text-transform: uppercase;
+    color: #273E90;
+  }
+
+  .qualifications__container {
+    display: flex;
+    flex-flow: column wrap;
+    row-gap: 25px;
+    column-gap: 70px;
+    max-height: 580px;
+  }
+
+  .qualifications__container--mobile {
+    display: none;
+  }
+
+  .qualifications__container--pc {
+    display: flex;
+  }
+
+  .qualifications__item {
+    padding-left: unset;
+    padding-right: unset;
+    display: flex;
+    gap: 4px;
+    margin-bottom: unset;
+  }
+
+  .qualifications__text {
+    max-width: 680px;
+    font-size: 1rem;
+    line-height: 22px;
+  }
+
+  /** Qualifications Section - End **/
+}
+
+/** PC */
+@media only screen and (min-width: 1599px) {
+}

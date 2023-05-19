@@ -263,8 +263,8 @@ document.addEventListener('DOMContentLoaded', function() {
     oHeroSwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
     if (sDevice === 'mobile') {
       if (oWhySwiper !== undefined) {
-        oWhySwiper.on('touchMove', function() { oHeroSwiper.autoplay.stop(); });
-        oWhySwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
+        oWhySwiper.on('touchMove', function() { oWhySwiper.autoplay.stop(); });
+        oWhySwiper.on('touchEnd', function() { oWhySwiper.autoplay.start(); });
       }
       oJobCategoriesList.on('click', function(eEvent) {
         if (u(eEvent.target).hasClass('job-item')) toggleActiveJobCategory(eEvent);

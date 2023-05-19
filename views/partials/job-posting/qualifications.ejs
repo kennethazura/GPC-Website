@@ -1,11 +1,66 @@
 <div class="qualifications section">
     <h4 class="qualifications__header">Qualifications/Requirements</h4>
-    <div class="qualifications__container">
+    <div class="qualifications__container qualifications__container--pc">
         <% for(var i=0; i < jobDetails.qualifications.length; i++) { %>
             <div class="qualifications__item">
                 <img class="qualifications__icon"/>
                 <p class="qualifications__text"><%= jobDetails.qualifications[i] %></p>
             </div>
         <% } %>
+    </div>
+    <div class="qualifications__container qualifications__container--mobile">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <% if (jobDetails.qualifications.length > 1) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=0; i < 6; i++) { %>
+                            <% if(typeof jobDetails.qualifications[i] !== 'undefined') { %>
+                            <div class="qualifications__item">
+                                <img class="qualifications__icon"/>
+                                <p class="qualifications__text"><%= jobDetails.qualifications[i] %></p>
+                            </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <% } %>
+                <% if (jobDetails.qualifications.length > 6) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=6; i < 12; i++) { %>
+                            <% if(typeof jobDetails.qualifications[i] !== 'undefined') { %>
+                            <div class="qualifications__item">
+                                <img class="qualifications__icon"/>
+                                <p class="qualifications__text"><%= jobDetails.qualifications[i] %></p>
+                            </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <%} %>
+                <% if (jobDetails.qualifications.length > 12) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=12; i < 18; i++) { %>
+                            <% if(typeof jobDetails.qualifications[i] !== 'undefined') { %>  
+                            <div class="qualifications__item">
+                                <img class="qualifications__icon"/>
+                                <p class="qualifications__text"><%= jobDetails.qualifications[i] %></p>
+                            </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <%} %>
+                <% if (jobDetails.qualifications.length > 18) { %>
+                    <div class="swiper-slide">
+                        <% for(var i=18; i < 24; i++) { %>
+                            <% if(typeof jobDetails.qualifications[i] !== 'undefined') { %>
+                            <div class="qualifications__item">
+                                <img class="qualifications__icon"/>
+                                <p class="qualifications__text"><%= jobDetails.qualifications[i] %></p>
+                            </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <%} %>
+            </div> 
+            <div class="swiper-pagination"></div>
+        </div>
     </div>
 </div>
