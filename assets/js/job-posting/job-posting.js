@@ -186,6 +186,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function initEventListeners() {
     oNavbarMenuBtn.on('click', function() { oNavbar.toggleClass('active'); oBody.toggleClass('no-scroll'); });
     if (sDevice === 'mobile') {
+      if (oResponsibilitiesSwiper !== undefined) {
+        oResponsibilitiesSwiper.on('touchMove', function() { oQualificationSwiper.autoplay.stop(); });
+        oResponsibilitiesSwiper.on('touchEnd', function() { oQualificationSwiper.autoplay.start(); });
+      }
+
       if (oQualificationSwiper !== undefined) {
         oQualificationSwiper.on('touchMove', function() { oQualificationSwiper.autoplay.stop(); });
         oQualificationSwiper.on('touchEnd', function() { oQualificationSwiper.autoplay.start(); });
