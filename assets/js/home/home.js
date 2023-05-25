@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const oScrollMagicController = new ScrollMagic.Controller();
   const oJobCategoriesList = u('.job-categories__list');
   const oLoadMoreJobsBtn = u('.job-categories__button');
+  const oContactUsName = u('.contact-us__name').nodes[0];
+  const oContactUsEmail = u('.contact-us__email').nodes[0];
+  const oContactUsPhone = u('.contact-us__phone').nodes[0];
+  const oContactUsMessage = u('.contact-us__message').nodes[0];
+  const oContactUsCaptcha = u('.g-recaptcha');
+  const oContactUsButton = u('.contact-us__button');
   const iDeviceWidth = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
   const sDevice = (iDeviceWidth >= 1024) ? 'pc' : 'mobile';
   const iTotalAvailableJobs = 9;
@@ -278,6 +284,15 @@ document.addEventListener('DOMContentLoaded', function() {
       setTimeout(function() {
         scrollToSection(eEvent);
       }, 300);
+    });
+    oContactUsButton.on('click', async function() {
+      fetch(
+        `${DOMAIN}${API_ROUTE}/send-mail?name=${oContactUsName.value}&email=${oContactUsEmail.value}&phone=${oContactUsPhone.value}&message=${oContactUsMessage.value}`,
+        { method: 'POST', body: '' },
+      )
+        .then(function(response) {
+          console.log(response.body);
+        });
     });
   }
 

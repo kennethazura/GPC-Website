@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 if (process.env.ENVIRONMENT !== 'production') {
   const dotenv = require('dotenv');
@@ -98,4 +99,47 @@ server.get('/terms-and-conditions', (req, res) => {
 
 server.listen(port, () => {
   console.log(`Server has started on port ${port}`);
+});
+
+function _getCurrentDate() {
+  const date = new Date();
+
+  const currentDay = String(date.getDate()).padStart(2, '0');
+  const currentMonth = String(date.getMonth() + 1).padStart(2, '0');
+  const currentYear = date.getFullYear();
+
+  return `${currentDay}-${currentMonth}-${currentYear}`;
+}
+
+server.post(`${process.env.API_ROUTE}/send-mail`, (req, res) => {
+  const NAME = req.query.name;
+  const EMAIL = req.query.email;
+  const PHONE = req.query.phone;
+  const MESSAGE = req.query.message;
+  console.log(req.query);
+
+  async function main() {
+    const transporter = nodemailer.createTransport({
+      service: 'yahoo',
+      auth: {
+        user: 'kenneth_azura@yahoo.com',
+        pass: 'qwrajbmlaggclttx',
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: '"Kenneth Azura" <kenneth_azura@yahoo.com>',
+      to: 'kenneth.azura@gmail.com',
+      subject: `GPC Contact Us - Submission (${_getCurrentDate()})`,
+      html: `<b>Name:</b> ${NAME}<br/>
+      <b>E-Mail:</b> ${EMAIL}<br/>
+      <b>Phone:</b> ${PHONE}<br/>
+      <b>Message:</b> ${MESSAGE}<br/>`,
+    });
+
+    console.log('Message sent: %s', info.messageId);
+  }
+
+  main().catch(console.error);
+  return res.send('OK');
 });
