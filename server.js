@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const fetch = require('node-fetch');
 
 if (process.env.ENVIRONMENT !== 'production') {
   const dotenv = require('dotenv');
@@ -27,7 +28,7 @@ if (process.env.ENVIRONMENT === 'local') {
 }
 
 server.get(`${process.env.API_ROUTE}/job-categories`, (req, res) => {
-  const sJobCategoriesDataURL = `${process.env.DOMAIN}${process.env.ASSET_LINK}/data/job-categories.json`;
+  const sJobCategoriesDataURL = `http://${process.env.DOMAIN}${process.env.ASSET_LINK}/data/job-categories.json`;
 
   fetch(sJobCategoriesDataURL, { method: 'Get' })
     .then((oResponse) => oResponse.json())
@@ -40,7 +41,7 @@ server.get(`${process.env.API_ROUTE}/job-categories`, (req, res) => {
 });
 
 server.get(`${process.env.API_ROUTE}/job-details`, (req, res) => {
-  const sJobDataURL = `${process.env.DOMAIN}${process.env.ASSET_LINK}/data/job-details.json`;
+  const sJobDataURL = `http://${process.env.DOMAIN}${process.env.ASSET_LINK}/data/job-details.json`;
 
   fetch(sJobDataURL, { method: 'Get' })
     .then((oResponse) => oResponse.json())
@@ -59,16 +60,6 @@ server.get(`${process.env.API_ROUTE}/job-details`, (req, res) => {
 });
 
 server.get('/', (req, res) => {
-  // fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-categories?count=9`)
-  //   .then(async(oResponse) => {
-  //     const aJobCategories = await oResponse.json();
-  //     res.render('home.ejs', {
-  //       jobCategories: aJobCategories,
-  //       assetLink: process.env.ASSET_LINK,
-  //       domain: process.env.DOMAIN,
-  //       apiRoute: process.env.API_ROUTE,
-  //     });
-  //   });
   res.render('home.ejs', {
     assetLink: process.env.ASSET_LINK,
     domain: process.env.DOMAIN,
@@ -78,7 +69,7 @@ server.get('/', (req, res) => {
 });
 
 server.get('/job/:jobTitle', (req, res) => {
-  fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
+  fetch(`http://${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
     .then(async(oResponse) => {
       const oJobDetails = await oResponse.json();
       if (Object.prototype.hasOwnProperty.call(oJobDetails, 'error')) res.send(`Error! "${req.params.jobTitle}" not found.`);
