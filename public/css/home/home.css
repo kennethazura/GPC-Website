@@ -1067,6 +1067,7 @@ body {
   }
 
   .price-tc__header {
+    margin: unset;
     font-family: MonserattBold, sans-serif;
     font-size: 4.375rem;
     text-align: left;
