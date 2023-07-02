@@ -85,7 +85,10 @@ server.get('/job/:jobTitle', (req, res) => {
 });
 
 server.get('/terms-and-conditions', (req, res) => {
-  res.render('terms-and-conditions.ejs', { assetLink: process.env.ASSET_LINK });
+  res.render('terms-and-conditions.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+  });
 });
 
 server.listen(port, () => {
@@ -120,7 +123,8 @@ server.post(`${process.env.API_ROUTE}/send-mail`, (req, res) => {
 
     const info = await transporter.sendMail({
       from: '"Kenneth Azura" <kenneth_azura@yahoo.com>',
-      to: 'kenneth.azura@gmail.com',
+      to: 'dlegario@gpc.team',
+      cc: 'kpena@kbfcpa.com',
       subject: `GPC Contact Us - Submission (${_getCurrentDate()})`,
       html: `<b>Name:</b> ${NAME}<br/>
       <b>E-Mail:</b> ${EMAIL}<br/>

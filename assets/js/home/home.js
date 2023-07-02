@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbarMenuBtn = u('.navbar__burger-btn');
   const oScrollMagicController = new ScrollMagic.Controller();
   const oJobCategoriesList = u('.job-categories__list');
+
   const oLoadMoreJobsBtn = u('.job-categories__button');
   const oContactUsName = u('.contact-us__name').nodes[0];
   const oContactUsEmail = u('.contact-us__email').nodes[0];
@@ -200,8 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
    * @returns DOM
    */
   function _createJobItem(sJobTitle, sJobDescription, sJobIconLink, sJobRedirectLink) {
-    const oJobItem = `<a href="${sJobRedirectLink}">
-        <div class="job-item">
+    const oJobItem = `<a href="${sJobRedirectLink}" class="job-item-redirect ${sJobTitle.toLowerCase()}">
+        <div class="job-item ${sJobTitle.toLowerCase()}">
           <img src="${sJobIconLink}" class="job-item__icon"/>
           <h3 class="job-item__title">${sJobTitle}</h3>
           <img class="job-item__expand-icon"/>
@@ -277,6 +278,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (u(eEvent.target).hasClass('job-item')) toggleActiveJobCategory(eEvent);
       });
     }
+    oDocument.on('click', '.job-item-redirect', function(eEvent) {
+      if (!eEvent.target.classList.contains('controller')) eEvent.preventDefault();
+    });
     oLoadMoreJobsBtn.on('click', loadMoreJobs);
     oNavButtonsMobile.on('click', function(eEvent) {
       eEvent.preventDefault();
