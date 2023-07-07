@@ -1,5 +1,18 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 body {
   overflow-x: hidden;
+  opacity: 0;
+  animation: fade-in 1s ease;
+  animation-fill-mode: forwards;
 }
 
 ::-webkit-scrollbar {
@@ -310,7 +323,7 @@ body {
 /** PC - Small Screens */
 @media only screen and (min-width: 1024px) {
   .section {
-    padding: 0 200px;
+    padding: 0 100px;
   }
 
   /** Hero Section - Start **/
@@ -318,27 +331,27 @@ body {
   .hero {
     padding-top: 55px !important;
     padding-bottom: 70px !important;
-    margin-top: 123px !important;
+    margin-top: 85px !important;
     background-position: center;
   }
 
   .hero__title {
     max-width: 700px;
-    font-size: 5rem;
+    font-size: 2.5rem;
   }
 
   .hero__description {
     max-width: 610px;
     margin-top: 20px;
-    font-size: 1.875rem;
-    line-height: 40px;
+    font-size: 1.125rem;
+    line-height: 25px;
   }
 
   .hero__btn {
-    margin-top: 60px;
-    padding: 15px 60px;
-    border-radius: 35px 0;
-    font-size: 1.25rem;
+    margin-top: 40px;
+    padding: 10px 40px;
+    border-radius: 30px 0;
+    font-size: 0.875rem;
   }
 
   .hero__btn:hover {
@@ -355,8 +368,8 @@ body {
 
   .job-description {
     min-height: unset;
-    padding-top: 45px;
-    padding-bottom: 65px;
+    padding-top: 45px !important;
+    padding-bottom: 65px !important;
   }
 
   .job-description__container {
@@ -367,9 +380,9 @@ body {
   }
 
   .job-description__paragraph {
-    max-width: 700px;
-    font-size: 1.3125rem;
-    line-height: 26px;
+    max-width: 540px;
+    font-size: 1rem;
+    line-height: 22px;
   }
 
   /** Job Description Section - End **/
@@ -377,8 +390,8 @@ body {
   /** Responsibilities Section - Start **/
 
   .responsibilities {
-    padding-top: 55px;
-    padding-bottom: 60px;
+    padding-top: 55px !important;
+    padding-bottom: 60px !important;
   }
 
   .responsibilities__header {
@@ -401,8 +414,9 @@ body {
   }
 
   .responsibilities__text {
-    font-size: 1rem;
-    line-height: 22px;
+    font-size: 0.875rem;
+    line-height: 18px;
+    max-width: 510px;
   }
 
   /** Responsibilities Section - End **/
@@ -411,8 +425,8 @@ body {
 
   .qualifications {
     min-height: unset;
-    padding-top: 70px;
-    padding-bottom: 85px;
+    padding-top: 70px !important;
+    padding-bottom: 85px !important;
   }
 
   .qualifications__header {
@@ -428,7 +442,7 @@ body {
     flex-flow: column wrap;
     row-gap: 25px;
     column-gap: 70px;
-    max-height: 580px;
+    max-height: 650px;
   }
 
   .qualifications__container--mobile {
@@ -448,9 +462,9 @@ body {
   }
 
   .qualifications__text {
-    max-width: 680px;
-    font-size: 1rem;
-    line-height: 22px;
+    font-size: 0.875rem;
+    line-height: 18px;
+    max-width: 510px;
   }
 
   /** Qualifications Section - End **/
@@ -458,4 +472,65 @@ body {
 
 /** PC */
 @media only screen and (min-width: 1599px) {
+  .section {
+    padding: 0 200px;
+  }
+
+  /** Hero Section - Start **/
+
+  .hero {
+    margin-top: 123px !important;
+  }
+
+  .hero__title {
+    font-size: 5rem;
+  }
+
+  .hero__description {
+    font-size: 1.875rem;
+    line-height: 40px;
+  }
+
+  .hero__btn {
+    margin-top: 60px;
+    padding: 15px 60px;
+    border-radius: 35px 0;
+    font-size: 1.25rem;
+  }
+
+  /** Hero Section - End **/
+
+  /** Job Description Section - Start **/
+
+  .job-description__paragraph {
+    max-width: 700px;
+    font-size: 1.3125rem;
+    line-height: 26px;
+  }
+
+  /** Job Description Section - End **/
+
+  /** Responsibilities Section - Start **/
+
+  .responsibilities__text {
+    font-size: 1rem;
+    line-height: 22px;
+    max-width: 680px;
+  }
+
+  /** Responsibilities Section - End **/
+
+  /** Qualifications Section - Start **/
+
+  .qualifications__container {
+    max-height: 580px;
+  }
+
+  .qualifications__text {
+    max-width: 680px;
+    font-size: 1rem;
+    line-height: 22px;
+  }
+
+  /** Qualifications Section - End **/
 }

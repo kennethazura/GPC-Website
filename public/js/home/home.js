@@ -10,8 +10,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbarMenuBtn = u('.navbar__burger-btn');
   const oScrollMagicController = new ScrollMagic.Controller();
   const oJobCategoriesList = u('.job-categories__list');
+
   const oLoadMoreJobsBtn = u('.job-categories__button');
+  const oContactUsName = u('.contact-us__name').nodes[0];
+  const oContactUsEmail = u('.contact-us__email').nodes[0];
+  const oContactUsPhone = u('.contact-us__phone').nodes[0];
+  const oContactUsMessage = u('.contact-us__message').nodes[0];
+  const oContactUsCaptcha = u('.g-recaptcha');
+  const oContactUsButton = u('.contact-us__button');
   const iDeviceWidth = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
+  const iDeviceHeight = (window.innerHeight > 0) ? window.innerHeight : window.screen.height;
   const sDevice = (iDeviceWidth >= 1024) ? 'pc' : 'mobile';
   const iTotalAvailableJobs = 9;
   let iLoadedJobs = 3;
@@ -38,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   if (sDevice === 'mobile') {
-    oWhySwiper = new Swiper('#why-section .swiper', {
+    oWhySwiper = new Swiper('.why-gpc.section .swiper', {
       direction: 'horizontal',
       speed: 1000,
       autoplay: {
@@ -46,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         disableOnInteraction: false,
       },
       pagination: {
-        el: '#why-section .swiper-pagination',
+        el: '.why-gpc.section .swiper-pagination',
         clickable: true,
       },
     });
@@ -95,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const oHeroScene = new ScrollMagic.Scene({
     triggerElement: '.hero.section',
-    duration: 1000,
+    duration: iDeviceHeight,
   }).setClassToggle('.navbar', 'section--hero')
     .on('enter', function() {
       if (oAnimationStatus.heroSection === false && _isScrollPositionCorrect(1)) {
@@ -111,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const oHowSectionWorksScene = new ScrollMagic.Scene({
     triggerElement: '.how-gpc-works.section',
-    duration: 1000,
+    duration: iDeviceHeight,
   }).setClassToggle('.navbar', 'section--how-gpc-works')
     .on('enter', function() {
       if (oAnimationStatus.howSection === false && _isScrollPositionCorrect(2)) {
@@ -123,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const oWhyGPCWorksScene = new ScrollMagic.Scene({
     triggerElement: '.why-gpc.section',
-    duration: 1000,
+    duration: iDeviceHeight,
   }).setClassToggle('.navbar', 'section--why-gpc')
     .on('enter', function() {
       if (oAnimationStatus.whySection === false && _isScrollPositionCorrect(3)) {
@@ -147,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const oPriceTermsandConditionScene = new ScrollMagic.Scene({
     triggerElement: '.price-tc.section',
-    duration: 1000,
+    duration: iDeviceHeight,
   }).setClassToggle('.navbar', 'section--price-tc')
     .on('enter', function() {
       if (oAnimationStatus.pricetc === false && _isScrollPositionCorrect(6)) {
@@ -159,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const oContactUsScene = new ScrollMagic.Scene({
     triggerElement: '.contact-us.section',
-    duration: 1000,
+    duration: iDeviceHeight,
   }).setClassToggle('.navbar', 'section--contact-us')
     .on('enter', function() {
       if (oAnimationStatus.pricetc === false && _isScrollPositionCorrect(6)) {
@@ -193,8 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
    * @returns DOM
    */
   function _createJobItem(sJobTitle, sJobDescription, sJobIconLink, sJobRedirectLink) {
-    const oJobItem = `<a href="${sJobRedirectLink}">
-        <div class="job-item">
+    const oJobItem = `<a href="${sJobRedirectLink}" class="job-item-redirect ${sJobTitle.toLowerCase()}">
+        <div class="job-item ${sJobTitle.toLowerCase()}">
           <img src="${sJobIconLink}" class="job-item__icon"/>
           <h3 class="job-item__title">${sJobTitle}</h3>
           <img class="job-item__expand-icon"/>
@@ -270,6 +278,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (u(eEvent.target).hasClass('job-item')) toggleActiveJobCategory(eEvent);
       });
     }
+    oDocument.on('click', '.job-item-redirect', function(eEvent) {
+      if (!eEvent.target.classList.contains('controller')) eEvent.preventDefault();
+    });
     oLoadMoreJobsBtn.on('click', loadMoreJobs);
     oNavButtonsMobile.on('click', function(eEvent) {
       eEvent.preventDefault();
@@ -279,10 +290,16 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToSection(eEvent);
       }, 300);
     });
+    oContactUsButton.on('click', async function() {
+      fetch(
+        `${DOMAIN}${API_ROUTE}/send-mail?name=${oContactUsName.value}&email=${oContactUsEmail.value}&phone=${oContactUsPhone.value}&message=${oContactUsMessage.value}`,
+        { method: 'POST', body: '' },
+      );
+    });
   }
 
   async function init() {
-    toggleNavbarState();
+    setTimeout(toggleNavbarState, 1000);
     await initJobCategories();
     initEventListeners();
     _cleanUp();

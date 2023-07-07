@@ -2,55 +2,55 @@
     "jobCategories": [
         {
             "jobTitle": "Controller",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Oversee the accounting department functions with a focus on ensuring the timely and accurate delivery of financial statements and reporting.",
             "jobIcon": "/public/img/home/job-categories/controller-icon.png",
             "link": "/job/controller"
         },
         {
             "jobTitle": "Accounting Manager",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Oversee an organization's daily accounting operations, including the accounting, payroll, accounts receivable and accounts payable departments.",
             "jobIcon": "/public/img/home/job-categories/account-manager-icon.png",
             "link": "/job/accounting-manager"
         },
         {
             "jobTitle": "Staff Accountant/Bookkeeper",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Prepare and maintain financial records to track the organizations assets, liabilities, profit and loss, tax liabilities, and other related financial activities.",
             "jobIcon": "/public/img/home/job-categories/bookkeeper-icon.png",
             "link": "/job/bookkeeper"
         },
         {
             "jobTitle": "Accounts Receivable",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Responsible for ensuring all incoming payments are received and processed.",
             "jobIcon": "/public/img/home/job-categories/accounts-receivable-icon.png",
             "link": "/job/accounts-receivable"
         },
         {
             "jobTitle": "Accounts Payable",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Responsible for managing and maintaining financial records, with a particular emphasis on processing invoices and other bills.",
             "jobIcon": "/public/img/home/job-categories/accounts-payable-icon.png",
             "link": "/job/accounts-payable"
         },
         {
             "jobTitle": "Payroll Accountant",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Oversee and supervise the payroll functions of the organization, ensuring pay is processed on time, accurately, and in compliance with government regulations.",
             "jobIcon": "/public/img/home/job-categories/payroll-accountant-icon.png",
             "link": "/job/payroll-accountant"
         },
         {
             "jobTitle": "Financial Analyst",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Responsible for tracking a company's financial performance against plan, analyzing business performance and market conditions to create forecasts, and helping senior management make tactical and strategic decisions by providing periodic reports.",
             "jobIcon": "/public/img/home/job-categories/financial-analyst-icon.png",
             "link": "/job/financial-analyst"
         },
         {
             "jobTitle": "Tax Accountant",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Prepare and submit tax returns, analyze financial information, and ensure all departments are informed of the current best practices in the field of tax compliance and accounting.",
             "jobIcon": "/public/img/home/job-categories/tax-accountant-icon.png",
             "link": "/job/tax-accountant"
         },
         {
             "jobTitle": "Executive Assistant",
-            "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "jobDescription": "Coordinate and provide high-quality administrative support to the executive team.",
             "jobIcon": "/public/img/home/job-categories/executive-assistant-icon.png",
             "link": "/job/executive-assistant"
         }

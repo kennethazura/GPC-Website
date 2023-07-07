@@ -147,11 +147,6 @@
 
 /** PC - Small Screens */
 @media only screen and (min-width: 1024px) {
-
-}
-
-/** PC */
-@media only screen and (min-width: 1599px) {
   .footer {
     background: rgb(0, 20, 84);
     height: unset;
@@ -255,7 +250,7 @@
     padding-top: 0.625rem;
     padding-bottom: 0.625rem;
     width: 100vw;
-    margin-left: -200px;
+    margin-left: -100px;
   }
 
   .footer__rights {
@@ -263,5 +258,12 @@
     font-family: NotoSans, sans-serif;
     font-size: 0.875rem;
     text-align: center;
+  }
+}
+
+/** PC */
+@media only screen and (min-width: 1599px) {
+  .copyright {
+    margin-left: -200px;
   }
 }

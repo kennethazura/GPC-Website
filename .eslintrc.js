@@ -21,6 +21,7 @@ module.exports = {
     'no-param-reassign': ['error', { props: false }],
     'no-underscore-dangle': 0,
     'max-len': 0,
+    'import/no-extraneous-dependencies': 0,
   },
   globals: {
     gsap: true,
