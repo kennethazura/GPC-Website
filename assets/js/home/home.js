@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbarMenuBtn = u('.navbar__burger-btn');
   const oScrollMagicController = new ScrollMagic.Controller();
   const oJobCategoriesList = u('.job-categories__list');
-
   const oLoadMoreJobsBtn = u('.job-categories__button');
+  const oContactUsForm = u('#contact-us__form');
   const oContactUsName = u('.contact-us__name').nodes[0];
   const oContactUsEmail = u('.contact-us__email').nodes[0];
   const oContactUsPhone = u('.contact-us__phone').nodes[0];
@@ -290,11 +290,28 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToSection(eEvent);
       }, 300);
     });
-    oContactUsButton.on('click', async function() {
+    oContactUsForm.on('submit', async function(eEvent) {
+      eEvent.preventDefault();
+      // TO DO: If any field is empty show error message
+      // To Do: show loading -> close loading on success/error then show success message
+      // clear form
       fetch(
-        `${DOMAIN}${API_ROUTE}/send-mail?name=${oContactUsName.value}&email=${oContactUsEmail.value}&phone=${oContactUsPhone.value}&message=${oContactUsMessage.value}`,
-        { method: 'POST', body: '' },
-      );
+        `${DOMAIN}${API_ROUTE}/send-mail`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: u(this).serialize(),
+        },
+      ).then((oResponse) => oResponse.json())
+        .then((data) => {
+          if (data.success === true) {
+            alert(data.message);
+          } else {
+            alert(data.message);
+          }
+        });
     });
   }
 

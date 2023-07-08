@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
+const bodyParser = require('body-parser');
 
 if (process.env.ENVIRONMENT !== 'production') {
   const dotenv = require('dotenv');
@@ -11,6 +12,9 @@ if (process.env.ENVIRONMENT !== 'production') {
 const server = express();
 const port = process.env.SERVER_PORT || 3000;
 server.set('view engine', 'ejs');
+
+// create application/x-www-form-urlencoded parser
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // #############################################################################
 // Logs all request paths and method
@@ -105,12 +109,28 @@ function _getCurrentDate() {
   return `${currentDay}-${currentMonth}-${currentYear}`;
 }
 
-server.post(`${process.env.API_ROUTE}/send-mail`, (req, res) => {
-  const NAME = req.query.name;
-  const EMAIL = req.query.email;
-  const PHONE = req.query.phone;
-  const MESSAGE = req.query.message;
-  console.log(req.query);
+function _verifyRecaptcha(recaptchaResponse) {
+  return fetch(
+    'https://www.google.com/recaptcha/api/siteverify',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaResponse}`,
+    },
+  ).then((oResponse) => oResponse.json().then((data) => data).catch((err) => {
+  }));
+}
+
+server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, res) => {
+  const NAME = req.body['c-name'];
+  const EMAIL = req.body['c-email'];
+  const PHONE = req.body['c-phone'];
+  const MESSAGE = req.body['c-message'];
+  const RECAPTCHA_RESPONSE = req.body['g-recaptcha-response'];
+  const oResponseStatus = {
+    success: false,
+    message: '',
+  };
 
   async function main() {
     const transporter = nodemailer.createTransport({
@@ -123,8 +143,9 @@ server.post(`${process.env.API_ROUTE}/send-mail`, (req, res) => {
 
     const info = await transporter.sendMail({
       from: '"Kenneth Azura" <kenneth_azura@yahoo.com>',
-      to: 'dlegario@gpc.team',
-      cc: 'kpena@kbfcpa.com',
+      // to: 'dlegario@gpc.team',
+      to: 'kenneth.azura@gmail.com',
+      // cc: 'kpena@kbfcpa.com',
       subject: `GPC Contact Us - Submission (${_getCurrentDate()})`,
       html: `<b>Name:</b> ${NAME}<br/>
       <b>E-Mail:</b> ${EMAIL}<br/>
@@ -135,6 +156,16 @@ server.post(`${process.env.API_ROUTE}/send-mail`, (req, res) => {
     console.log('Message sent: %s', info.messageId);
   }
 
-  main().catch(console.error);
-  return res.send('OK');
+  await _verifyRecaptcha(RECAPTCHA_RESPONSE)
+    .then((oResponse) => {
+      if (oResponse.success === true) {
+        main().catch(console.error);
+        oResponseStatus.success = true;
+        oResponseStatus.message = 'Your message has been sent!';
+      } else {
+        oResponseStatus.message = 'Sorry an error occured, your request could not be finalized.';
+      }
+    });
+
+  return res.send(oResponseStatus);
 });
