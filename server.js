@@ -21,7 +21,6 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 server.use(function(req, res, next) {
   res.set('x-timestamp', Date.now());
   res.set('x-powered-by', 'cyclic.sh');
-  console.log(`[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`);
   next();
 });
 
@@ -134,18 +133,18 @@ server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, r
 
   async function main() {
     const transporter = nodemailer.createTransport({
-      service: 'yahoo',
+      service: 'Gmail',
       auth: {
-        user: 'kenneth_azura@yahoo.com',
-        pass: 'qwrajbmlaggclttx',
+        user: 'gpc.workforce.sender@gmail.com',
+        pass: 'fvzzpxfyvnasunik',
       },
     });
 
     const info = await transporter.sendMail({
-      from: '"Kenneth Azura" <kenneth_azura@yahoo.com>',
-      // to: 'dlegario@gpc.team',
-      to: 'kenneth.azura@gmail.com',
-      // cc: 'kpena@kbfcpa.com',
+      from: '"GPC Workforce" <gpc.workforce.sender@gmail.com>',
+      // to: 'kenneth.azura@gmail.com',
+      to: 'dlegario@gpc.team',
+      cc: 'kpena@kbfcpa.com',
       subject: `GPC Contact Us - Submission (${_getCurrentDate()})`,
       html: `<b>Name:</b> ${NAME}<br/>
       <b>E-Mail:</b> ${EMAIL}<br/>
@@ -163,7 +162,7 @@ server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, r
         oResponseStatus.success = true;
         oResponseStatus.message = 'Your message has been sent!';
       } else {
-        oResponseStatus.message = 'Sorry an error occured, your request could not be finalized.';
+        oResponseStatus.message = 'Unable to verify your ReCaptcha, please try again.';
       }
     });
 

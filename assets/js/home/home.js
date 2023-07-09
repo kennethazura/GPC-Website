@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const oContactUsPhone = u('.contact-us__phone').nodes[0];
   const oContactUsMessage = u('.contact-us__message').nodes[0];
   const oContactUsCaptcha = u('.g-recaptcha');
-  const oContactUsButton = u('.contact-us__button');
   const iDeviceWidth = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
   const iDeviceHeight = (window.innerHeight > 0) ? window.innerHeight : window.screen.height;
   const sDevice = (iDeviceWidth >= 1024) ? 'pc' : 'mobile';
@@ -239,6 +238,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function _isEmailFormValid() {
+    return (oContactUsName.value !== ''
+    && oContactUsEmail.value !== ''
+    && oContactUsPhone.value !== ''
+    && oContactUsMessage.value !== '');
+  }
+
+  function _clearEmailForm() {
+    oContactUsName.value = '';
+    oContactUsEmail.value = '';
+    oContactUsPhone.value = '';
+    oContactUsMessage.value = '';
+    grecaptcha.reset();
+  }
+
   async function loadJobCategories(iStart, iCount) {
     const oResponse = await fetch(`${DOMAIN}${API_ROUTE}/job-categories?start=${iStart}&count=${iCount}`);
     return oResponse.json();
@@ -292,9 +306,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     oContactUsForm.on('submit', async function(eEvent) {
       eEvent.preventDefault();
-      // TO DO: If any field is empty show error message
-      // To Do: show loading -> close loading on success/error then show success message
-      // clear form
+      if (!_isEmailFormValid()) {
+        alert('Please make sure all fields are filled out.');
+        return;
+      }
+      showLoading();
       fetch(
         `${DOMAIN}${API_ROUTE}/send-mail`,
         {
@@ -306,9 +322,12 @@ document.addEventListener('DOMContentLoaded', function() {
         },
       ).then((oResponse) => oResponse.json())
         .then((data) => {
+          hideLoading();
           if (data.success === true) {
+            _clearEmailForm();
             alert(data.message);
           } else {
+            grecaptcha.reset();
             alert(data.message);
           }
         });
