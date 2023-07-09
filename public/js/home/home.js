@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbarMenuBtn = u('.navbar__burger-btn');
   const oScrollMagicController = new ScrollMagic.Controller();
   const oJobCategoriesList = u('.job-categories__list');
-
   const oLoadMoreJobsBtn = u('.job-categories__button');
+  const oContactUsForm = u('#contact-us__form');
   const oContactUsName = u('.contact-us__name').nodes[0];
   const oContactUsEmail = u('.contact-us__email').nodes[0];
   const oContactUsPhone = u('.contact-us__phone').nodes[0];
   const oContactUsMessage = u('.contact-us__message').nodes[0];
   const oContactUsCaptcha = u('.g-recaptcha');
-  const oContactUsButton = u('.contact-us__button');
   const iDeviceWidth = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
   const iDeviceHeight = (window.innerHeight > 0) ? window.innerHeight : window.screen.height;
   const sDevice = (iDeviceWidth >= 1024) ? 'pc' : 'mobile';
@@ -239,6 +238,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function _isEmailFormValid() {
+    return (oContactUsName.value !== ''
+    && oContactUsEmail.value !== ''
+    && oContactUsPhone.value !== ''
+    && oContactUsMessage.value !== '');
+  }
+
+  function _clearEmailForm() {
+    oContactUsName.value = '';
+    oContactUsEmail.value = '';
+    oContactUsPhone.value = '';
+    oContactUsMessage.value = '';
+    grecaptcha.reset();
+  }
+
   async function loadJobCategories(iStart, iCount) {
     const oResponse = await fetch(`${DOMAIN}${API_ROUTE}/job-categories?start=${iStart}&count=${iCount}`);
     return oResponse.json();
@@ -290,11 +304,33 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToSection(eEvent);
       }, 300);
     });
-    oContactUsButton.on('click', async function() {
+    oContactUsForm.on('submit', async function(eEvent) {
+      eEvent.preventDefault();
+      if (!_isEmailFormValid()) {
+        alert('Please make sure all fields are filled out.');
+        return;
+      }
+      showLoading();
       fetch(
-        `${DOMAIN}${API_ROUTE}/send-mail?name=${oContactUsName.value}&email=${oContactUsEmail.value}&phone=${oContactUsPhone.value}&message=${oContactUsMessage.value}`,
-        { method: 'POST', body: '' },
-      );
+        `${DOMAIN}${API_ROUTE}/send-mail`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: u(this).serialize(),
+        },
+      ).then((oResponse) => oResponse.json())
+        .then((data) => {
+          hideLoading();
+          if (data.success === true) {
+            _clearEmailForm();
+            alert(data.message);
+          } else {
+            grecaptcha.reset();
+            alert(data.message);
+          }
+        });
     });
   }
 
