@@ -133,18 +133,18 @@ server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, r
 
   async function main() {
     const transporter = nodemailer.createTransport({
-      service: 'Gmail',
+      service: 'gmail',
       auth: {
-        user: 'gpc.workforce.sender@gmail.com',
-        pass: 'fvzzpxfyvnasunik',
+        user: 'noreply@gpc.team',
+        pass: 'nuuxhfyphwxzqxkx',
       },
     });
 
     const info = await transporter.sendMail({
       from: '"GPC Workforce" <gpc.workforce.sender@gmail.com>',
       // to: 'kenneth.azura@gmail.com',
-      to: 'dlegario@gpc.team',
-      cc: 'kpena@kbfcpa.com',
+      to: 'ymendiola@gpc.team',
+      cc: 'pbuss@gpc.team',
       subject: `GPC Contact Us - Submission (${_getCurrentDate()})`,
       html: `<b>Name:</b> ${NAME}<br/>
       <b>E-Mail:</b> ${EMAIL}<br/>
