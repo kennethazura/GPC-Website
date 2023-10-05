@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
     oDocument.on('click', '.job-item-redirect', function(eEvent) {
-      if (!eEvent.target.classList.contains('controller')) eEvent.preventDefault();
+      if (!eEvent.target.classList.contains('')) eEvent.preventDefault();
     });
     oLoadMoreJobsBtn.on('click', loadMoreJobs);
     oNavButtonsMobile.on('click', function(eEvent) {

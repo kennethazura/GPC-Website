@@ -71,21 +71,21 @@ server.get('/', (req, res) => {
   });
 });
 
-server.get('/job/:jobTitle', (req, res) => {
-  fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
-    .then(async(oResponse) => {
-      const oJobDetails = await oResponse.json();
-      if (Object.prototype.hasOwnProperty.call(oJobDetails, 'error')) res.send(`Error! "${req.params.jobTitle}" not found.`);
-      else {
-        res.render('job-posting.ejs', {
-          jobDetails: oJobDetails,
-          assetLink: process.env.ASSET_LINK,
-          domain: process.env.DOMAIN,
-          apiRoute: process.env.API_ROUTE,
-        });
-      }
-    });
-});
+// server.get('/job/:jobTitle', (req, res) => {
+//   fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
+//     .then(async(oResponse) => {
+//       const oJobDetails = await oResponse.json();
+//       if (Object.prototype.hasOwnProperty.call(oJobDetails, 'error')) res.send(`Error! "${req.params.jobTitle}" not found.`);
+//       else {
+//         res.render('job-posting.ejs', {
+//           jobDetails: oJobDetails,
+//           assetLink: process.env.ASSET_LINK,
+//           domain: process.env.DOMAIN,
+//           apiRoute: process.env.API_ROUTE,
+//         });
+//       }
+//     });
+// });
 
 server.get('/terms-and-conditions', (req, res) => {
   res.render('terms-and-conditions.ejs', {
