@@ -1,0 +1,231 @@
+.sign-in-sign-up__backdrop {
+  pointer-events: none;
+  z-index: 1500;
+  opacity: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.675);
+  transition: all 0.3s ease;
+}
+
+.sign-in-sign-up {
+  pointer-events: none;
+  z-index: 2000;
+  opacity: 0;
+  position: fixed;
+  display: flex;
+  top: 25vh;
+  left: 50vw;
+  max-width: 35vw;
+  padding: 40px;
+  border-top-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+  overflow-x: hidden;
+  background: white;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+}
+
+.sign-in-sign-up__backdrop.active,
+.sign-in-sign-up.active {
+  pointer-events: unset;
+  opacity: 1;
+}
+
+.sign-in {
+  flex-shrink: 0;
+  width: 100%;
+  margin-left: -35vw;
+  transition: all 0.25s ease;
+}
+
+.sign-in.active {
+  margin-left: 0;
+  margin-right: 40px;
+}
+
+.sign-up {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-family: NotoSans, sans-serif;
+}
+
+.sign-in__header,
+.sign-up__header {
+  font-family: MonserattBold, sans-serif;
+  font-size: 2rem;
+  color: #273E90;
+}
+
+.sign-up__sub-header {
+  margin-top: 4px;
+  font-family: NotoSans, sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 1.125rem;
+  color: #07CBF5;
+}
+
+.sign-in-btn {
+  text-decoration: underline;
+  transition: all 0.25s ease;
+}
+
+.sign-in-btn:hover {
+  cursor: pointer;
+  color: #273E90;
+}
+
+.sign-up__e-mail-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  margin-top: 40px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  font-family: MonserattBold, sans-serif;
+  font-size: 1.5rem;
+  color: #606060;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.sign-up__e-mail-btn.hidden {
+  display: none;
+}
+
+.sign-up__e-mail-btn:hover {
+  cursor: pointer;
+  color: #FFFFFF;
+  background: #273E90;
+}
+
+.sign-up__btn-icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(17%) sepia(27%) saturate(5586%) hue-rotate(218deg) brightness(98%) contrast(89%);
+  transition all: 0.3s ease;
+}
+
+.sign-up__e-mail-btn:hover .sign-up__btn-icon {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.sign-up__e-mail-container {
+  opacity: 0;
+  height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.sign-up__e-mail-container.active {
+  opacity: 1;
+  margin-top: 40px;
+  height: 40%;
+  transition: all 0.3s ease;
+}
+
+.sign-up__e-mail-container input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid;
+}
+
+.sign-up__e-mail-container button {
+  align-self: center;
+  width: 100%;
+  max-width: 30%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 2px solid #3CB5E5;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  background-color: #3CB5E5;
+  transition: all 0.3s ease;
+}
+
+.sign-up__e-mail-container button:hover {
+  cursor: pointer;
+  color: #3CB5E5;
+  background-color: #FFFFFF;
+}
+
+.sign-up__separator {
+  margin: 20px 0;
+  font-size: 1.25rem;
+  font-family: MonserattBold, sans-serif;
+  color: #A3A3A3;
+}
+
+.sign-up__third-party {
+  width: 100%;
+  gap: 20px;
+  display: flex;
+}
+
+.sign-up__third-party button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  font-family: MonserattBold, sans-serif;
+  font-size: 1.5rem;
+  color: #606060;
+  background: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.sign-up__third-party button:hover {
+  cursor: pointer;
+  color: #FFFFFF;
+  background: #273E90;
+}
+
+.sign-up__third-party button:hover svg {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.sign-up__google-btn,
+.sign-up__facebook-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.sign-up__disclaimer {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 95%;
+  margin-top: 120px;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  font-family: NotoSans, sans-serif;
+  text-align: center;
+  line-height: 1rem;
+  font-size: 0.875rem;
+  color: #A3A3A3;
+  transition: all 0.3s ease;
+}
+
+.sign-up__disclaimer.active {
+  display: -webkit-box;
+  margin-top: 60px;
+  -webkit-line-clamp: 3;
+}

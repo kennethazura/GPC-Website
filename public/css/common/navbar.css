@@ -114,12 +114,6 @@ body.no-scroll {
   text-decoration: none;
 }
 
-/** Temporarily Disabled **/
-.navbar-menu .navbar-menu__sign-up-btn,
-.navbar-menu .navbar-menu__login-btn {
-  display: none;
-}
-
 .navbar-menu .navbar-menu__link {
   margin-top: 1.625rem;
   color: #273D90;

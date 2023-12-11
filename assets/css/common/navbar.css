@@ -114,12 +114,6 @@ body.no-scroll {
   text-decoration: none;
 }
 
-/** Temporarily Disabled **/
-.navbar-menu .navbar-menu__sign-up-btn,
-.navbar-menu .navbar-menu__login-btn {
-  display: none;
-}
-
 .navbar-menu .navbar-menu__link {
   margin-top: 1.625rem;
   color: #273D90;
@@ -227,14 +221,6 @@ body.no-scroll {
   display: inline-block;
   font-size: 0.875rem;
   text-transform: uppercase;
-}
-
-/** Temporarily Disabled **/
-
-.navbar__separator,
-.navbar__sign-up-btn,
-.navbar__login-btn {
-  display: none;
 }
 
 .navbar__sign-up-btn {
