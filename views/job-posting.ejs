@@ -5,6 +5,7 @@
 </head>
 <body>
     <%- include('partials/common/navbar'); %>
+    <%- include('partials/common/sign-in-sign-up'); %>
     <%- include('partials/job-posting/hero-section', { jobDetails }); %>
     <%- include('partials/job-posting/job-description', { jobDetails }); %>
     <%- include('partials/job-posting/responsibilities', { jobDetails }); %>
@@ -17,5 +18,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/umbrella/0.0.0/umbrella.min.js" integrity="sha512-/v8d+p/V/8IBsbvwAaHiHdN9vEZjUKvL62PjzvpAi4BfZLpO8+tTwEFA9DXB8q8tG0+Px5VVwjLOUubFkijNPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="<%- assetLink %>/js/job-posting/job-posting.js"></script>
+    <script type="text/javascript" src="<%- assetLink %>/js/common/sign-in-sign-up.js"></script>
 </body>
 </html>
