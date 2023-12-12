@@ -16,7 +16,7 @@
   opacity: 0;
   position: fixed;
   display: flex;
-  top: 25vh;
+  top: 20vh;
   left: 50vw;
   max-width: 35vw;
   padding: 40px;
@@ -38,11 +38,13 @@
   flex-shrink: 0;
   width: 100%;
   margin-left: -35vw;
+  transform: translateX(-40px);
   transition: all 0.25s ease;
 }
 
 .sign-in.active {
   margin-left: 0;
+  transform: translateX(0);
   margin-right: 40px;
 }
 
@@ -61,18 +63,28 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-right: 40px;
   font-family: NotoSans, sans-serif;
+  transition: all 0.25s ease;
+}
+
+.sign-up.complete {
+  margin-left: -35vw;
+  margin-right: 0;
+  transform: translateX(-40px);
 }
 
 .sign-in__header,
-.sign-up__header {
+.sign-up__header,
+.post-sign-up__header {
   font-family: MonserattBold, sans-serif;
   font-size: 2rem;
   color: #273E90;
 }
 
 .sign-in__sub-header,
-.sign-up__sub-header {
+.sign-up__sub-header,
+.post-sign-up__sub-header  {
   margin-top: 4px;
   font-family: NotoSans, sans-serif;
   letter-spacing: 0.5px;
@@ -229,12 +241,15 @@
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
+.sign-in__google-btn,
+.sign-in__facebook-btn,
 .sign-up__google-btn,
 .sign-up__facebook-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  margin-bottom: 80px;
 }
 
 .sign-in__disclaimer,
@@ -244,7 +259,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-width: 95%;
-  margin-top: 60px;
+  margin-top: auto;
   word-wrap: break-word;
   text-overflow: ellipsis;
   font-family: NotoSans, sans-serif;
@@ -259,4 +274,98 @@
   display: -webkit-box;
   margin-top: 60px;
   -webkit-line-clamp: 3;
+}
+
+.post-sign-up {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-family: NotoSans, sans-serif;
+  transition: all 0.25s ease;
+}
+
+.post-sign-up__header {
+  text-align: center;
+}
+
+.post-sign-up__sub-header {
+  margin-top: 15px;
+  font-size: 1rem;
+}
+
+.post-sign-up__options-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.post-sign-up__option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.post-sign-up__option:hover {
+  cursor: pointer;
+}
+
+.post-sign-up__option__image {
+  width: 90px;
+  transition: all 0.3s ease;
+}
+
+.post-sign-up__option:hover .post-sign-up__option__image {
+  transform: scale(1.1);
+}
+
+.post-sign-up__option__text {
+  max-width: 175px;
+  font-family: NotoSans, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  color: #606060;
+  transition: all 0.3s ease;
+}
+
+.post-sign-up__option:hover .post-sign-up__option__text {
+  color: #07CBF5;
+}
+
+.post-sign-up__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.post-sign-up__later-btn {
+  font-size: 1.25rem;
+  font-family: MonserattBold, sans-serif;
+  color: #B6B2B2;
+  transition: all 0.25s ease;
+}
+
+.post-sign-up__skip-btn {
+  padding: 10px 25px;
+  border: none;
+  font-size: 1.25rem;
+  font-family: MonserattBold, sans-serif;
+  color: #606060;
+  background: #E5E5E5;
+  transition: all 0.25s ease;
+}
+
+.post-sign-up__later-btn:hover,
+.post-sign-up__skip-btn:hover {
+  cursor: pointer;
+  opacity: 0.75;
 }
