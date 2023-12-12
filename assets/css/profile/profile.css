@@ -31,11 +31,11 @@
 .candidate__header {
   display: inline-block;
   font-family: MonserattBold, sans-serif;
-  font-size: 1rem;
+  font-size: 1.75rem;
   text-align: justify;
   white-space: nowrap;
   color: white;
-  width: 15vw;
+  width: 24vw;
   padding: 0.75rem 1.125rem 0.5rem 0.4375rem;
   border-radius: 0 13.75rem 0 0;
   border: 2px solid #3CB5E5;
@@ -55,4 +55,266 @@
   flex-direction: row;
   padding-bottom: 15px;
   border-bottom: 1px solid grey;
+}
+
+.information__field {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 10vw 40px;
+}
+
+.first__header {
+  color: rgb(0, 20, 84);
+  font-size: 1.25rem;
+  padding-bottom: 15px;
+}
+
+.first__subhead {
+  font-size: 1rem;
+  padding-bottom: 15px;
+}
+
+.information__form {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+  row-gap: 15px;
+}
+
+.information__first-name {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.information__last-name {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.information__birthdate {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.information__email {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.information__address {
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.professional__field {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 10vw 40px;
+}
+
+.second__header {
+  color: rgb(0, 20, 84);
+  font-size: 1.25rem;
+  padding-bottom: 15px;
+}
+
+.second__subhead {
+  font-size: 1rem;
+  padding-bottom: 15px;
+}
+
+.professional__form {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+  row-gap: 15px;
+}
+
+.current__title {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.current__company {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.start__date {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.end__date {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.work__exp {
+  box-sizing: border-box;
+  width: 100%;
+  height: 500px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.exp-btn__container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 15px;
+  column-gap: 30px;
+}
+
+.add__btn,
+.ins__btn {
+  align-self: center;
+  width: 100%;
+  max-width: 30%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 2px solid #3CB5E5;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  background-color: #3CB5E5;
+  transition: all 0.3s ease;
+}
+
+.add__btn:hover,
+.ins__btn:hover {
+  cursor: pointer;
+  color: #3CB5E5;
+  background-color: #FFFFFF;
+}
+
+.cv__field {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 10vw 40px;
+}
+
+.upload__header {
+  color: rgb(0, 20, 84);
+  font-size: 1.25rem;
+  padding-bottom: 15px;
+}
+
+.upload__subhead {
+  font-size: 1rem;
+  padding-bottom: 15px;
+}
+
+.cv__btn {
+  display: flex;
+  flex-direction: row;
+}
+
+.file__cv {
+  align-self: center;
+  width: 100%;
+  max-width: 30%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 2px solid #3CB5E5;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  background-color: #3CB5E5;
+  transition: all 0.3s ease;
+}
+
+.security__field {
+  display: flex;
+  flex-flow: row wrap;
+  column-gap: 15px;
+  padding: 30px 10vw 40px;
+}
+
+.security__header {
+  display: inline-block;
+  color: rgb(0, 20, 84);
+  font-size: 1.25rem;
+  padding-bottom: 15px;
+  min-width: 100%;
+}
+
+.acc__email {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.acc__number {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.finish__field {
+  padding: 30px 10vw 40px;
+  border-top: 1px solid grey;
+}
+
+.finish-btn__container {
+  padding-left: 10vw;
+}
+
+.finish__btn {
+  align-self: center;
+  width: 100%;
+  max-width: 30%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 2px solid #3CB5E5;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  background-color: #3CB5E5;
+  transition: all 0.3s ease;
+}
+
+.finish__btn:hover {
+  cursor: pointer;
+  color: #3CB5E5;
+  background-color: #FFFFFF;
 }
