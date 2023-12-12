@@ -46,6 +46,15 @@
   margin-right: 40px;
 }
 
+.sign-in {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-family: NotoSans, sans-serif;
+}
+
 .sign-up {
   display: flex;
   flex-shrink: 0;
@@ -62,6 +71,7 @@
   color: #273E90;
 }
 
+.sign-in__sub-header,
 .sign-up__sub-header {
   margin-top: 4px;
   font-family: NotoSans, sans-serif;
@@ -70,11 +80,13 @@
   color: #07CBF5;
 }
 
+.sign-up-btn,
 .sign-in-btn {
   text-decoration: underline;
   transition: all 0.25s ease;
 }
 
+.sign-up-btn:hover,
 .sign-in-btn:hover {
   cursor: pointer;
   color: #273E90;
@@ -117,6 +129,16 @@
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
+.sign-in__e-mail-container{
+  width: 100%;
+  display: flex;
+  margin-top: 40px;
+  height: 40%;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
 .sign-up__e-mail-container {
   opacity: 0;
   height: 0;
@@ -135,6 +157,7 @@
   transition: all 0.3s ease;
 }
 
+.sign-in__e-mail-container input,
 .sign-up__e-mail-container input {
   box-sizing: border-box;
   width: 100%;
@@ -143,6 +166,7 @@
   border: 1px solid;
 }
 
+.sign-in__e-mail-container button,
 .sign-up__e-mail-container button {
   align-self: center;
   width: 100%;
@@ -159,12 +183,14 @@
   transition: all 0.3s ease;
 }
 
+.sign-in__e-mail-container button:hover,
 .sign-up__e-mail-container button:hover {
   cursor: pointer;
   color: #3CB5E5;
   background-color: #FFFFFF;
 }
 
+.sign-in__separator,
 .sign-up__separator {
   margin: 20px 0;
   font-size: 1.25rem;
@@ -172,12 +198,14 @@
   color: #A3A3A3;
 }
 
+.sign-in__third-party,
 .sign-up__third-party {
   width: 100%;
   gap: 20px;
   display: flex;
 }
 
+.sign-in__third-party button,
 .sign-up__third-party button {
   width: 100%;
   padding: 10px;
@@ -189,12 +217,14 @@
   transition: all 0.3s ease;
 }
 
+.sign-in__third-party button:hover,
 .sign-up__third-party button:hover {
   cursor: pointer;
   color: #FFFFFF;
   background: #273E90;
 }
 
+.sign-in__third-party button:hover svg,
 .sign-up__third-party button:hover svg {
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
@@ -207,13 +237,14 @@
   gap: 20px;
 }
 
+.sign-in__disclaimer,
 .sign-up__disclaimer {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-width: 95%;
-  margin-top: 120px;
+  margin-top: 60px;
   word-wrap: break-word;
   text-overflow: ellipsis;
   font-family: NotoSans, sans-serif;

@@ -71,6 +71,14 @@ server.get('/', (req, res) => {
   });
 });
 
+server.get('/candidate-profile', (req, res) => {
+  res.render('profile.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
+
 // server.get('/job/:jobTitle', (req, res) => {
 //   fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
 //     .then(async(oResponse) => {

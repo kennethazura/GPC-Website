@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oBackdrop = u('.sign-in-sign-up__backdrop');
   const oSignIn = u('.sign-in');
   const oSignInBtn = u('.sign-in-btn');
+  const oSignUpBtn = u('.sign-up-btn');
   const oSignUpEmailBtn = u('.sign-up__e-mail-btn');
   const oSignUpEmailForm = u('.sign-up__e-mail-container');
   const oSignUpDisclaimer = u('.sign-up__disclaimer');
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     oNavbarSignIn.on('click', showSignIn);
     oBackdrop.on('click', hideSignUp);
     oSignInBtn.on('click', showSignIn);
+    oSignUpBtn.on('click', showSignUp);
     oSignUpEmailBtn.on('click', showEmailForm);
   }
 

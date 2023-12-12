@@ -1,0 +1,53 @@
+<div class="candidate__profile">
+    <div class="candidate__headerborder">
+        <h3 class="candidate__header">Candidate Profile</h3>
+        <p class="progress__bar">Completion Rate</p>
+    </div>
+    <div class="candidate__steps">Personal Information -> Professional Information -> Upload your CV -> Account Security</div>
+    <div class="information__form">
+        <div class="first__header">Personal Information</div>
+        <div class="first__subhead">Tell us about yourself.</div>
+        <form id="information__form">
+        <input class="information__first-name" type="text" name="info-first-name" placeholder="First Name"/>
+        <input class="information__last-name" type="text" name="info-last-name" placeholder="Last Name"/>
+        <input class="information__birthdate" type="date" name="info-birthdate" placeholder="Date of Birth"/>
+        <input class="information__email" type="email" name="info-email" placeholder="Email"/>
+        <input class="information__first-name" type="text" name="info-address" placeholder="Address"/>
+        </form>
+    </div>
+    <div class="professional__form">
+        <div class="second__header">Professional Information</div>
+        <div class="second__subhead">Share with us a brief overview of your professional experience.</div>
+        <form class="professional__form">
+        <select class="current__job" name="" id="">
+            <option value="job1">Job 1</option>
+            <option value="job2">Job 2</option>
+            <option value="job3">Job 3</option>
+        </select>
+        <input class="current__company" type="text" name="info-company" placeholder="Current Company"/>
+        <input class="start__date" type="text" name="info-start-date" placeholder="Start Date"/>
+        <input class="end__date" type="text" name="info-end-date" placeholder="End Date"/>
+        <textarea class="work__exp" name="info-workexp" placeholder="Add Work Experience" maxlength="10000"></textarea>
+        <button class="add__button">Add Work Experience</button>
+        <button class="ins__button">Insert More Information</button>
+        </form>
+    </div>
+    <div class="upload__cv">
+        <div class="upload__header">Upload your CV</div>
+        <div class="upload__subhead">(Note that only jpg, pdf, and doc are allowed)</div>
+        <input class="file__cv" type="file" name="upload-cv" placeholder="Upload your latest CV"/>
+    </div>
+    <div class="acc__security">
+        <div class="acc__form">
+        <input class="acc__email" type="email" name="acc-mail" placeholder="123example@email.com">
+        <input class="acc__number" type="number" name="acc-number" placeholder="Add Phone Number"/>
+        </div>
+    </div>
+    <div class="finish__section">
+        <input class="check__terms" type="checkbox" name="tnc-check"/>
+        <label for="check__terms">I have read and agree to the website <a href="/terms-and-conditions" target="_blank" class="tnc__link">terms and conditions</a></label>
+        <input class="check__privacy" type="checkbox" name="privacy-check"/>
+        <label for="check__privacy">I have read and agree to the website privacy policy</label>
+        <button class="finish__button">Finish Setting Up Your Profile</button>
+    </div>
+</div>
