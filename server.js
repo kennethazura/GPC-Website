@@ -3,11 +3,20 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
+const mysql = require('mysql2/promise');
+const crypto = require('crypto');
 
 if (process.env.ENVIRONMENT !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config();
 }
+
+const database = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+});
 
 const server = express();
 const port = process.env.SERVER_PORT || 3000;
@@ -135,6 +144,60 @@ function _verifyRecaptcha(recaptchaResponse) {
   ).then((oResponse) => oResponse.json().then((data) => data).catch((err) => {
   }));
 }
+
+/** API LIST */
+
+server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, res) => {
+  const EMAIL = req.body.email;
+  const PASSWORD = req.body.password;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `userTable` WHERE `email` = ?',
+    [EMAIL],
+  );
+
+  if (results.length > 0) {
+    API_RESULT.success = false;
+    API_RESULT.body.errMessage = 'An account using that e-mail already exists';
+  } else {
+    const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
+    const [results] = await database.query(
+      'INSERT INTO `userTable` (email, password) VALUES (?, ?)',
+      [EMAIL, PASSWORD_HASH],
+    );
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res) => {
+  const EMAIL = req.body.email;
+  const PASSWORD = req.body.password;
+  const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `userTable` WHERE `email` = ? AND `password` = ?',
+    [EMAIL, PASSWORD_HASH],
+  );
+
+  if (results.length === 0) {
+    API_RESULT.success = false;
+    API_RESULT.body.errMessage = 'Username or Password is incorrect';
+  } else {
+    API_RESULT.body.userId = results[0].id;
+    API_RESULT.body.email = results[0].email;
+  }
+
+  return res.send(API_RESULT);
+});
 
 server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, res) => {
   const NAME = req.body['c-name'];

@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+  const DOMAIN = u('#domain').nodes[0].value;
+  const API_ROUTE = u('#api-route').nodes[0].value;
   const oNavbarSignUp = u('.navbar__sign-up-btn');
   const oNavbarSignIn = u('.navbar__login-btn');
   const oBackdrop = u('.sign-in-sign-up__backdrop');
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oSignInPassword = u('.sign-in__password');
   const oSignUpEmail = u('.sign-up__e-mail');
   const oSignUpPassword = u('.sign-up__password');
+  const oSignUpConfirmPassword = u('.sign-up__confirm-password');
   const oSignUpDisclaimer = u('.sign-up__disclaimer');
   const oPostSignUpLaterBtn = u('.post-sign-up__later-btn');
   const oPostSignUpSkipBtn = u('.post-sign-up__skip-btn');
@@ -71,25 +74,61 @@ document.addEventListener('DOMContentLoaded', function() {
     oSignUp.addClass('complete');
   }
 
-  function saveSession() {
+  function signUp() {
     const sEmail = oSignUpEmail.nodes[0].value;
     const sPassword = oSignUpPassword.nodes[0].value;
-    _setCookie('dbUser', sEmail);
-    _setCookie('dbPass', sPassword);
-    goToPostSignUp();
+    const sConfirmPassword = oSignUpConfirmPassword.nodes[0].value;
+    if (sPassword !== sConfirmPassword) {
+      alert('Passwords do not match');
+    } else {
+      fetch(
+        `${DOMAIN}${API_ROUTE}/sign-up`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: sEmail, password: sPassword }),
+        },
+      ).then((oResponse) => oResponse.json())
+        .then((data) => {
+          if (data.success) {
+            goToPostSignUp();
+          } else if (data.body.errMessage) {
+            alert(data.body.errMessage);
+          } else {
+            alert('Unfortunately, an error occurred in the server');
+          }
+        });
+    }
   }
 
   function doLogIn() {
-    const sDBUser = _getCookie('dbUser');
-    const sDBPass = _getCookie('dbPass');
     const sUserInputEmail = oSignInEmail.nodes[0].value;
     const sUserInputPass = oSignInPassword.nodes[0].value;
-    if (sUserInputEmail === sDBUser && sUserInputPass === sDBPass) {
-      _setCookie('currentUser', sUserInputEmail);
-      window.location.reload();
-    } else {
-      alert('Username or Password is incorrect');
-    }
+
+    fetch(
+      `${DOMAIN}${API_ROUTE}/login`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: sUserInputEmail, password: sUserInputPass }),
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        if (data.success) {
+          console.log(data);
+          _setCookie('userId', data.body.userId);
+          _setCookie('userEmail', data.body.email);
+          window.location.reload();
+        } else if (data.body.errMessage) {
+          alert(data.body.errMessage);
+        } else {
+          alert('Unfortunately, an error occurred in the server');
+        }
+      });
   }
 
   function initEventListeners() {
@@ -101,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     oSignUpEmailBtn.on('click', showEmailForm);
     oPostSignUpLaterBtn.on('click', hideSignUp);
     oPostSignUpSkipBtn.on('click', hideSignUp);
-    oSignUpEmailSubmit.on('click', saveSession);
+    oSignUpEmailSubmit.on('click', signUp);
     oLogInBtn.on('click', doLogIn);
   }
 

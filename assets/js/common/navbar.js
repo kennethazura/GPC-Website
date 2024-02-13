@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oSignUpBtn = u('.navbar__sign-up-btn');
   const oLogInBtn = u('.navbar__login-btn');
   const oDropdownIcon = u('.user-container__dropdown-icon');
+  const oUserName = u('.user-container__name');
   const oLogOutBtn = u('.logout-btn');
 
   function _setCookie(cname, cvalue, exdays = 1) {
@@ -39,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function _checkUserSession() {
-    const sLoggedInUser = _getCookie('currentUser');
+    const sLoggedInUser = _getCookie('userEmail');
+    oUserName.text(sLoggedInUser);
     return sLoggedInUser !== '';
   }
 
@@ -58,7 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function doLogOut() {
-    _deleteCookie('currentUser');
+    _deleteCookie('userId');
+    _deleteCookie('userEmail');
     window.location.reload();
   }
 
