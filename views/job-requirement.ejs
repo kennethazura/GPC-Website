@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/job-requirement/head', { assetLink }); %>
+</head>
+<body>
+    <%- include('partials/common/loader'); %>
+    <%- include('partials/common/navbar', {domain, apiRoute}); %>
+    <%- include('partials/common/sign-in-sign-up'); %>
+    <%- include('partials/job-requirement/main-content'); %>
+    <%- include('partials/common/footer'); %>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/umbrella/0.0.0/umbrella.min.js" integrity="sha512-/v8d+p/V/8IBsbvwAaHiHdN9vEZjUKvL62PjzvpAi4BfZLpO8+tTwEFA9DXB8q8tG0+Px5VVwjLOUubFkijNPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="<%- assetLink %>/js/job-requirement/job-requirement.js"></script>
+    <script type="text/javascript" src="<%- assetLink %>/js/common/loader.js"></script>
+    <script type="text/javascript" src="<%- assetLink %>/js/common/sign-in-sign-up.js"></script>
+    <script type="text/javascript" src="<%- assetLink %>/js/common/navbar.js"></script>
+</body>
+</html>

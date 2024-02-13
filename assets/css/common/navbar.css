@@ -315,6 +315,10 @@ body.no-scroll {
   transition: all 0.25s ease;
 }
 
+.user-dropdown__separator {
+  border-bottom: 1px solid grey;
+}
+
 .user-dropdown__option:hover {
   cursor: pointer;
   color: #00B6E7;
