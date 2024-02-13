@@ -1,0 +1,185 @@
+.section {
+  display: block;
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 0 2.1875rem;
+  box-sizing: border-box;
+}
+
+.company__profile {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding: 15vh 5vw 10vh 7vw;
+  background-color: #E5E5E5;
+}
+
+.company__headerborder {
+  margin-bottom: 15px;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  font-family: MonserattBold, sans-serif;
+  font-size: 1rem;
+  white-space: nowrap;
+  border-bottom: 2px solid #3CB5E5;
+}
+
+.company__header {
+  display: inline-block;
+  font-family: MonserattBold, sans-serif;
+  font-size: 2rem;
+  text-align: justify;
+  white-space: nowrap;
+  color: white;
+  width: 24vw;
+  padding: 0.75rem 1.125rem 0.5rem 0.4375rem;
+  border-radius: 0 13.75rem 0 0;
+  border: 2px solid #3CB5E5;
+  background-color: #3CB5E5;
+}
+
+.companyinfo__field {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 10vw 40px;
+}
+
+.top__header {
+  color: #273D90;
+  font-size: 1.75rem;
+  font-family: MonserattBold, sans-serif;
+  padding-bottom: 15px;
+}
+
+.top__subhead {
+  font-size: 1.5rem;
+  font-family: NotoSansRegular, sans-serif;
+  padding-bottom: 15px;
+}
+
+.company__logo {
+  content: url('/public/img/common/linkedin.png');
+  padding-bottom: 20px;
+}
+
+.company__logo:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transform: scale(0.95);
+}
+
+.company__form {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+  row-gap: 15px;
+}
+
+.company__form input,
+.company__form select {
+  outline: none;
+  border: none;
+}
+
+.company__user-first-name {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 40%;
+  height: 50px;
+  padding: 5px;
+}
+
+.company__user-last-name {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 40%;
+  height: 50px;
+  padding: 5px;
+}
+
+.company__name {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 40%;
+  height: 50px;
+  padding: 5px;
+}
+
+.industry__title {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 40%;
+  height: 50px;
+  padding: 5px;
+}
+
+.company__address {
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+}
+
+.company__phone {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 40%;
+  height: 50px;
+  padding: 5px;
+}
+
+.company__website {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 40%;
+  height: 50px;
+  padding: 5px;
+}
+
+.company__finish-field {
+  display: inline-block;
+  flex-direction: row wrap;
+  column-gap: 15px;
+  padding: 30px 10vw 40px;
+  border-top: 1px solid grey;
+}
+
+.check__terms {
+  margin-bottom: 15px;
+}
+
+.check-terms__label {
+  font-size: 1.25rem;
+  font-family: NotoSansRegular, sans-serif;
+}
+
+.finish-btn__container {
+  padding-left: 10vw;
+}
+
+.finish__btn {
+  align-self: center;
+  width: 100%;
+  max-width: 30%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 2px solid #3CB5E5;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  background-color: #3CB5E5;
+  transition: all 0.3s ease;
+}
+
+.finish__btn:hover {
+  cursor: pointer;
+  color: #3CB5E5;
+  background-color: #FFFFFF;
+}
