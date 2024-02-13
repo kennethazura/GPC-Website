@@ -164,7 +164,7 @@ server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, re
   };
 
   const [results] = await database.query(
-    'SELECT * FROM `userTable` WHERE `email` = ?',
+    'SELECT * FROM `usertable` WHERE `email` = ?',
     [EMAIL],
   );
 
@@ -174,7 +174,7 @@ server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, re
   } else {
     const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
     const [results] = await database.query(
-      'INSERT INTO `userTable` (email, password) VALUES (?, ?)',
+      'INSERT INTO `usertable` (email, password) VALUES (?, ?)',
       [EMAIL, PASSWORD_HASH],
     );
   }
@@ -192,7 +192,7 @@ server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res)
   };
 
   const [results] = await database.query(
-    'SELECT * FROM `userTable` WHERE `email` = ? AND `password` = ?',
+    'SELECT * FROM `usertable` WHERE `email` = ? AND `password` = ?',
     [EMAIL, PASSWORD_HASH],
   );
 
