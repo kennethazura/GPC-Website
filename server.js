@@ -207,6 +207,86 @@ server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res)
   return res.send(API_RESULT);
 });
 
+server.post(`${process.env.API_ROUTE}/candidate/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const EMAIL = req.body.email;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `candidateprofiletable` WHERE `userId` = ?',
+    [USER_ID],
+  );
+
+  if (results.length === 0) {
+    await database.query(
+      'INSERT INTO `candidateprofiletable` (userId, email) VALUES (?, ?)',
+      [USER_ID, EMAIL],
+    );
+  } else {
+    API_RESULT.body.profile = results[0];
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/candidate/save`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  await database.query(
+    'UPDATE `candidateprofiletable` SET firstName = ?, lastName = ?, address = ?, professionalInformation = ?, resume = ?, recoveryEmail = ?, recoveryPhone = ? WHERE `userId` = ? ',
+    [req.body.firstName, req.body.lastName, req.body.address, req.body.professionalInformation, req.body.resume, req.body.recoveryEmail, req.body.recoveryPhone, USER_ID],
+  );
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/company/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `companyprofiletable` WHERE `userId` = ?',
+    [USER_ID],
+  );
+
+  if (results.length === 0) {
+    await database.query(
+      'INSERT INTO `companyprofiletable` (userId) VALUES (?)',
+      [USER_ID],
+    );
+  } else {
+    API_RESULT.body.profile = results[0];
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/company/save`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  console.log(req.body, USER_ID);
+  await database.query(
+    'UPDATE `companyprofiletable` SET firstName = ?, lastName = ?, companyName = ?, industry = ?, companyAddress = ?, companyPhone = ?, website = ? WHERE `userId` = ? ',
+    [req.body.firstName, req.body.lastName, req.body.companyName, req.body.industry, req.body.companyAddress, req.body.companyPhone, req.body.website, USER_ID],
+  );
+
+  return res.send(API_RESULT);
+});
+
 server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, res) => {
   const NAME = req.body['c-name'];
   const EMAIL = req.body['c-email'];
