@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function doLogOut() {
     _deleteCookie('userId');
     _deleteCookie('userEmail');
-    window.location.reload();
+    window.location.replace('/');
   }
 
   function loadNavbarState(hasSession = false) {
