@@ -1,50 +1,89 @@
 <div class="candidate__profile">
     <div class="candidate__headerborder">
         <h1 class="candidate__header">Candidate Profile</h1>
-        <p class="progress__bar">Completion Rate</p>
-    </div>
-    <div class="candidate__steps">Personal Information -> Professional Information -> Upload your CV -> Account Security</div>
-    <div class="information__field">
-        <h3 class="first__header">Personal Information</h3>
-        <p class="first__subhead">Tell us about yourself.</p>
-        <form class="information__form">
-        <input class="information__first-name" type="text" name="info-first-name" placeholder="First Name"/>
-        <input class="information__last-name" type="text" name="info-last-name" placeholder="Last Name"/>
-        <input class="information__birthdate" type="text" name="info-birthdate" placeholder="Birthdate" onfocus="(this.type='date')" onblur="(this.type='text')"/>
-        <input class="information__email" type="email" name="info-email" placeholder="Email"/>
-        <input class="information__address" type="text" name="info-address" placeholder="Address"/>
-        </form>
-    </div>
-    <div class="professional__field">
-        <h3 class="second__header">Professional Information</h3>
-        <p class="second__subhead">Share with us a brief overview of your professional experience.</p>
-        <form class="professional__form">
-        <select class="current__title" name="current-title">
-            <option value="" disabled selected hidden>Current Job Title</option>
-            <option value="title1">Job 1</option>
-            <option value="title2">Job 2</option>
-            <option value="title3">Job 3</option>
-        </select>
-        <input class="current__company" type="text" name="info-company" placeholder="Current Company"/>
-        <input class="start__date" type="text" name="info-start-date" placeholder="Start Date"/>
-        <input class="end__date" type="text" name="info-end-date" placeholder="End Date"/>
-        <textarea class="work__exp" name="info-workexp" placeholder="Add Work Experience" maxlength="10000"></textarea>
-        </form>
-        <div class="exp-btn__container">
-            <button class="add__btn">Add Work Experience</button>
-            <button class="ins__btn">Insert More Information</button>
+        <div class="progress__bar-container">
+            <p class="progress__bar-title">Completion Rate
+                <span class="progress__bar-value">0%</span>
+            </p>
+            <div class="progress__bar"></div>    
         </div>
     </div>
-    <div class="cv__field">
-        <h3 class="upload__header">Upload your CV</h3>
-        <p class="upload__subhead">(Note that only jpg, pdf, and doc are allowed)</p>
-        <label for="file-upload" class="file__cv" >Choose File</label>
-        <input id="file-upload" type="file" name="upload-cv"/>
+    <div class="candidate__steps">
+        <div class="candidate__step step-1">
+            <span class="step__number">1</span>
+            <span class="step__title">Personal Information</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
+            </svg>
+        </div>
+        <div class="candidate__step step-2">
+            <span class="step__number">2</span>
+            <span class="step__title">Professional Information</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
+            </svg>
+        </div>
+        <div class="candidate__step step-3">
+            <span class="step__number">3</span>
+            <span class="step__title">Upload your CV</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
+            </svg>
+        </div>
+        <div class="candidate__step step-4">
+            <span class="step__number">4</span>
+            <span class="step__title">Account Security</span>
+        </div>
     </div>
-    <div class="security__field">
-        <h3 class="security__header">Account Security</h3>
-        <input class="acc__email" type="email" name="acc-mail" placeholder="123example@email.com">
-        <input class="acc__number" type="text" name="acc-number" placeholder="Add Phone Number"/>
+    <div class="candidate__step-contents">
+        <div class="information__field active">
+            <h3 class="first__header">Personal Information</h3>
+            <p class="first__subhead">Tell us about yourself.</p>
+            <form class="information__form">
+            <input class="information__first-name" type="text" name="info-first-name" placeholder="First Name"/>
+            <input class="information__last-name" type="text" name="info-last-name" placeholder="Last Name"/>
+            <input class="information__birthdate" type="text" name="info-birthdate" placeholder="Birthdate" onfocus="(this.type='date')" onblur="(this.type='text')"/>
+            <input class="information__email" type="email" name="info-email" placeholder="Email"/>
+            <input class="information__address" type="text" name="info-address" placeholder="Address"/>
+            </form>
+        </div>
+        <div class="professional__field">
+            <h3 class="second__header">Professional Information</h3>
+            <p class="second__subhead">Share with us a brief overview of your professional experience.</p>
+            <form class="professional__form">
+                <select class="current__title" name="current-title">
+                    <option value="" disabled selected hidden>Current Job Title</option>
+                    <option value="title1">Job 1</option>
+                    <option value="title2">Job 2</option>
+                    <option value="title3">Job 3</option>
+                </select>
+            <input class="current__company" type="text" name="info-company" placeholder="Current Company"/>
+            <input class="start__date" type="text" name="info-start-date" placeholder="Start Date"/>
+            <input class="end__date" type="text" name="info-end-date" placeholder="End Date"/>
+            <textarea class="work__exp" name="info-workexp" placeholder="Add Work Experience" maxlength="10000"></textarea>
+            </form>
+            <div class="exp-btn__container">
+                <button class="add__btn">Add Work Experience</button>
+                <button class="ins__btn">Insert More Information</button>
+            </div>
+        </div>
+        <div class="cv__field">
+            <h3 class="upload__header">Upload your CV</h3>
+            <p class="upload__subhead">(Note that only jpg, pdf, and doc are allowed)</p>
+            <label for="file-upload" class="file__cv" >Choose File</label>
+            <input id="file-upload" type="file" name="upload-cv"/>
+        </div>
+        <div class="security__field">
+            <h3 class="security__header">Account Security</h3>
+            <div class="security__field__inputs-container">
+                <input class="acc__email" type="email" name="acc-mail" placeholder="123example@email.com">
+                <input class="acc__number" type="text" name="acc-number" placeholder="Add Phone Number"/>    
+            </div>
+        </div>
+        <div class="finish-img__field">
+            <img class="profile-complete-img"/>
+            <span class="home-btn">Back To Home</span>
+        </div>
     </div>
     <div class="finish__field">
         <input class="check__terms" type="checkbox" name="tnc-check"/>

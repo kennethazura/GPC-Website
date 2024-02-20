@@ -3,11 +3,20 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
+const mysql = require('mysql2/promise');
+const crypto = require('crypto');
 
 if (process.env.ENVIRONMENT !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config();
 }
+
+const database = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+});
 
 const server = express();
 const port = process.env.SERVER_PORT || 3000;
@@ -79,6 +88,14 @@ server.get('/candidate-profile', (req, res) => {
   });
 });
 
+server.get('/job-requirement', (req, res) => {
+  res.render('job-requirement.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
+
 server.get('/company-profile', (req, res) => {
   res.render('company.ejs', {
     assetLink: process.env.ASSET_LINK,
@@ -135,6 +152,140 @@ function _verifyRecaptcha(recaptchaResponse) {
   ).then((oResponse) => oResponse.json().then((data) => data).catch((err) => {
   }));
 }
+
+/** API LIST */
+
+server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, res) => {
+  const EMAIL = req.body.email;
+  const PASSWORD = req.body.password;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `usertable` WHERE `email` = ?',
+    [EMAIL],
+  );
+
+  if (results.length > 0) {
+    API_RESULT.success = false;
+    API_RESULT.body.errMessage = 'An account using that e-mail already exists';
+  } else {
+    const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
+    const [results] = await database.query(
+      'INSERT INTO `usertable` (email, password) VALUES (?, ?)',
+      [EMAIL, PASSWORD_HASH],
+    );
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res) => {
+  const EMAIL = req.body.email;
+  const PASSWORD = req.body.password;
+  const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `usertable` WHERE `email` = ? AND `password` = ?',
+    [EMAIL, PASSWORD_HASH],
+  );
+
+  if (results.length === 0) {
+    API_RESULT.success = false;
+    API_RESULT.body.errMessage = 'Username or Password is incorrect';
+  } else {
+    API_RESULT.body.userId = results[0].id;
+    API_RESULT.body.email = results[0].email;
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/candidate/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const EMAIL = req.body.email;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `candidateprofiletable` WHERE `userId` = ?',
+    [USER_ID],
+  );
+
+  if (results.length === 0) {
+    await database.query(
+      'INSERT INTO `candidateprofiletable` (userId, email) VALUES (?, ?)',
+      [USER_ID, EMAIL],
+    );
+  } else {
+    API_RESULT.body.profile = results[0];
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/candidate/save`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  await database.query(
+    'UPDATE `candidateprofiletable` SET firstName = ?, lastName = ?, address = ?, professionalInformation = ?, resume = ?, recoveryEmail = ?, recoveryPhone = ? WHERE `userId` = ? ',
+    [req.body.firstName, req.body.lastName, req.body.address, req.body.professionalInformation, req.body.resume, req.body.recoveryEmail, req.body.recoveryPhone, USER_ID],
+  );
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/company/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'SELECT * FROM `companyprofiletable` WHERE `userId` = ?',
+    [USER_ID],
+  );
+
+  if (results.length === 0) {
+    await database.query(
+      'INSERT INTO `companyprofiletable` (userId) VALUES (?)',
+      [USER_ID],
+    );
+  } else {
+    API_RESULT.body.profile = results[0];
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/company/save`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  console.log(req.body, USER_ID);
+  await database.query(
+    'UPDATE `companyprofiletable` SET firstName = ?, lastName = ?, companyName = ?, industry = ?, companyAddress = ?, companyPhone = ?, website = ? WHERE `userId` = ? ',
+    [req.body.firstName, req.body.lastName, req.body.companyName, req.body.industry, req.body.companyAddress, req.body.companyPhone, req.body.website, USER_ID],
+  );
+
+  return res.send(API_RESULT);
+});
 
 server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, res) => {
   const NAME = req.body['c-name'];

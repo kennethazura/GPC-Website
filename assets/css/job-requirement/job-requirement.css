@@ -1,0 +1,220 @@
+body {
+  overflow-x: hidden;
+  background: #DDDDDD;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444444;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #222222;
+}
+
+.section {
+  display: block;
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 0 2.1875rem;
+  box-sizing: border-box;
+}
+
+.copyright {
+  margin-left: -2.25rem !important;
+}
+
+#main-content {
+  margin-top: 120px;
+  padding: 100px 200px;
+}
+
+.page-header-container {
+  border-bottom: 3px solid rgb(54, 180, 229);
+  margin-bottom: 40px;
+}
+
+.page-header {
+  display: block;
+  font-family: MonserattBold, sans-serif;
+  white-space: nowrap;
+  background-color: rgb(54, 180, 229);
+  max-width: max-content;
+  padding: 25px 180px 25px 30px;
+  border-radius: 0 100px 0 0;
+  font-size: 1.75rem;
+  text-align: left;
+  color: white;
+}
+
+.job-requirement-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 240px;
+}
+
+.job-requirement-form input,
+.job-requirement-form textarea {
+  padding: 20px;
+  border: none;
+  font-family: NotoSans, sans-serif;
+  font-size: 1.125rem;
+  outline: none !important;
+}
+
+.form__job-summary {
+  height: 200px;
+  resize: none;
+}
+
+.job-summary-counter {
+  margin-top: -20px;
+  text-align: right;
+}
+
+.job-description-container,
+.job-qualifications-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  background: white;
+}
+
+.job-description__header,
+.job-qualifications__header {
+  display: flex;
+  align-items: center;
+}
+
+.form__job-description,
+.form__job-qualifications {
+  width: 100%;
+  padding: 20px 0 !important;
+  border-bottom: 1px solid grey !important;
+}
+
+.job-description__add-btn,
+.job-qualifications__add-btn {
+  height: 24px;
+  width: 20px;
+  filter: invert(62%) sepia(97%) saturate(1942%) hue-rotate(148deg) brightness(98%) contrast(90%);
+  transition: all 0.3s ease;
+}
+
+.job-description__add-btn:hover,
+.job-qualifications__add-btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transform: scale(1.15);
+}
+
+.job-description__list,
+.job-qualifications__list {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: wrap;
+  column-gap: 20px;
+  row-gap: 10px;
+}
+
+.job-description__bullet,
+.job-qualifications__bullet {
+  display: flex;
+  padding: 10px 20px;
+  gap: 40px;
+  border-radius: 20px;
+  font-family: NotoSans, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: #00B5E6;
+  animation: pop-in;
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+.job-description__bullet span,
+.job-qualifications__bullet span {
+  line-break: no-break;
+}
+
+.job-description__minus-btn,
+.job-qualifications__minus-btn {
+  height: 20px;
+  width: 18px;
+  filter: invert(100%) sepia(2%) saturate(790%) hue-rotate(246deg) brightness(118%) contrast(100%);
+  transition: all 0.3s ease;
+}
+
+.job-description__minus-btn:hover,
+.job-qualifications__minus-btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transform: scale(1.15);
+}
+
+.working-hours-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.working-hours-dropdown {
+  min-width: 25%;
+  padding: 20px;
+  border: none;
+  font-family: NotoSans, sans-serif;
+  font-size: 1.125rem;
+  outline: none !important;
+}
+
+.working-hours__date-picker {
+  width: 100%;
+}
+
+.form__submit-btn {
+  padding: 20px;
+  max-width: 40%;
+  outline: none;
+  border: 5px solid #00B5E6;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  font-family: MonserattBold, sans-serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  background: #00B5E6;
+  transition: all 0.25s ease;
+}
+
+.form__submit-btn:hover {
+  cursor: pointer;
+  color: #00B5E6;
+  background: transparent;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
