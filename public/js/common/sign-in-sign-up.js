@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     oSignUpEmailForm.removeClass('active');
     oSignUpEmailBtn.removeClass('hidden');
     oSignUpDisclaimer.removeClass('active');
+    window.location.reload();
   }
 
   function goToPostSignUp() {
@@ -93,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
       ).then((oResponse) => oResponse.json())
         .then((data) => {
           if (data.success) {
+            _setCookie('userId', data.body.userId);
+            _setCookie('userEmail', sEmail);
             goToPostSignUp();
           } else if (data.body.errMessage) {
             alert(data.body.errMessage);
@@ -119,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
     ).then((oResponse) => oResponse.json())
       .then((data) => {
         if (data.success) {
-          console.log(data);
           _setCookie('userId', data.body.userId);
           _setCookie('userEmail', data.body.email);
           window.location.reload();
@@ -141,7 +143,22 @@ document.addEventListener('DOMContentLoaded', function() {
     oPostSignUpLaterBtn.on('click', hideSignUp);
     oPostSignUpSkipBtn.on('click', hideSignUp);
     oSignUpEmailSubmit.on('click', signUp);
+    oSignUpConfirmPassword.on('keyup', (event) => {
+      if (event.keyCode === 13) {
+        signUp();
+      }
+    });
     oLogInBtn.on('click', doLogIn);
+    oSignInEmail.on('keyup', (event) => {
+      if (event.keyCode === 13) {
+        doLogIn();
+      }
+    });
+    oSignInPassword.on('keyup', (event) => {
+      if (event.keyCode === 13) {
+        doLogIn();
+      }
+    });
   }
 
   initEventListeners();

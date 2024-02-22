@@ -206,7 +206,9 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     ).then((oResponse) => oResponse.json())
       .then((data) => {
-        if (data.success) {
+        if (data.success === 401) {
+          window.location.replace('/');
+        } else if (data.success) {
           setProfileValues(data.body.profile, profileType);
         } else if (data.body.errMessage) {
           alert(data.body.errMessage);
