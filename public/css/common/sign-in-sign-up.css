@@ -301,15 +301,25 @@
   gap: 20px;
   width: 100%;
   margin-top: 60px;
+  padding: 0 40px 80px;
+}
+
+.post-sign-up__options-container a {
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
 }
 
 .post-sign-up__option {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 275px;
+  width: 100%;
   gap: 25px;
-  padding: 40px;
+  padding: 60px;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
@@ -355,6 +365,7 @@
 }
 
 .post-sign-up__skip-btn {
+  margin-left: auto;
   padding: 10px 25px;
   border: none;
   font-size: 1.25rem;

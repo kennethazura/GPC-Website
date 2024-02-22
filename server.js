@@ -112,6 +112,22 @@ server.get('/company-profile', (req, res) => {
   });
 });
 
+server.get('/candidate-list', (req, res) => {
+  res.render('candidate-list.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
+
+server.get('/job-list', (req, res) => {
+  res.render('job-list.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
+
 // server.get('/job/:jobTitle', (req, res) => {
 //   fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
 //     .then(async(oResponse) => {
@@ -181,10 +197,15 @@ server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, re
     API_RESULT.body.errMessage = 'An account using that e-mail already exists';
   } else {
     const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
-    const [results] = await database.query(
+    await database.query(
       'INSERT INTO `usertable` (email, password) VALUES (?, ?)',
       [EMAIL, PASSWORD_HASH],
     );
+    const [results] = await database.query(
+      'SELECT * FROM `usertable` WHERE `email` = ?',
+      [EMAIL],
+    );
+    API_RESULT.body.userId = results[0].id;
   }
 
   return res.send(API_RESULT);
@@ -222,6 +243,11 @@ server.post(`${process.env.API_ROUTE}/candidate/load`, bodyParser.json(), async(
     success: true,
     body: {},
   };
+
+  if (USER_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
 
   const [results] = await database.query(
     'SELECT * FROM `candidateprofiletable` WHERE `userId` = ?',
@@ -264,6 +290,11 @@ server.post(`${process.env.API_ROUTE}/company/load`, bodyParser.json(), async(re
     body: {},
   };
 
+  if (USER_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
+
   const [results] = await database.query(
     'SELECT * FROM `companyprofiletable` WHERE `userId` = ?',
     [USER_ID],
@@ -288,10 +319,73 @@ server.post(`${process.env.API_ROUTE}/company/save`, bodyParser.json(), async(re
     body: {},
   };
 
-  console.log(req.body, USER_ID);
   await database.query(
     'UPDATE `companyprofiletable` SET firstName = ?, lastName = ?, companyName = ?, industry = ?, companyAddress = ?, companyPhone = ?, website = ? WHERE `userId` = ? ',
     [req.body.firstName, req.body.lastName, req.body.companyName, req.body.industry, req.body.companyAddress, req.body.companyPhone, req.body.website, USER_ID],
+  );
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/job-requirement/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  if (USER_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
+
+  const [companyProfile, companyProfileFields] = await database.query(
+    'SELECT * FROM `companyprofiletable` WHERE `userId` = ?',
+    [USER_ID],
+  );
+
+  if (companyProfile.length === 0) {
+    API_RESULT.success = false;
+    API_RESULT.body.errMessage = 'Please setup your company profile first';
+    return res.send(API_RESULT);
+  }
+
+  const companyId = companyProfile[0].id;
+
+  const [jobRequirements, jobRequirementsFields] = await database.query(
+    'SELECT * FROM `jobrequirementtable` WHERE `companyId` = ?',
+    [companyId],
+  );
+
+  if (jobRequirements.length === 0) {
+    await database.query(
+      'INSERT INTO `jobrequirementtable` (companyId) VALUES (?)',
+      [companyId],
+    );
+  } else {
+    API_RESULT.body.jobDetails = jobRequirements[0];
+  }
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/job-requirement/save`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [companyProfile, companyProfileFields] = await database.query(
+    'SELECT * FROM `companyprofiletable` WHERE `userId` = ?',
+    [USER_ID],
+  );
+
+  const companyId = companyProfile[0].id;
+
+  await database.query(
+    'UPDATE `jobrequirementtable` SET positionName = ?, jobSummary = ?, jobDescription = ?, qualifications = ?, workingHours = ?, startDate = ? WHERE `companyId` = ? ',
+    [req.body.positionName, req.body.jobSummary, req.body.jobDescription, req.body.qualifications, req.body.workingHours, req.body.startDate || '2024-01-01', companyId],
   );
 
   return res.send(API_RESULT);
@@ -344,4 +438,46 @@ server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, r
     });
 
   return res.send(oResponseStatus);
+});
+
+server.post(`${process.env.API_ROUTE}/candidate-list/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  if (USER_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
+
+  const [candidates, candidatesFields] = await database.query(
+    'SELECT * FROM `candidateprofiletable`',
+  );
+
+  API_RESULT.body.candidates = candidates;
+
+  return res.send(API_RESULT);
+});
+
+server.post(`${process.env.API_ROUTE}/job-list/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  if (USER_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
+
+  const [jobs, jobsFields] = await database.query(
+    'SELECT * FROM `jobrequirementtable` INNER JOIN `companyprofiletable` ON `jobrequirementtable`.`companyId`=`companyprofiletable`.`id`',
+  );
+
+  API_RESULT.body.jobs = jobs;
+
+  return res.send(API_RESULT);
 });
