@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
       oFinishField.remove();
       oFinishButton.remove();
     } else if (PROFILE_TYPE === 'company') {
-      alert('Error');
+      // alert('Error');
     }
   }
 
