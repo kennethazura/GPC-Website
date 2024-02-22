@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log(data);
           _setCookie('userId', data.body.userId);
           _setCookie('userEmail', data.body.email);
-          window.location.reload();
+          window.location.replace('/search');
         } else if (data.body.errMessage) {
           alert(data.body.errMessage);
         } else {
@@ -144,5 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
     oLogInBtn.on('click', doLogIn);
   }
 
-  initEventListeners();
+  function init() {
+    if (_getCookie('userId') !== '' && window.location.pathname === '/') {
+      window.location.replace('/search');
+    }
+    initEventListeners();
+  }
+
+  init();
 });

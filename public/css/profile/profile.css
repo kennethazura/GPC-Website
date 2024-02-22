@@ -203,6 +203,7 @@ body {
 .information__form input {
   outline: none;
   border: none;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .information__first-name {
@@ -211,6 +212,7 @@ body {
   flex: 40%;
   height: 50px;
   padding: 5px;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .information__last-name {
@@ -219,6 +221,7 @@ body {
   flex: 40%;
   height: 50px;
   padding: 5px;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .information__birthdate {
@@ -227,6 +230,7 @@ body {
   flex: 40%;
   height: 50px;
   padding: 5px;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .information__email {
@@ -235,12 +239,14 @@ body {
   flex: 40%;
   height: 50px;
   padding: 5px;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .information__address {
   width: 100%;
   height: 50px;
   padding: 5px;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .professional__field {
@@ -276,6 +282,7 @@ body {
 .professional__form textarea {
   outline: none;
   border: none;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .current__title {
@@ -371,10 +378,16 @@ body {
 .cv__btn {
   display: flex;
   flex-direction: row;
+  border: none;
+}
+
+input[type='file'] {
+  display: none;
 }
 
 .file__cv {
-  align-self: center;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 30%;
   padding: 10px;
@@ -384,6 +397,7 @@ body {
   border-bottom-right-radius: 20px;
   font-family: NotoSansBold, sans-serif;
   font-size: 1.25rem;
+  text-align: center;
   color: #FFFFFF;
   background-color: #3CB5E5;
   transition: all 0.3s ease;
@@ -408,6 +422,7 @@ body {
 .security__field input {
   outline: none;
   border: none;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .security__header {
@@ -424,6 +439,7 @@ body {
   width: 500px;
   height: 50px;
   padding: 5px;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .acc__number {
@@ -431,6 +447,7 @@ body {
   width: 500px;
   height: 50px;
   padding: 5px;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .finish__field {
@@ -448,6 +465,13 @@ body {
 .check-terms__label {
   font-size: 1.25rem;
   font-family: NotoSansRegular, sans-serif;
+}
+
+.tnc__link,
+.privacy__link,
+.tnc__link:visited,
+.privacy__link:visited {
+  color: #00B5E5;
 }
 
 .finish-btn__container {

@@ -80,6 +80,14 @@ server.get('/', (req, res) => {
   });
 });
 
+server.get('/search', (req, res) => {
+  res.render('landing.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
+
 server.get('/candidate-profile', (req, res) => {
   res.render('profile.ejs', {
     assetLink: process.env.ASSET_LINK,
@@ -238,6 +246,8 @@ server.post(`${process.env.API_ROUTE}/candidate/save`, bodyParser.json(), async(
     success: true,
     body: {},
   };
+
+  console.log(req.body);
 
   await database.query(
     'UPDATE `candidateprofiletable` SET firstName = ?, lastName = ?, address = ?, professionalInformation = ?, resume = ?, recoveryEmail = ?, recoveryPhone = ? WHERE `userId` = ? ',

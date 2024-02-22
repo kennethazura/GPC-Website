@@ -62,14 +62,21 @@
 }
 
 .company__logo {
-  content: url('/public/img/common/linkedin.png');
-  padding-bottom: 20px;
+  /* content: url('/public/img/common/linkedin.png'); */
+  content: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/2048px-Instagram_logo_2022.svg.png');
+  transition: all 0.3s ease;
+  margin-bottom: 15px;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
 }
 
 .company__logo:hover {
   cursor: pointer;
-  opacity: 0.8;
-  transform: scale(0.95);
+  filter: blur(2px) brightness(70%);
+
+  /* opacity: 0.8;
+  transform: scale(0.95); */
 }
 
 .company__form {
@@ -85,6 +92,7 @@
 .company__form select {
   outline: none;
   border: none;
+  font-family: NotoSansBold, sans-serif;
 }
 
 .company__user-first-name {
@@ -156,6 +164,13 @@
 .check-terms__label {
   font-size: 1.25rem;
   font-family: NotoSansRegular, sans-serif;
+}
+
+.tnc__link,
+.privacy__link,
+.tnc__link:visited,
+.privacy__link:visited {
+  color: #00B5E5;
 }
 
 .finish-btn__container {

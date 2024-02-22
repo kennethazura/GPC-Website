@@ -1,0 +1,84 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 0 2.1875rem;
+  box-sizing: border-box;
+  background: url('/public/img/home/hero-section/hero-section__background.png');
+  background-size: cover;
+  gap: 40px;
+}
+
+.search__header {
+  display: flex;
+  align-items: center;
+  font-family: MonserattBold, sans-serif;
+  font-size: 4.5rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  max-width: 75%;
+}
+
+.talent__search,
+.work__search {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 60px;
+  padding-top: 25px;
+}
+
+.talent__header h2,
+.job__header h2 {
+  display: inline-block;
+  font-family: Notosans, sans-serif;
+  font-size: 1.25rem;
+  text-align: justify;
+  white-space: nowrap;
+  color: white;
+  width: max-content;
+  min-width: 250px;
+  padding: 0.75rem 1rem 0.5rem 0.4375rem;
+  border-radius: 0 10rem 0 0;
+  border: 2px solid #3CB5E5;
+  background-color: #3CB5E5;
+}
+
+.talent__header,
+.job__header {
+  width: 30vw;
+  border-bottom: 2px solid #3CB5E5;
+}
+
+.resume__search,
+.job__search {
+  border-radius: 8px;
+  padding: 1rem 2.5rem;
+  width: 100%;
+  outline: none;
+}
+
+.search__box {
+  width: 100%;
+}
+
+.search__icon {
+  max-width: 20px;
+  max-height: 20px;
+  position: absolute;
+  transform: translate(15px, 15px);
+  filter: invert(49%) sepia(92%) saturate(778%) hue-rotate(152deg) brightness(94%) contrast(102%);
+}

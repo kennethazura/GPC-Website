@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function goToStep(targetStep) {
+    console.log(targetStep);
     oCandidateStepsContents.removeClass('step-1');
     oCandidateStepsContents.removeClass('step-2');
     oCandidateStepsContents.removeClass('step-3');
@@ -135,30 +136,33 @@ document.addEventListener('DOMContentLoaded', function() {
   function saveProfile() {
     isFinished = true;
     saveAPI();
-    if (PROFILE_TYPE !== 'candidate') return;
-    oCandidateStepsContents.removeClass('step-1');
-    oCandidateStepsContents.removeClass('step-2');
-    oCandidateStepsContents.removeClass('step-3');
-    oCandidateStepsContents.removeClass('step-4');
-    oCandidateStepsContents.addClass('step-5');
+    if (PROFILE_TYPE === 'candidate') {
+      oCandidateStepsContents.removeClass('step-1');
+      oCandidateStepsContents.removeClass('step-2');
+      oCandidateStepsContents.removeClass('step-3');
+      oCandidateStepsContents.removeClass('step-4');
+      oCandidateStepsContents.addClass('step-5');
 
-    oProgressBar.removeClass('step-1');
-    oProgressBar.removeClass('step-2');
-    oProgressBar.removeClass('step-3');
-    oProgressBar.removeClass('step-4');
-    oProgressBar.addClass('step-5');
+      oProgressBar.removeClass('step-1');
+      oProgressBar.removeClass('step-2');
+      oProgressBar.removeClass('step-3');
+      oProgressBar.removeClass('step-4');
+      oProgressBar.addClass('step-5');
 
-    oCandidateStepsContent.removeClass('active');
-    oCandidateStepsContent.nodes[4].classList.add('active');
+      oCandidateStepsContent.removeClass('active');
+      oCandidateStepsContent.nodes[4].classList.add('active');
 
-    oProgressBarValue.text(PROGRESS_BAR_VALUES[4]);
+      oProgressBarValue.text(PROGRESS_BAR_VALUES[4]);
 
-    for (let ctr = 0; ctr < oCandidateSteps.length; ctr += 1) {
-      oCandidateSteps.nodes[ctr].classList.add('complete');
+      for (let ctr = 0; ctr < oCandidateSteps.length; ctr += 1) {
+        oCandidateSteps.nodes[ctr].classList.add('complete');
+      }
+
+      oFinishField.remove();
+      oFinishButton.remove();
+    } else if (PROFILE_TYPE === 'company') {
+      alert('Error');
     }
-
-    oFinishField.remove();
-    oFinishButton.remove();
   }
 
   function setProfileValues(profile, profileType) {
