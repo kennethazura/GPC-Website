@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+  const DOMAIN = u('#domain').nodes[0].value;
+  const API_ROUTE = u('#api-route').nodes[0].value;
   const oUserContainer = u('.user-container');
   const oUserDropdown = u('.user-dropdown');
   const oSignUpBtn = u('.navbar__sign-up-btn');
@@ -39,9 +41,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function _getAccessToken() {
+    fetch(
+      `${DOMAIN}${API_ROUTE}/get-token`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(),
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        if (data.success) {
+          _setCookie('accessToken', data.body.access_token);
+        } else if (data.body.errMessage) {
+          console.warn(data.body.errMessage);
+        } else {
+          console.warn('Unfortunately, an error occurred in the server');
+        }
+      });
+  }
+
   function _checkUserSession() {
     const sLoggedInUser = _getCookie('userEmail');
+    const sUserId = _getCookie('userId');
+    const sAccessToken = _getCookie('access_token');
     oUserName.text(sLoggedInUser);
+
+    if (!sAccessToken) {
+      _getAccessToken(sUserId);
+    }
+
     return sLoggedInUser !== '';
   }
 
@@ -62,6 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function doLogOut() {
     _deleteCookie('userId');
     _deleteCookie('userEmail');
+    _deleteCookie('accountType');
+    _deleteCookie('accessToken');
+    _deleteCookie('salesForceId');
     window.location.replace('/');
   }
 

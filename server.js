@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
-const crypto = require('crypto');
+const https = require('https');
 
 if (process.env.ENVIRONMENT !== 'production') {
   const dotenv = require('dotenv');
@@ -179,6 +179,89 @@ function _verifyRecaptcha(recaptchaResponse) {
 
 /** API LIST */
 
+server.post(`${process.env.API_ROUTE}/get-token`, bodyParser.json(), async(req, res) => {
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const API_TARGET = `${process.env.SALESFORCE_API}/services/oauth2/token?grant_type=password&client_id=${process.env.SALESFORCE_CLIENT_ID}&client_secret=${process.env.SALESFORCE_CLIENT_SECRET}&password=${process.env.SALESFORCE_TOKEN_PASS}&username=${process.env.SALESFORCE_TOKEN_EMAIL}`;
+
+  fetch(
+    API_TARGET,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      if (data.access_token) {
+        API_RESULT.body.access_token = data.access_token;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errMessage = 'Authentication failure: Salesforce Token';
+      }
+
+      return res.send(API_RESULT);
+    });
+});
+
+server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const ACCOUNT_TYPE = req.body.accountType;
+  const ACCESS_TOKEN = req.body.accessToken;
+  const EMAIL = req.body.email;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const [results] = await database.query(
+    'UPDATE `usertable` SET `accountType` = ? WHERE `id` = ?',
+    [ACCOUNT_TYPE, USER_ID],
+  );
+
+  const ACCOUNT_DETAILS = (ACCOUNT_TYPE === 'candidate') ? {
+    FirstName: EMAIL,
+    LastName: EMAIL,
+    Email: EMAIL,
+    AccountId: process.env.SALESFORCE_CANDIDATE_ACCOUNT,
+  } : {
+    Name: EMAIL,
+  };
+
+  const API_TARGET = (ACCOUNT_TYPE === 'candidate') ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account`;
+  fetch(
+    API_TARGET,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(ACCOUNT_DETAILS),
+    },
+  ).then((oResponse) => oResponse.json())
+    .then(async(data) => {
+      if (data.success === true) {
+        await database.query(
+          'UPDATE `usertable` SET `salesForceId` = ? WHERE `id` = ?',
+          [data.id, USER_ID],
+        );
+        API_RESULT.body.salesForceId = data.id;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = data[0].errorCode;
+        API_RESULT.body.consoleMessage = data[0].message;
+        API_RESULT.body.errMessage = `Salesforce Registration Failed: (Account Type - ${ACCOUNT_TYPE})`;
+      }
+
+      return res.send(API_RESULT);
+    });
+});
+
 server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, res) => {
   const EMAIL = req.body.email;
   const PASSWORD = req.body.password;
@@ -196,10 +279,9 @@ server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, re
     API_RESULT.success = false;
     API_RESULT.body.errMessage = 'An account using that e-mail already exists';
   } else {
-    const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
     await database.query(
       'INSERT INTO `usertable` (email, password) VALUES (?, ?)',
-      [EMAIL, PASSWORD_HASH],
+      [EMAIL, PASSWORD],
     );
     const [results] = await database.query(
       'SELECT * FROM `usertable` WHERE `email` = ?',
@@ -214,7 +296,6 @@ server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, re
 server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res) => {
   const EMAIL = req.body.email;
   const PASSWORD = req.body.password;
-  const PASSWORD_HASH = crypto.createHash('sha256').update(PASSWORD).digest('base64');
   const API_RESULT = {
     success: true,
     body: {},
@@ -222,7 +303,7 @@ server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res)
 
   const [results] = await database.query(
     'SELECT * FROM `usertable` WHERE `email` = ? AND `password` = ?',
-    [EMAIL, PASSWORD_HASH],
+    [EMAIL, PASSWORD],
   );
 
   if (results.length === 0) {
@@ -231,6 +312,8 @@ server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res)
   } else {
     API_RESULT.body.userId = results[0].id;
     API_RESULT.body.email = results[0].email;
+    API_RESULT.body.accountType = results[0].accountType;
+    API_RESULT.body.salesForceId = results[0].salesForceId;
   }
 
   return res.send(API_RESULT);
@@ -272,8 +355,6 @@ server.post(`${process.env.API_ROUTE}/candidate/save`, bodyParser.json(), async(
     success: true,
     body: {},
   };
-
-  console.log(req.body);
 
   await database.query(
     'UPDATE `candidateprofiletable` SET firstName = ?, lastName = ?, address = ?, professionalInformation = ?, resume = ?, recoveryEmail = ?, recoveryPhone = ? WHERE `userId` = ? ',
