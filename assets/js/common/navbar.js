@@ -66,10 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function _checkUserSession() {
     const sLoggedInUser = _getCookie('userEmail');
     const sUserId = _getCookie('userId');
-    const sAccessToken = _getCookie('access_token');
+    const sAccessToken = _getCookie('accessToken');
     oUserName.text(sLoggedInUser);
 
     if (!sAccessToken) {
+      console.log('get token');
       _getAccessToken(sUserId);
     }
 

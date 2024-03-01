@@ -8,8 +8,6 @@
         <br>
         <a href="https://www.linkedin.com/company/globalprofessionalconnect" target="_blank"><img class="company__logo"></a>
         <form class="company__form">
-            <input class="company__user-first-name" type="text" name="company-user-first-name" placeholder="First Name"/>
-            <input class="company__user-last-name" type="text" name="company-user-last-name" placeholder="Last Name"/>
             <input class="company__name" type="text" name="company-title" placeholder="Company Name"/>
             <select class="industry__title" name="industry-type">
                 <option value="" disabled selected hidden>Select Industry</option>
@@ -17,9 +15,14 @@
                 <option value="industry2">Industry 2</option>
                 <option value="industry3">Industry 3</option>
             </select>
-            <input class="company__address" type="text" name="company-address" placeholder="Company Address"/>
+            <input class="company__address city" type="text" name="info-address" placeholder="City"/>
+            <input class="company__address country" type="text" name="info-address" placeholder="Country"/>
+            <input class="company__address postal-code" type="text" name="info-address" placeholder="Postal Code"/>
+            <input class="company__address state" type="text" name="info-address" placeholder="State"/>
+            <input class="company__address street" type="text" name="info-address" placeholder="Street"/>
             <input class="company__phone" type="text" name="company-number" placeholder="Company Phone Number"/>
             <input class="company__website" type="text" name="company-site" placeholder="Company Website"/>
+            <textarea class="company__description" name="company__description" placeholder="Company Description" maxlength="10000"></textarea>
         </form>
     </div>
     <div class="company__finish-field">
@@ -30,4 +33,8 @@
         <label class="check-terms__label" for="check__privacy">I have read and agree to the website <a href="www.google.com" target="_blank" class="privacy__link"> privacy policy</a></label>
     </div>
     <div class="finish-btn__container"><button class="finish__btn">Finish Setting Up Your Profile</button></div>
+    <div class="finish-img__field company">
+        <img class="profile-complete-img"/>
+        <span class="home-btn">Back To Home</span>
+    </div>
 </div>

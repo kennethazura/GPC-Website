@@ -22,6 +22,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'max-len': 0,
     'import/no-extraneous-dependencies': 0,
+    quotes: 0,
   },
   globals: {
     gsap: true,

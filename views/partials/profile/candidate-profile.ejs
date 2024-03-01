@@ -43,20 +43,25 @@
             <input class="information__first-name" type="text" name="info-first-name" placeholder="First Name"/>
             <input class="information__last-name" type="text" name="info-last-name" placeholder="Last Name"/>
             <input class="information__birthdate" type="text" name="info-birthdate" placeholder="Birthdate" onfocus="(this.type='date')" onblur="(this.type='text')"/>
-            <input class="information__email" type="email" name="info-email" placeholder="Email"/>
-            <input class="information__address" type="text" name="info-address" placeholder="Address"/>
+            <input class="information__email" type="email" name="info-email" placeholder="Email" readonly/>
+            <input class="information__address city" type="text" name="info-address" placeholder="City"/>
+            <input class="information__address country" type="text" name="info-address" placeholder="Country"/>
+            <input class="information__address postal-code" type="text" name="info-address" placeholder="Postal Code"/>
+            <input class="information__address state" type="text" name="info-address" placeholder="State"/>
+            <input class="information__address street" type="text" name="info-address" placeholder="Street"/>
             </form>
         </div>
         <div class="professional__field">
             <h3 class="second__header">Professional Information</h3>
             <p class="second__subhead">Share with us a brief overview of your professional experience.</p>
             <form class="professional__form">
-                <select class="current__title" name="current-title">
+                <input class="current__title" type="text" name="current-title" placeholder="Current Job Title"/>
+                <!-- <select class="current__title" name="current-title">
                     <option value="" disabled selected hidden>Current Job Title</option>
                     <option value="title1">Job 1</option>
                     <option value="title2">Job 2</option>
                     <option value="title3">Job 3</option>
-                </select>
+                </select> -->
             <input class="current__company" type="text" name="info-company" placeholder="Current Company"/>
             <input class="start__date" type="text" name="info-start-date" placeholder="Start Date"/>
             <input class="end__date" type="text" name="info-end-date" placeholder="End Date"/>

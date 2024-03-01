@@ -321,133 +321,264 @@ server.post(`${process.env.API_ROUTE}/login`, bodyParser.json(), async(req, res)
 
 server.post(`${process.env.API_ROUTE}/candidate/load`, bodyParser.json(), async(req, res) => {
   const USER_ID = req.body.userId;
-  const EMAIL = req.body.email;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
     body: {},
   };
 
-  if (USER_ID === '') {
+  if (USER_ID === '' || SALESFORCE_ID === '') {
     API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
 
-  const [results] = await database.query(
-    'SELECT * FROM `candidateprofiletable` WHERE `userId` = ?',
-    [USER_ID],
-  );
+  const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact/${SALESFORCE_ID}`;
+  fetch(
+    API_TARGET,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      if (data.Id !== undefined) {
+        const candidateDetails = data;
+        API_RESULT.body.profile = candidateDetails;
+        API_RESULT.success = true;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = data[0].errorCode;
+        API_RESULT.body.consoleMessage = data[0].message;
+        API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Candidate Details)';
+      }
 
-  if (results.length === 0) {
-    await database.query(
-      'INSERT INTO `candidateprofiletable` (userId, email) VALUES (?, ?)',
-      [USER_ID, EMAIL],
-    );
-  } else {
-    API_RESULT.body.profile = results[0];
-  }
-
-  return res.send(API_RESULT);
+      return res.send(API_RESULT);
+    });
 });
 
-server.post(`${process.env.API_ROUTE}/candidate/save`, bodyParser.json(), async(req, res) => {
+server.post(`${process.env.API_ROUTE}/candidate-work-history/load`, bodyParser.json(), async(req, res) => {
   const USER_ID = req.body.userId;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
     body: {},
   };
 
-  await database.query(
-    'UPDATE `candidateprofiletable` SET firstName = ?, lastName = ?, address = ?, professionalInformation = ?, resume = ?, recoveryEmail = ?, recoveryPhone = ? WHERE `userId` = ? ',
-    [req.body.firstName, req.body.lastName, req.body.address, req.body.professionalInformation, req.body.resume, req.body.recoveryEmail, req.body.recoveryPhone, USER_ID],
-  );
+  if (USER_ID === '' || SALESFORCE_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
 
-  return res.send(API_RESULT);
+  const workHistoryAPITarget = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact/${SALESFORCE_ID}/Candidate_Work_Experiences__r`;
+  fetch(
+    workHistoryAPITarget,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((workHistoryData) => {
+      if (workHistoryData.done === true) {
+        API_RESULT.body.candidateworkHistory = workHistoryData.records;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = workHistoryData[0].errorCode;
+        API_RESULT.body.consoleMessage = workHistoryData[0].message;
+        API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Candidate Work History)';
+      }
+
+      return res.send(API_RESULT);
+    });
+});
+
+server.post(`${process.env.API_ROUTE}/candidate/save`, bodyParser.json(), async(req, res) => {
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+  const CANDIDATE_PROFILE = {
+    FirstName: req.body.FirstName || null,
+    LastName: req.body.LastName || null,
+    Birthdate: req.body.Birthdate || null,
+    AccountId: process.env.SALESFORCE_CANDIDATE_ACCOUNT || null,
+    MailingStreet: req.body.MailingStreet || null,
+    MailingCity: req.body.MailingCity || null,
+    MailingState: req.body.MailingState || null,
+    MailingPostalCode: req.body.MailingPostalCode || null,
+    MailingCountry: req.body.MailingCountry || null,
+    Personal_Email__c: req.body.Personal_Email__c || null,
+    HomePhone: req.body.HomePhone || null,
+  };
+
+  const APITarget = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact/${SALESFORCE_ID}`;
+  fetch(
+    APITarget,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(CANDIDATE_PROFILE),
+    },
+  ).then(() => res.send(API_RESULT));
+});
+
+server.post(`${process.env.API_ROUTE}/candidate/save-work-history`, bodyParser.json(), async(req, res) => {
+  const ACCESS_TOKEN = req.body.accessToken;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+  const WORK_HISTORY_ID = req.body.workHistoryId;
+  const CANDIDATE_WORK_HISTORY = {
+    Contact__c: req.body.Contact__c || null,
+    Company__c: req.body.Company__c || null,
+    Job_Title__c: req.body.Job_Title__c || null,
+    Start_Date__c: req.body.Start_Date__c || null,
+    End_Date__c: req.body.End_Date__c || null,
+    Description__c: req.body.Description__c || null,
+  };
+
+  const APITarget = (WORK_HISTORY_ID) ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c/${WORK_HISTORY_ID}` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c`;
+  const API_METHOD = (WORK_HISTORY_ID) ? 'PATCH' : 'POST';
+  fetch(
+    APITarget,
+    {
+      method: API_METHOD,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(CANDIDATE_WORK_HISTORY),
+    },
+  ).then((response) => { console.log(response); res.send(API_RESULT); });
 });
 
 server.post(`${process.env.API_ROUTE}/company/load`, bodyParser.json(), async(req, res) => {
   const USER_ID = req.body.userId;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
     body: {},
   };
 
-  if (USER_ID === '') {
+  if (USER_ID === '' || SALESFORCE_ID === '') {
     API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
 
-  const [results] = await database.query(
-    'SELECT * FROM `companyprofiletable` WHERE `userId` = ?',
-    [USER_ID],
-  );
+  const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account/${SALESFORCE_ID}`;
+  fetch(
+    API_TARGET,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      if (data.Id !== undefined) {
+        API_RESULT.body.profile = data;
+        API_RESULT.success = true;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = data[0].errorCode;
+        API_RESULT.body.consoleMessage = data[0].message;
+        API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Company Details)';
+      }
 
-  if (results.length === 0) {
-    await database.query(
-      'INSERT INTO `companyprofiletable` (userId) VALUES (?)',
-      [USER_ID],
-    );
-  } else {
-    API_RESULT.body.profile = results[0];
-  }
-
-  return res.send(API_RESULT);
+      return res.send(API_RESULT);
+    });
 });
 
 server.post(`${process.env.API_ROUTE}/company/save`, bodyParser.json(), async(req, res) => {
-  const USER_ID = req.body.userId;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
     body: {},
   };
+  const COMPANY_PROFILE = {
+    Name: req.body.Name || null,
+    Industry: req.body.Industry || null,
+    Phone: req.body.Phone || null,
+    Website: req.body.Website || null,
+    BillingStreet: req.body.BillingStreet || null,
+    BillingCity: req.body.BillingCity || null,
+    BillingState: req.body.BillingState || null,
+    BillingPostalCode: req.body.BillingPostalCode || null,
+    BillingCountry: req.body.BillingCountry || null,
+    Company_Description__c: req.body.Company_Description__c || null,
+  };
 
-  await database.query(
-    'UPDATE `companyprofiletable` SET firstName = ?, lastName = ?, companyName = ?, industry = ?, companyAddress = ?, companyPhone = ?, website = ? WHERE `userId` = ? ',
-    [req.body.firstName, req.body.lastName, req.body.companyName, req.body.industry, req.body.companyAddress, req.body.companyPhone, req.body.website, USER_ID],
-  );
-
-  return res.send(API_RESULT);
+  const APITarget = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account/${SALESFORCE_ID}`;
+  fetch(
+    APITarget,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(COMPANY_PROFILE),
+    },
+  ).then(() => {
+    res.send(API_RESULT);
+  });
 });
 
 server.post(`${process.env.API_ROUTE}/job-requirement/load`, bodyParser.json(), async(req, res) => {
   const USER_ID = req.body.userId;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
     body: {},
   };
 
-  if (USER_ID === '') {
+  if (USER_ID === '' || SALESFORCE_ID === '') {
     API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
 
-  const [companyProfile, companyProfileFields] = await database.query(
-    'SELECT * FROM `companyprofiletable` WHERE `userId` = ?',
-    [USER_ID],
-  );
+  const API_TARGET = `https://kbfcpas--gpc.sandbox.my.salesforce.com/services/data/v56.0/sobjects/Job_Posting__c/a1wEk0000002OFxIAM`;
+  fetch(
+    API_TARGET,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      if (data.Id !== undefined) {
+        API_RESULT.body.jobDetails = data;
+        API_RESULT.success = true;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = data[0].errorCode;
+        API_RESULT.body.consoleMessage = data[0].message;
+        API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Job Details)';
+      }
 
-  if (companyProfile.length === 0) {
-    API_RESULT.success = false;
-    API_RESULT.body.errMessage = 'Please setup your company profile first';
-    return res.send(API_RESULT);
-  }
-
-  const companyId = companyProfile[0].id;
-
-  const [jobRequirements, jobRequirementsFields] = await database.query(
-    'SELECT * FROM `jobrequirementtable` WHERE `companyId` = ?',
-    [companyId],
-  );
-
-  if (jobRequirements.length === 0) {
-    await database.query(
-      'INSERT INTO `jobrequirementtable` (companyId) VALUES (?)',
-      [companyId],
-    );
-  } else {
-    API_RESULT.body.jobDetails = jobRequirements[0];
-  }
-
-  return res.send(API_RESULT);
+      return res.send(API_RESULT);
+    });
 });
 
 server.post(`${process.env.API_ROUTE}/job-requirement/save`, bodyParser.json(), async(req, res) => {
@@ -544,21 +675,40 @@ server.post(`${process.env.API_ROUTE}/candidate-list/load`, bodyParser.json(), a
 
 server.post(`${process.env.API_ROUTE}/job-list/load`, bodyParser.json(), async(req, res) => {
   const USER_ID = req.body.userId;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
     body: {},
   };
 
-  if (USER_ID === '') {
+  if (USER_ID === '' || SALESFORCE_ID === '') {
     API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
 
-  const [jobs, jobsFields] = await database.query(
-    'SELECT * FROM `jobrequirementtable` INNER JOIN `companyprofiletable` ON `jobrequirementtable`.`companyId`=`companyprofiletable`.`id`',
-  );
+  const API_TARGET = `https://kbfcpas--gpc.sandbox.my.salesforce.com/services/data/v56.0/sobjects/Job_Posting__c/a1wEk0000002OFxIAM`;
+  fetch(
+    API_TARGET,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      if (data.Id !== undefined) {
+        API_RESULT.body.jobs = [data, data, data, data];
+        API_RESULT.success = true;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = data[0].errorCode;
+        API_RESULT.body.consoleMessage = data[0].message;
+        API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Job Details)';
+      }
 
-  API_RESULT.body.jobs = jobs;
-
-  return res.send(API_RESULT);
+      return res.send(API_RESULT);
+    });
 });
