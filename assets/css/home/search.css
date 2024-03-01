@@ -9,7 +9,7 @@
   min-height: 100svh;
   padding: 0 2.1875rem;
   box-sizing: border-box;
-  background: url('/public/img/home/hero-section/hero-section__background.png');
+  background: url('/public/img/home/landing-page/GPC_search bg photo-01.jpg');
   background-size: cover;
   gap: 40px;
 }
@@ -56,32 +56,46 @@
 }
 
 .job__header {
-  width: 50vw;
+  width: 70vw;
   border-bottom: 2px solid #3CB5E5;
 }
 
-.job__search,
-.area__search,
-.spec__search {
-  border-radius: 8px;
-  padding: 1rem 2.5rem;
-  width: 100%;
-  outline: none;
+.search-fields {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-family: NotoSans, sans-serif;
 }
 
-.search__box {
-  width: 100%;
+.search-field {
+  flex: 1;
+  min-width: 20%;
+  padding: 20px;
+  border: none !important;
+  outline: none !important;
+  border-radius: 12px;
+  font-size: 16px;
 }
 
-.search__button {
-  border: 2px solid #3CB5E5;
-  background-color: #3CB5E5;
+.search-btn {
+  width: 20px;
+  height: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #00B5E6;
+  transition: all 0.25s ease;
 }
 
-.search__icon {
+.search-btn:hover {
+  cursor: pointer;
+  background: #204694;
+}
+
+.search-btn svg {
   max-width: 20px;
   max-height: 20px;
-  position: absolute;
-  transform: translate(15px, 15px);
-  filter: invert(49%) sepia(92%) saturate(778%) hue-rotate(152deg) brightness(94%) contrast(102%);
+  min-width: 20px;
+  min-height: 20px;
+  filter: invert(99%) sepia(0%) saturate(2%) hue-rotate(263deg) brightness(108%) contrast(100%);
 }
