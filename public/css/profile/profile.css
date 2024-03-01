@@ -234,12 +234,14 @@ body {
 }
 
 .information__email {
+  pointer-events: none;
   box-sizing: border-box;
   width: 100%;
   flex: 40%;
   height: 50px;
   padding: 5px;
   font-family: NotoSansBold, sans-serif;
+  background: #D4D4D4;
 }
 
 .information__address {
@@ -323,6 +325,8 @@ body {
   height: 500px;
   padding: 5px;
   resize: none;
+  font-family: NotoSans, sans-serif;
+  font-size: 1rem;
 }
 
 .exp-btn__container {

@@ -48,6 +48,13 @@
   padding: 30px 10vw 40px;
 }
 
+.companyinfo__field.finished,
+.company__finish-field.finished,
+.finish-btn__container.finished {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .top__header {
   color: #273D90;
   font-size: 1.75rem;
@@ -197,4 +204,28 @@
   cursor: pointer;
   color: #3CB5E5;
   background-color: #FFFFFF;
+}
+
+.company__description {
+  box-sizing: border-box;
+  width: 100%;
+  height: 500px;
+  padding: 5px;
+  resize: none;
+  font-family: NotoSans, sans-serif;
+  font-size: 1rem;
+}
+
+.finish-img__field.company {
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  top: 25%;
+  left: 2%;
+  transition: all 0.3s ease;
+}
+
+.finish-img__field.company.finished {
+  pointer-events: unset;
+  opacity: 1;
 }
