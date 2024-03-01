@@ -112,6 +112,14 @@ server.get('/company-profile', (req, res) => {
   });
 });
 
+server.get('/term-sheet', (req, res) => {
+  res.render('term-sheet.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
+
 // server.get('/job/:jobTitle', (req, res) => {
 //   fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
 //     .then(async(oResponse) => {
