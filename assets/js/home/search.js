@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oTalentSearch = u('.resume__search');
   const oJobSearch = u('.job__search');
+  const oSearchBtn = u('.search-btn');
+
+  oSearchBtn.on('click', function() {
+    window.location.replace('/job-list');
+    console.log(oSearchBtn);
+  });
 
   oTalentSearch.on('keyup', function(event) {
     if (event.key === 'Enter') {

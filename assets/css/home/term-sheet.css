@@ -60,6 +60,13 @@
 
 .name__field {
   padding: 0.75rem 2rem;
+  background-color: rgb(241, 195, 195);
+  border-color: red;
+}
+
+.date__field {
+  background-color: rgb(241, 195, 195);
+  border-color: red;
 }
 
 .sheet__body {
@@ -137,10 +144,14 @@
 
 .signature {
   padding: 1.25rem;
+  background-color: rgb(241, 195, 195);
+  border-color: red;
 }
 
 .current__date {
   padding: 0.25rem;
+  background-color: rgb(241, 195, 195);
+  border-color: red;
 }
 
 .step__container {
