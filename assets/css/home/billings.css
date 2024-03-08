@@ -1,0 +1,67 @@
+.billings {
+  display: block;
+  position: relative;
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 10rem 8rem;
+  box-sizing: border-box;
+  background-color: #E5E5E5;
+  background-size: cover;
+}
+
+.billing__headerborder {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  font-family: MonserattBold, sans-serif;
+  font-size: 1rem;
+  white-space: nowrap;
+  border-bottom: 2px solid #3CB5E5;
+}
+
+.billing__header {
+  display: inline-block;
+  font-family: MonserattBold, sans-serif;
+  font-size: 1.55rem;
+  text-align: justify;
+  white-space: nowrap;
+  color: white;
+  width: 24vw;
+  padding: 0.75rem 1.125rem 0.5rem 1rem;
+  border-radius: 0 13.75rem 0 0;
+  border: 2px solid #3CB5E5;
+  background-color: #3CB5E5;
+}
+
+.tabs__border {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 0;
+  border-bottom: 1px solid grey;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+  padding-left: 30px;
+  font-family: NotoSansRegular, sans-serif;
+  font-size: 15px;
+  text-align: center;
+  color: #9C9B9B;
+}
+
+.payment__field {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 10vw 40px;
+}
+
+.field__header {
+  color: #273D90;
+  font-size: 1.75rem;
+  font-family: MonserattBold, sans-serif;
+  padding-bottom: 15px;
+}
