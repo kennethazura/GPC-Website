@@ -92,6 +92,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     for (let ctr = targetStep - 1; ctr < oCandidateSteps.length; ctr += 1) {
       oCandidateSteps.nodes[ctr].classList.remove('complete');
+      if (ctr + 1 < oCandidateSteps.length) {
+        oCandidateSteps.nodes[ctr + 1].classList.remove('active');
+      }
     }
   }
 
@@ -342,6 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
         targetElement = eEvent.target;
       }
       const targetStep = targetElement.classList[1].substr(targetElement.classList[1].length - 1);
+      targetElement.classList.add('active');
 
       goToStep(targetStep);
     });

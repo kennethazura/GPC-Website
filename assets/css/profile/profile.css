@@ -117,13 +117,27 @@ body {
   transition: all 0.25s ease;
 }
 
+.candidate__step .step__title {
+  color: #9C9B9B;
+  transition: all 0.25s ease;
+}
+
+.candidate__step.active .step__number {
+  border: 1px solid #273D90;
+  color: #273D90;
+}
+
+.candidate__step.active .step__title {
+  color: #273D90;
+}
+
 .candidate__step.complete .step__number {
   color: white;
   background: #273D90;
 }
 
-.candidate__step .step__title {
-  color: #9C9B9B;
+.candidate__step.complete .step__title {
+  color: #273D90;
 }
 
 .candidate__step svg {

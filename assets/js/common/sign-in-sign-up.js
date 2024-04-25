@@ -198,9 +198,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function init() {
-    if (_getCookie('userId') !== '' && window.location.pathname === '/') {
-      window.location.replace('/search');
-    }
+    // if (_getCookie('userId') !== '' && window.location.pathname === '/') {
+    //   window.location.replace('/search');
+    // }
     initEventListeners();
   }
 
