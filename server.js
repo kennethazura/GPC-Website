@@ -241,6 +241,9 @@ server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), a
   };
 
   const API_TARGET = (ACCOUNT_TYPE === 'candidate') ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account`;
+  // Move registration to profile page, only account needs to be created here
+  // If Account Type = company, create account
+  // In profile page FirstName, LastName, Email & AccountID need to be present
   fetch(
     API_TARGET,
     {

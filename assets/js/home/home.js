@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oDocument = u(document);
   const oBody = u('body');
-  const oNavButtons = u('.navbar__link');
+  const oNavButtons = u('.navbar__link:not(.payment)');
   const oNavButtonsMobile = u('.navbar-menu__link');
   const oFooterLinks = u('.footer__link');
   const oNavbarMenuBtn = u('.navbar__burger-btn');
