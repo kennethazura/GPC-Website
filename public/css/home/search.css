@@ -29,13 +29,14 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .search__container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 50%;
   gap: 60px;
   padding-top: 25px;
 }
@@ -56,7 +57,7 @@
 }
 
 .job__header {
-  width: 70vw;
+  width: 45vw;
   border-bottom: 2px solid #3CB5E5;
 }
 

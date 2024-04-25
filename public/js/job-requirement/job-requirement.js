@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oSaveBtn = u('.form__submit-btn');
   const aJobDescriptions = [];
   const aQualifications = [];
+  const JOB_ID = u('#jobId').nodes[0].value;
 
   /** Job Requirements - Form Fields */
 
@@ -105,10 +106,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function _saveProfile() {
-    const userId = _getCookie('userId');
+  function _saveJobRequirement() {
+    const accountId = _getCookie('salesForceId');
+    const accessToken = _getCookie('accessToken');
     const jobRequirementBody = {
-      userId,
+      accountId,
+      accessToken,
+      slots: 5,
+      budget: 1000,
+      category: 'Controller',
+      benefits: '',
       positionName: oPositionName.nodes[0].value,
       jobSummary: oJobSummary.nodes[0].value,
       workingHours: oWorkingHours.nodes[0].value,
@@ -130,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then((data) => {
         if (data.success) {
           alert('Your changes have been saved');
+          window.location.reload();
         } else if (data.body.errMessage) {
           alert(data.body.errMessage);
         } else {
@@ -140,36 +148,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function _load() {
     const userId = _getCookie('userId');
+    console.log(JOB_ID);
 
-    fetch(
-      `${DOMAIN}${API_ROUTE}/job-requirement/load`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId }),
-      },
-    ).then((oResponse) => oResponse.json())
-      .then((data) => {
-        if (data.success === 401) {
-          window.location.replace('/');
-        } else if (data.success) {
-          if (data.body) setJobDetails(data.body.jobDetails);
-        } else if (data.body.errMessage) {
-          alert(data.body.errMessage);
-          window.location.replace('/company-profile');
-        } else {
-          alert('Unfortunately, an error occurred in the server');
-        }
-      });
+    // fetch(
+    //   `${DOMAIN}${API_ROUTE}/job-requirement/load`,
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ userId }),
+    //   },
+    // ).then((oResponse) => oResponse.json())
+    //   .then((data) => {
+    //     if (data.success === 401) {
+    //       window.location.replace('/');
+    //     } else if (data.success) {
+    //       if (data.body) setJobDetails(data.body.jobDetails);
+    //     } else if (data.body.errMessage) {
+    //       alert(data.body.errMessage);
+    //       window.location.replace('/company-profile');
+    //     } else {
+    //       alert('Unfortunately, an error occurred in the server');
+    //     }
+    //   });
   }
 
   function _initEventListeners() {
     oJobSummary.on('keyup', updateJobSummaryCounter);
     oAddJobDescriptionBtn.on('click', () => { addJobDescriptionBullet(''); });
     oAddQualificationsBtn.on('click', () => { addQualificationsBullet(''); });
-    oSaveBtn.on('click', _saveProfile);
+    oSaveBtn.on('click', _saveJobRequirement);
     document.addEventListener('click', removeBulletPoint);
   }
 

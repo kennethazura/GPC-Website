@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oDocument = u(document);
   const oBody = u('body');
-  const oNavButtons = u('.navbar__link:not(.payment)');
+  const oNavButtons = u('.navbar__link:not(.no-scroll)');
   const oNavButtonsMobile = u('.navbar-menu__link');
   const oFooterLinks = u('.footer__link');
   const oNavbarMenuBtn = u('.navbar__burger-btn');
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
    * @returns DOM
    */
   function _createJobItem(sJobTitle, sJobDescription, sJobIconLink, sJobRedirectLink) {
-    const oJobItem = `<a href="${sJobRedirectLink}" class="job-item-redirect ${sJobTitle.toLowerCase()}">
+    const oJobItem = `<a href="${sJobRedirectLink}" target="_blank" class="job-item-redirect ${sJobTitle.toLowerCase()}">
         <div class="job-item ${sJobTitle.toLowerCase()}">
           <img src="${sJobIconLink}" class="job-item__icon"/>
           <h3 class="job-item__title">${sJobTitle}</h3>
@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     oDocument.on('click', '.job-item-redirect', function(eEvent) {
       if (!eEvent.target.classList.contains('')) eEvent.preventDefault();
+      window.open(eEvent.target.parentNode.href, '_blank');
     });
     oLoadMoreJobsBtn.on('click', loadMoreJobs);
     oNavButtonsMobile.on('click', function(eEvent) {

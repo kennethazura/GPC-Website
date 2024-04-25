@@ -3,11 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const API_ROUTE = u('#api-route').nodes[0].value;
   const oUserContainer = u('.user-container');
   const oUserDropdown = u('.user-dropdown');
+  const oNavBarLinkNoSession = u('.navbar__link.no-session');
+  const oNavBarLinkNoCandidate = u('.navbar__link.candidate');
+  const oNavBarLinkNoCompany = u('.navbar__link.company');
   const oSignUpBtn = u('.navbar__sign-up-btn');
   const oLogInBtn = u('.navbar__login-btn');
   const oDropdownIcon = u('.user-container__dropdown-icon');
   const oUserName = u('.user-container__name');
   const oLogOutBtn = u('.logout-btn');
+  const oCandidateDropdownOptions = u('.user-dropdown__option.candidate');
+  const oCompanyDropdownOptions = u('.user-dropdown__option.company');
 
   function _setCookie(cname, cvalue, exdays = 1) {
     const d = new Date();
@@ -70,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
     oUserName.text(sLoggedInUser);
 
     if (!sAccessToken) {
-      console.log('get token');
       _getAccessToken(sUserId);
     }
 
@@ -80,6 +84,27 @@ document.addEventListener('DOMContentLoaded', function() {
   function hideSignInBtns() {
     oSignUpBtn.addClass('hidden');
     oLogInBtn.addClass('hidden');
+  }
+
+  function hideNavbarLinks(sAccountType = null) {
+    if (sAccountType === 'company') {
+      oNavBarLinkNoSession.addClass('hidden');
+      oNavBarLinkNoCandidate.addClass('hidden');
+    } else if (sAccountType === 'candidate') {
+      oNavBarLinkNoSession.addClass('hidden');
+      oNavBarLinkNoCompany.addClass('hidden');
+    } else {
+      oNavBarLinkNoCompany.addClass('hidden');
+      oNavBarLinkNoCandidate.addClass('hidden');
+    }
+  }
+
+  function hideDropdownOptions(sAccountType) {
+    if (sAccountType === 'company') {
+      oCandidateDropdownOptions.addClass('hidden');
+    } else {
+      oCompanyDropdownOptions.addClass('hidden');
+    }
   }
 
   function hideUserContainer() {
@@ -102,9 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function loadNavbarState(hasSession = false) {
     if (hasSession) {
+      const sAccountType = _getCookie('accountType');
       hideSignInBtns();
+      hideNavbarLinks(sAccountType);
+      hideDropdownOptions(sAccountType);
     } else {
       hideUserContainer();
+      hideNavbarLinks();
     }
   }
 

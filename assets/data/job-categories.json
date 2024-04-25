@@ -4,55 +4,55 @@
             "jobTitle": "Controller",
             "jobDescription": "Oversee the accounting department functions with a focus on ensuring the timely and accurate delivery of financial statements and reporting.",
             "jobIcon": "/public/img/home/job-categories/controller-icon.png",
-            "link": "/job/controller"
+            "link": "/job-list?keyword=controller"
         },
         {
             "jobTitle": "Accounting Manager",
             "jobDescription": "Oversee an organization's daily accounting operations, including the accounting, payroll, accounts receivable and accounts payable departments.",
             "jobIcon": "/public/img/home/job-categories/account-manager-icon.png",
-            "link": "/job/accounting-manager"
+            "link": "/job-list?keyword=accounting-manager"
         },
         {
             "jobTitle": "Staff Accountant/Bookkeeper",
             "jobDescription": "Prepare and maintain financial records to track the organizations assets, liabilities, profit and loss, tax liabilities, and other related financial activities.",
             "jobIcon": "/public/img/home/job-categories/bookkeeper-icon.png",
-            "link": "/job/bookkeeper"
+            "link": "/job-list?keyword=bookkeeper"
         },
         {
             "jobTitle": "Accounts Receivable",
             "jobDescription": "Responsible for ensuring all incoming payments are received and processed.",
             "jobIcon": "/public/img/home/job-categories/accounts-receivable-icon.png",
-            "link": "/job/accounts-receivable"
+            "link": "/job-list?keyword=accounts-receivable"
         },
         {
             "jobTitle": "Accounts Payable",
             "jobDescription": "Responsible for managing and maintaining financial records, with a particular emphasis on processing invoices and other bills.",
             "jobIcon": "/public/img/home/job-categories/accounts-payable-icon.png",
-            "link": "/job/accounts-payable"
+            "link": "/job-list?keyword=accounts-payable"
         },
         {
             "jobTitle": "Payroll Accountant",
             "jobDescription": "Oversee and supervise the payroll functions of the organization, ensuring pay is processed on time, accurately, and in compliance with government regulations.",
             "jobIcon": "/public/img/home/job-categories/payroll-accountant-icon.png",
-            "link": "/job/payroll-accountant"
+            "link": "/job-list?keyword=payroll-accountant"
         },
         {
             "jobTitle": "Financial Analyst",
             "jobDescription": "Responsible for tracking a company's financial performance against plan, analyzing business performance and market conditions to create forecasts, and helping senior management make tactical and strategic decisions by providing periodic reports.",
             "jobIcon": "/public/img/home/job-categories/financial-analyst-icon.png",
-            "link": "/job/financial-analyst"
+            "link": "/job-list?keyword=financial-analyst"
         },
         {
             "jobTitle": "Tax Accountant",
             "jobDescription": "Prepare, and submit tax forms, analyze financial information, and ensure all departments are well-informed of the current best practices in the field of tax accounting.",
             "jobIcon": "/public/img/home/job-categories/tax-accountant-icon.png",
-            "link": "/job/tax-accountant"
+            "link": "/job-list?keyword=tax-accountant"
         },
         {
             "jobTitle": "Executive Assistant",
             "jobDescription": "Coordinate and provide high-quality administrative support to the executive team.",
             "jobIcon": "/public/img/home/job-categories/executive-assistant-icon.png",
-            "link": "/job/executive-assistant"
+            "link": "/job-list?keyword=executive-assistant"
         }
     ]
 }

@@ -160,7 +160,7 @@ body {
 .job-list-container {
   display: none;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: start;
   gap: 30px;
   width: 100%;
   padding-top: 20px;

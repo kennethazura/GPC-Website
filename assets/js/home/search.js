@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const DOMAIN = u('#domain').nodes[0].value;
   const API_ROUTE = u('#api-route').nodes[0].value;
   const oNavbar = u('.navbar');
-  const oTalentSearch = u('.resume__search');
+  const oTalentSearch = u('.search-field');
   const oJobSearch = u('.job__search');
   const oSearchBtn = u('.search-btn');
   const oJobHeader = u('.job__header > h2');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function _initEventListeners() {
     oSearchBtn.on('click', function() {
-      window.location.replace('/job-list');
+      window.location.replace('/job-list?keyword=' + oTalentSearch.nodes[0].value);
     });
 
     oTalentSearch.on('keyup', function(event) {
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     oJobSearch.on('keyup', function(event) {
       if (event.key === 'Enter') {
-        window.location.replace('/job-list?q=' + oJobSearch.nodes[0].value);
+        window.location.replace('/job-list?keyword=' + oJobSearch.nodes[0].value);
       }
     });
   }
