@@ -128,6 +128,14 @@ server.get('/job-list', (req, res) => {
   });
 });
 
+server.get('/billing', (req, res) => {
+  res.render('billing.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
+
 server.get('/term-sheet', (req, res) => {
   res.render('term-sheet.ejs', {
     assetLink: process.env.ASSET_LINK,
