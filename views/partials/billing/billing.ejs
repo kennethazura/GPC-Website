@@ -1,0 +1,142 @@
+<div class="billings section">
+    <div class="billing__headerborder">
+        <h1 class="billing__header">Billings and Payments</h1>
+    </div>
+    <div class="tabs__container">
+        <div class="tab active">
+            <span id="payment">Payment Methods</span>
+        </div>
+        <div class="tab">
+            <span id="balance">Available Balances</span>
+        </div>
+        <div class="tab">
+            <span id="history">Billing History</span>
+        </div>
+    </div>
+    <div class="content__container">
+        <div class="content payment">
+            <div class="content__box">
+                <h2 class="content__header">Payment Methods</h2>
+                <p>Easily manage your payment methods** through our secure system.</p>
+                <div class="select-container">
+                    <select class="methods"  name="payment-methods">
+                        <option value="" disabled selected hidden>Add a payment method</option>
+                                <option value="Stripe">Stripe</option>
+                    </select>
+                    <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                    </svg>
+                </div>
+                <a href="https://buy.stripe.com/test_bIY2ca6dVfplbXqbII" target="_blank"><button class="pay-btn">Pay Now</button></a>
+            </div>
+        </div>
+        <div class="content balances">
+            <div class="content__box">
+                <h2 class="content__header">Available Balances</h2>
+                <table class="balances__table">
+                <tr>
+                    <th>Date Range</th>
+                    <th>Invoice Number</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>mm/dd/yy</td>
+                    <td>12345</td>
+                    <td>Pending</td>
+                    <td>$ 000,000.00</td>
+                </tr>
+                <tr>
+                    <td>mm/dd/yy</td>
+                    <td>12345</td>
+                    <td>Pending</td>
+                    <td>$ 000,000.00</td>
+                </tr>
+                <tr>
+                    <td>mm/dd/yy</td>
+                    <td>12345</td>
+                    <td>Pending</td>
+                    <td>$ 000,000.00</td>
+                </tr>
+            </table>
+            </div>
+        </div>
+        <div class="content history">
+            <div class="content__box">
+            <h2 class="content__header">Billing History</h2>
+            <div class="history__filters-container">
+                <div class="select-container">
+                    <select class="filter__date" name="date-range">
+                        <option value="" disabled selected hidden>Date Range</option>
+                                <option value="title1">Last 24 Hours</option>
+                                <option value="title2">Past Week</option>
+                                <option value="title3">Past Month</option>
+                                <option value="title3">Past 6 Months</option>
+                                <option value="title3">Past Year</option>
+                    </select>
+                    <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                    </svg>
+                </div>
+                
+
+                <div class="select-container">
+                    <select class="filter__document" name="documents">
+                        <option value="" disabled selected hidden>Document</option>
+                                <option value="title1">Document 1</option>
+                                <option value="title2">Document 2</option>
+                                <option value="title3">Document 3</option>
+                    </select>
+                    <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                    </svg>
+                </div>
+                
+
+                <div class="select-container">
+                    <select class="filter__currency" name="currency">
+                        <option value="" disabled selected hidden>Currency</option>
+                                <option value="title1">USD</option>
+                    </select>
+                    <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                    </svg>
+                </div>
+                
+                <div class="filter__search">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                    </svg>
+                    <input type="text" name="search-invoice" placeholder="Search by invoice">
+                </div>
+            </div>
+            <table class="history__table">
+                <tr>
+                    <th>Date Range</th>
+                    <th>Invoice Number</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>mm/dd/yy</td>
+                    <td>12345</td>
+                    <td>Pending</td>
+                    <td>$ 000,000.00</td>
+                </tr>
+                <tr>
+                    <td>mm/dd/yy</td>
+                    <td>12345</td>
+                    <td>Pending</td>
+                    <td>$ 000,000.00</td>
+                </tr>
+                <tr>
+                    <td>mm/dd/yy</td>
+                    <td>12345</td>
+                    <td>Pending</td>
+                    <td>$ 000,000.00</td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
