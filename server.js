@@ -226,7 +226,7 @@ server.post(`${process.env.API_ROUTE}/get-token`, bodyParser.json(), async(req, 
 });
 
 server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), async(req, res) => {
-  const USER_ID = req.body.userId;
+  const PASSWORD = req.body.password;
   const ACCOUNT_TYPE = req.body.accountType;
   const ACCESS_TOKEN = req.body.accessToken;
   const EMAIL = req.body.email;
@@ -235,10 +235,16 @@ server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), a
     body: {},
   };
 
-  const [results] = await database.query(
-    'UPDATE `usertable` SET `accountType` = ? WHERE `id` = ?',
-    [ACCOUNT_TYPE, USER_ID],
+  await database.query(
+    'INSERT INTO `usertable` (email, password, accountType) VALUES (?, ?, ?)',
+    [EMAIL, PASSWORD, ACCOUNT_TYPE],
   );
+  const [results] = await database.query(
+    'SELECT * FROM `usertable` WHERE `email` = ?',
+    [EMAIL],
+  );
+  API_RESULT.body.userId = results[0].id;
+  API_RESULT.body.email = results[0].email;
 
   const ACCOUNT_DETAILS = (ACCOUNT_TYPE === 'candidate') ? {
     FirstName: EMAIL,
@@ -266,10 +272,6 @@ server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), a
   ).then((oResponse) => oResponse.json())
     .then(async(data) => {
       if (data.success === true) {
-        await database.query(
-          'UPDATE `usertable` SET `salesForceId` = ? WHERE `id` = ?',
-          [data.id, USER_ID],
-        );
         API_RESULT.body.salesForceId = data.id;
       } else {
         API_RESULT.success = false;
@@ -284,7 +286,6 @@ server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), a
 
 server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, res) => {
   const EMAIL = req.body.email;
-  const PASSWORD = req.body.password;
   const API_RESULT = {
     success: true,
     body: {},
@@ -298,16 +299,6 @@ server.post(`${process.env.API_ROUTE}/sign-up`, bodyParser.json(), async(req, re
   if (results.length > 0) {
     API_RESULT.success = false;
     API_RESULT.body.errMessage = 'An account using that e-mail already exists';
-  } else {
-    await database.query(
-      'INSERT INTO `usertable` (email, password) VALUES (?, ?)',
-      [EMAIL, PASSWORD],
-    );
-    const [results] = await database.query(
-      'SELECT * FROM `usertable` WHERE `email` = ?',
-      [EMAIL],
-    );
-    API_RESULT.body.userId = results[0].id;
   }
 
   return res.send(API_RESULT);
@@ -614,7 +605,7 @@ server.post(`${process.env.API_ROUTE}/job-requirement/save`, bodyParser.json(), 
     Budget__c: req.body.budget,
     Category__c: req.body.positionName,
     Candidate_Qualifications__c: req.body.qualifications,
-    Responsibilities__c: req.body.jobDescription,
+    Responsibilities__c: req.body.jobResponsibilities,
     Description__c: req.body.jobSummary,
     Benefits__c: req.body.benefits,
   };

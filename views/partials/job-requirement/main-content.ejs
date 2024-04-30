@@ -4,12 +4,32 @@
         <div class="page-header">Job Requirement</div>
     </div>
     <div class="job-requirement-form">
-        <input class="form__position-name" type="text" placeholder="Name of Position"/>
-        <textarea class="form__job-summary" placeholder="Job Summary" maxlength="600"></textarea>
+        <div class="select-container">
+            <select class="form__position-name" placeholder="Name of Position">
+                <option value="" disabled selected hidden>Select a Position</option>
+                <option value="Controller">Controller</option>
+                <option value="Accounting Manager">Accounting Manager</option>
+                <option value="Staff Accountant/Bookkeeper">Staff Accountant/Bookkeeper</option>
+                <option value="Accounts Receivable">Accounts Receivable</option>
+                <option value="Accounts Payable">Accounts Payable</option>
+                <option value="Payroll Accountant">Payroll Accountant</option>
+                <option value="Financial Analyst">Financial Analyst</option>
+                <option value="Tax Accountant">Tax Accountant</option>
+                <option value="Executive Assistant">Executive Assistant</option>
+            </select>
+            <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+            </svg>
+        </div>
+        <div class="multi-column">
+            <input class="form__position-budget" type="number" placeholder="Budget"/>
+            <input class="form__position-slots" type="number" placeholder="Available Slots"/>
+        </div>
+        <textarea class="form__job-summary" placeholder="Job Description" maxlength="600"></textarea>
         <span class="job-summary-counter"><span class="job-summary-counter__current">0</span> / 600</span>
         <div class="job-description-container">
             <div class="job-description__header">
-                <input class="form__job-description" type="text" placeholder="Job Description (Include five to ten bullet points)"/>
+                <input class="form__job-description" type="text" placeholder="Job Responsibilities"/>
                 <svg class="job-description__add-btn" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
                     <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
                 </svg>

@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
       Company_Description__c: oCompanyDescription.nodes[0].value,
     };
 
+    showLoading();
     fetch(
       `${DOMAIN}${API_ROUTE}/${PROFILE_TYPE}/save`,
       {
@@ -186,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     ).then((oResponse) => oResponse.json())
       .then((data) => {
+        hideLoading();
         if (data.success) {
           if (PROFILE_TYPE === 'candidate') {
             saveWorkHistoryAPI();
@@ -281,6 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const accessToken = _getCookie('accessToken');
     const salesForceId = _getCookie('salesForceId');
 
+    showLoading();
     fetch(
       `${DOMAIN}${API_ROUTE}/${profileType}/load`,
       {
@@ -292,6 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     ).then((oResponse) => oResponse.json())
       .then((data) => {
+        hideLoading();
         if (data.success === 401) {
           window.location.replace('/');
         } else if (data.success) {
@@ -317,6 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
       ).then((oResponse) => oResponse.json())
         .then((data) => {
+          hideLoading();
           if (data.success === 401) {
             window.location.replace('/');
           } else if (data.success) {

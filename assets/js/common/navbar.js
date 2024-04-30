@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const API_ROUTE = u('#api-route').nodes[0].value;
   const oUserContainer = u('.user-container');
   const oUserDropdown = u('.user-dropdown');
-  const oNavBarLinkNoSession = u('.navbar__link.no-session');
-  const oNavBarLinkNoCandidate = u('.navbar__link.candidate');
-  const oNavBarLinkNoCompany = u('.navbar__link.company');
+  const oNavBarLinkNoSession = u('.navbar > .no-session');
+  const oNavBarLinkNoCandidate = u('.navbar > .candidate');
+  const oNavBarLinkNoCompany = u('.navbar > .company');
   const oSignUpBtn = u('.navbar__sign-up-btn');
   const oLogInBtn = u('.navbar__login-btn');
   const oDropdownIcon = u('.user-container__dropdown-icon');
@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const sLoggedInUser = _getCookie('userEmail');
     const sUserId = _getCookie('userId');
     const sAccessToken = _getCookie('accessToken');
+    _deleteCookie('registrationEmail');
+    _deleteCookie('registrationPassword');
+
     oUserName.text(sLoggedInUser);
 
     if (!sAccessToken) {

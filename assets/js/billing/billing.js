@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const DOMAIN = u('#domain').nodes[0].value;
   const API_ROUTE = u('#api-route').nodes[0].value;
   const oNavbar = u('.navbar');
+  const oPaymentMethodsSelector = u('.methods');
+  const oPayButton = u('.pay-btn');
 
   const oTabs = u('.tabs__container .tab');
   const oContentContainer = u('.content__container');
@@ -19,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
   function _initEventListeners() {
     oTabs.on('click', (eEvent) => {
       switchTab(eEvent);
+    });
+    oPaymentMethodsSelector.on('change', () => {
+      oPayButton.removeClass('hidden');
     });
   }
 

@@ -189,6 +189,7 @@ body {
 }
 
 .job-title {
+  max-width: 240px;
   margin-bottom: 5px;
   font-family: NotoSansBold, sans-serif;
   font-size: 24px;
@@ -290,6 +291,11 @@ body {
   color: #9B9B9B;
 }
 
+.pagination-pages {
+  display: flex;
+  gap: 30px;
+}
+
 .job-list-pagination svg {
   max-width: 20px;
   max-height: 20px;
@@ -304,6 +310,7 @@ body {
   transition: all 0.25s ease;
 }
 
+.pagination-option.active,
 .pagination-option:hover,
 .job-list-pagination svg:hover {
   cursor: pointer;

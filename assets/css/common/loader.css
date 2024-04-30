@@ -1,6 +1,7 @@
 .loader {
   pointer-events: none;
-  z-index: 2000;
+  z-index: 10000;
+  top: 0;
   opacity: 0;
   position: fixed;
   display: flex;

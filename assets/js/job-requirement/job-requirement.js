@@ -4,13 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oJobSummaryCounter = u('.job-summary-counter__current');
   const oJobDescriptionInput = u('.form__job-description');
+  const oJobBudget = u('.form__position-budget');
+  const oJobSlots = u('.form__position-slots');
   const oJobDescriptionList = u('.job-description__list');
   const oAddJobDescriptionBtn = u('.job-description__add-btn');
   const oQualificationsInput = u('.form__job-qualifications');
   const oQualificationsList = u('.job-qualifications__list');
   const oAddQualificationsBtn = u('.job-qualifications__add-btn');
   const oSaveBtn = u('.form__submit-btn');
-  const aJobDescriptions = [];
+  const aJobResponsibilities = [];
   const aQualifications = [];
   const JOB_ID = u('#jobId').nodes[0].value;
 
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function addJobDescriptionBullet(description = '') {
     const sJobDescription = (description !== '') ? description : oJobDescriptionInput.nodes[0].value;
     if (sJobDescription === '') return;
-    aJobDescriptions.push(sJobDescription);
+    aJobResponsibilities.push(sJobDescription);
     const oBullet = `<div class="job-description__bullet">
         <span>${sJobDescription}</span>
         <svg class="job-description__minus-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -79,11 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
       let arrayIndex = -1;
 
       if (oTarget.classList.contains('job-description__minus-btn')) {
-        arrayIndex = aJobDescriptions.indexOf(value);
-        aJobDescriptions.splice(arrayIndex, 1);
+        arrayIndex = aJobResponsibilities.indexOf(value);
+        aJobResponsibilities.splice(arrayIndex, 1);
       } else if (oTarget.classList.contains('job-qualifications__minus-btn')) {
         arrayIndex = aQualifications.indexOf(value);
-        aQualifications.splice(aJobDescriptions, 1);
+        aQualifications.splice(aJobResponsibilities, 1);
       }
 
       oTarget.parentElement.remove();
@@ -106,24 +108,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function _convertToRich(list) {
+    let sRichList = '<ul>';
+    for (let ctr = 0; ctr < list.length; ctr += 1) {
+      sRichList += `<li>${list[ctr]}</li>`;
+    }
+    sRichList += '</ul>';
+
+    return sRichList;
+  }
+
   function _saveJobRequirement() {
     const accountId = _getCookie('salesForceId');
     const accessToken = _getCookie('accessToken');
+
     const jobRequirementBody = {
       accountId,
       accessToken,
-      slots: 5,
-      budget: 1000,
-      category: 'Controller',
+      slots: oJobSlots.nodes[0].value,
+      budget: oJobBudget.nodes[0].value,
       benefits: '',
       positionName: oPositionName.nodes[0].value,
       jobSummary: oJobSummary.nodes[0].value,
       workingHours: oWorkingHours.nodes[0].value,
       startDate: oStartDate.nodes[0].value,
-      jobDescription: aJobDescriptions.toString(),
-      qualifications: aQualifications.toString(),
+      jobResponsibilities: _convertToRich(aJobResponsibilities),
+      qualifications: _convertToRich(aQualifications),
     };
 
+    showLoading();
     fetch(
       `${DOMAIN}${API_ROUTE}/job-requirement/save`,
       {
@@ -135,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     ).then((oResponse) => oResponse.json())
       .then((data) => {
+        hideLoading();
         if (data.success) {
           alert('Your changes have been saved');
           window.location.reload();

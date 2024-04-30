@@ -66,13 +66,51 @@ body {
   padding: 0 240px;
 }
 
+.job-requirement-form .multi-column {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.job-requirement-form .multi-column * {
+  flex: 1;
+}
+
 .job-requirement-form input,
-.job-requirement-form textarea {
+.job-requirement-form textarea,
+.job-requirement-form select {
   padding: 20px;
   border: none;
   font-family: NotoSans, sans-serif;
   font-size: 1.125rem;
   outline: none !important;
+}
+
+.job-requirement-form .select-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 101.5%;
+  margin: 20px 0;
+  appearance: none;
+}
+
+.job-requirement-form .select-container select {
+  width: 100%;
+  outline: none;
+  appearance: none;
+}
+
+.job-requirement-form .select-container select:hover {
+  cursor: pointer;
+}
+
+.job-requirement-form .select-container .dropdown-icon {
+  width: 15px;
+  height: 15px;
+  color: #3CB5E5;
+  transform: translateX(-30px);
+  filter: invert(83%) sepia(54%) saturate(4099%) hue-rotate(165deg) brightness(90%) contrast(99%);
 }
 
 .form__job-summary {

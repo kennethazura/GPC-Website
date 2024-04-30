@@ -46,6 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
     return '';
   }
 
+  function _deleteCookie(cname, path, domain) {
+    if (_getCookie(cname)) {
+      document.cookie = cname + '='
+        + ((path) ? ';path=' + path : '')
+        + ((domain) ? ';domain=' + domain : '')
+        + ';expires=Thu, 01 Jan 1970 00:00:01 GMT';
+    }
+  }
+
   function showSignUp() {
     u('.sign-in-sign-up__backdrop').addClass('active');
     u('.sign-in-sign-up').addClass('active');
@@ -78,11 +87,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function signUp() {
+    const validEmailExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const sEmail = oSignUpEmail.nodes[0].value;
     const sPassword = oSignUpPassword.nodes[0].value;
     const sConfirmPassword = oSignUpConfirmPassword.nodes[0].value;
     if (sPassword !== sConfirmPassword) {
       alert('Passwords do not match');
+    } else if (!validEmailExp.test(sEmail)) {
+      alert('Please provide a valid E-mail addresss');
     } else {
       fetch(
         `${DOMAIN}${API_ROUTE}/sign-up`,
@@ -91,13 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email: sEmail, password: sPassword }),
+          body: JSON.stringify({ email: sEmail }),
         },
       ).then((oResponse) => oResponse.json())
         .then((data) => {
           if (data.success) {
-            _setCookie('userId', data.body.userId);
-            _setCookie('userEmail', sEmail);
+            _setCookie('registrationEmail', sEmail);
+            _setCookie('registrationPassword', sPassword);
             goToPostSignUp();
           } else if (data.body.errMessage) {
             alert(data.body.errMessage);
@@ -111,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function doLogIn() {
     const sUserInputEmail = oSignInEmail.nodes[0].value;
     const sUserInputPass = oSignInPassword.nodes[0].value;
-
+    showLoading();
     fetch(
       `${DOMAIN}${API_ROUTE}/login`,
       {
@@ -123,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     ).then((oResponse) => oResponse.json())
       .then((data) => {
+        hideLoading();
         if (data.success) {
           _setCookie('userId', data.body.userId);
           _setCookie('userEmail', data.body.email);
@@ -140,8 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
   function finalizeRegistartion(accountType) {
     const redirectPage = (accountType === 'candidate') ? '/candidate-profile' : 'company-profile';
     const userId = _getCookie('userId');
-    const email = _getCookie('userEmail');
+    const email = _getCookie('registrationEmail');
+    const password = _getCookie('registrationPassword');
     const accessToken = _getCookie('accessToken');
+    showLoading();
     fetch(
       `${DOMAIN}${API_ROUTE}/register-salesforce`,
       {
@@ -150,16 +165,22 @@ document.addEventListener('DOMContentLoaded', function() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId, email, accountType, accessToken,
+          userId, email, accountType, accessToken, password,
         }),
       },
     ).then((oResponse) => oResponse.json())
       .then((registrationData) => {
+        hideLoading();
+        _deleteCookie('registrationEmail');
+        _deleteCookie('registrationPassword');
         if (registrationData.success) {
           _setCookie('accountType', accountType);
+          _setCookie('userId', registrationData.body.userId);
+          _setCookie('userEmail', registrationData.body.email);
           _setCookie('salesForceId', registrationData.body.salesForceId);
           window.location.replace(redirectPage);
         } else if (registrationData.body.errMessage) {
+          window.location.reload();
           alert('Error: ' + registrationData.body.errCode);
           console.warn(registrationData.body.errMessage);
           console.warn(registrationData.body.consoleMessage);
