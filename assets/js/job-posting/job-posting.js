@@ -1,10 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+  const DOMAIN = u('#domain').nodes[0].value;
+  const API_ROUTE = u('#api-route').nodes[0].value;
   const iDeviceWidth = (window.innerWidth > 0) ? window.innerWidth : window.screen.width;
   const sDevice = (iDeviceWidth >= 1024) ? 'pc' : 'mobile';
   const oBody = u('body');
   const oNavbar = u('.navbar');
   const oNavbarMenuBtn = u('.navbar__burger-btn');
   const oQualificationHeader = u('.qualifications__header');
+  const oHeroTitle = u('.hero__title');
+  const oHeroDescription = u('.hero__description');
+  const oJobResponsibilities = u('.responsibilities__container--pc');
+  const oJobQualifications = u('.qualifications__container--pc');
   let oResponsibilitiesSwiper;
   let oQualificationSwiper;
 
@@ -197,6 +203,74 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   }
+  function _getCookie(cname) {
+    const name = cname + '=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i += 1) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
+
+  function jobData(details) {
+    const responsibilities = details.Responsibilities__c.split("<li>");
+    const qualifications = details.Candidate_Qualifications__c.split("<li>");
+    oHeroTitle.text(details.Category__c);
+    oHeroDescription.html(details.Description__c);
+    console.log(details.Responsibilities__c.split("<li>"));
+    for (let ctr = 1; ctr < responsibilities.length; ctr += 1) {
+      oJobResponsibilities.append(`<div class="responsibilities__item">
+<div src="" class="responsibilities__icon"></div>
+<p class="responsibilities__text">${responsibilities[ctr]}</p>
+</div>`);
+    }
+    for (let ctr = 1; ctr < qualifications.length; ctr += 1) {
+      oJobQualifications.append(`<div class="qualifications__item"
+        <div class="qualifications__item"></div>
+        <p class="qualifications__text"><img class="qualifications__icon"/></img>${qualifications[ctr]}</p>
+    </div>`);
+    }
+    console.log(details);
+  }
+
+  function _load() {
+    const accessToken = _getCookie('accessToken');
+    const salesForceId = _getCookie('salesForceId');
+    const jobId = window.location.pathname.split("/")[2];
+
+    fetch(
+      `${DOMAIN}${API_ROUTE}/job-details`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          jobId, accessToken, salesForceId,
+        }),
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        if (data.success === 401) {
+          window.location.replace('/');
+        } else if (data.success) {
+          jobData(data.body.job);
+        } else if (data.body.errMessage) {
+          alert('Error: ' + data.body.errCode);
+          console.warn(data.body.errMessage);
+          console.warn(data.body.consoleMessage);
+        } else {
+          console.warn('Unfortunately, an error occurred in the server');
+        }
+      });
+  }
 
   function init() {
     // const oHeroTimeline = gsap.timeline();
@@ -208,6 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
       _cleanUp();
       initSwipers();
     }
+    _load();
     initEventListeners();
   }
 
