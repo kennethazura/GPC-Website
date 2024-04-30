@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const oJob = `<div class="job-item">
       <div class="job-header">
           <div class="job-details">
-              <h2 class="job-title">${jobs[ctr].Category__c || 'Job Title'}</h1>
-              <h3 class="company-name">${jobs[ctr].Account__r.Name || 'Company Name'}</h2>
+              <a href="/job/${jobs[ctr].Id}" target="_blank" class="job-title">${jobs[ctr].Category__c || 'Job Title'}</a>
+              <h3 class="company-name">${jobs[ctr].Account__r.Name || 'Company Name'}</h3>
               <h3 class="company-location">Available Positions: ${jobs[ctr].Slots__c || '--'}</h3>
               <h3 class="salary-range">${salary || '--'}</h3>
           </div>
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="job-description">
       ${jobs[ctr].Description__c || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'}
       </div>
-      <button class="job-apply-btn">Apply</button>
+      <a href="/job/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">Apply</button></a>
   </div>`;
       oJobContainer.append(oJob);
     }

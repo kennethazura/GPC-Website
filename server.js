@@ -52,23 +52,59 @@ server.get(`${process.env.API_ROUTE}/job-categories`, (req, res) => {
     });
 });
 
-server.get(`${process.env.API_ROUTE}/job-details`, (req, res) => {
-  const sJobDataURL = `${process.env.DOMAIN}${process.env.ASSET_LINK}/data/job-details.json`;
+server.post(`${process.env.API_ROUTE}/job-details`, bodyParser.json(), (req, res) => {
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
+  const JOB_ID = req.body.jobId;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+  if (SALESFORCE_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
 
-  fetch(sJobDataURL, { method: 'Get' })
-    .then((oResponse) => oResponse.json())
-    .then((oJobDetails) => {
-      const aJobs = oJobDetails.jobDetails;
-      const iLength = aJobs.length;
-      let oJob = '';
-
-      for (let iCount = 0; iCount < iLength; iCount += 1) {
-        if (aJobs[iCount].title.replace(/[^a-zA-Z]/g, '').toLowerCase().includes(req.query.title.replace(/[^a-zA-Z]/g, '').toLowerCase())) oJob = aJobs[iCount];
+  const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Job_Posting__C/${JOB_ID}`;
+  fetch(
+    API_TARGET,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      if (data.Id !== undefined) {
+        const jobDetails = data;
+        API_RESULT.body.job = jobDetails;
+        API_RESULT.success = true;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = data[0].errorCode;
+        API_RESULT.body.consoleMessage = data[0].message;
+        API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Job Details)';
       }
 
-      if (oJob === '') return res.send({ error: `Error! "${req.query.title}" not found.` });
-      return res.send(oJob);
+      return res.send(API_RESULT);
     });
+
+  // fetch(sJobDataURL, { method: 'Get' })
+  //   .then((oResponse) => oResponse.json())
+  //   .then((oJobDetails) => {
+  //     const aJobs = oJobDetails.jobDetails;
+  //     const iLength = aJobs.length;
+  //     let oJob = '';
+
+  //     for (let iCount = 0; iCount < iLength; iCount += 1) {
+  //       if (aJobs[iCount].title.replace(/[^a-zA-Z]/g, '').toLowerCase().includes(req.query.title.replace(/[^a-zA-Z]/g, '').toLowerCase())) oJob = aJobs[iCount];
+  //     }
+
+  //     if (oJob === '') return res.send({ error: `Error! "${req.query.title}" not found.` });
+  //     return res.send(oJob);
+  //   });
 });
 
 server.get('/', (req, res) => {
@@ -145,21 +181,13 @@ server.get('/term-sheet', (req, res) => {
   });
 });
 
-// server.get('/job/:jobTitle', (req, res) => {
-//   fetch(`${process.env.DOMAIN}${process.env.API_ROUTE}/job-details?title=${req.params.jobTitle}`)
-//     .then(async(oResponse) => {
-//       const oJobDetails = await oResponse.json();
-//       if (Object.prototype.hasOwnProperty.call(oJobDetails, 'error')) res.send(`Error! "${req.params.jobTitle}" not found.`);
-//       else {
-//         res.render('job-posting.ejs', {
-//           jobDetails: oJobDetails,
-//           assetLink: process.env.ASSET_LINK,
-//           domain: process.env.DOMAIN,
-//           apiRoute: process.env.API_ROUTE,
-//         });
-//       }
-//     });
-// });
+server.get('/job/:jobTitle', (req, res) => {
+  res.render('job-posting.ejs', {
+    assetLink: process.env.ASSET_LINK,
+    domain: process.env.DOMAIN,
+    apiRoute: process.env.API_ROUTE,
+  });
+});
 
 server.get('/terms-and-conditions', (req, res) => {
   res.render('terms-and-conditions.ejs', {
