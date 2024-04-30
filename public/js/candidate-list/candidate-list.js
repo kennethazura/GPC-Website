@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function _load() {
     const userId = _getCookie('userId');
+    showLoading();
     fetch(
       `${DOMAIN}${API_ROUTE}/candidate-list/load`,
       {
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     ).then((oResponse) => oResponse.json())
       .then((data) => {
+        hideLoading();
         if (data.success === 401) {
           window.location.replace('/');
         } else if (data.success) {
