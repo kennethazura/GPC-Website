@@ -224,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const qualifications = details.Candidate_Qualifications__c.split("<li>");
     oHeroTitle.text(details.Category__c);
     oHeroDescription.html(details.Description__c);
-    console.log(details.Responsibilities__c.split("<li>"));
     for (let ctr = 1; ctr < responsibilities.length; ctr += 1) {
       oJobResponsibilities.append(`<div class="responsibilities__item">
 <div src="" class="responsibilities__icon"></div>
@@ -232,12 +231,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>`);
     }
     for (let ctr = 1; ctr < qualifications.length; ctr += 1) {
-      oJobQualifications.append(`<div class="qualifications__item"
-        <div class="qualifications__item"></div>
-        <p class="qualifications__text"><img class="qualifications__icon"/></img>${qualifications[ctr]}</p>
+      oJobQualifications.append(`<div class="qualifications__item">
+        <div class="qualifications__icon"></div>
+        <p class="qualifications__text">${qualifications[ctr]}</p>
     </div>`);
     }
-    console.log(details);
   }
 
   function _load() {
