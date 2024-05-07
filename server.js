@@ -734,7 +734,7 @@ server.post(`${process.env.API_ROUTE}/job-list/load`, bodyParser.json(), async(r
   const USER_ID = req.body.userId;
   const SALESFORCE_ID = req.body.salesForceId;
   const ACCESS_TOKEN = req.body.accessToken;
-  const USER_CREATED = req.body.isUserCreated === 'true';
+  const COMPANY_ID = req.body.companyId;
   const QUERY_KEYWORD = req.body.queryKeyword;
   const QUERY_LOCATION = req.body.queryLoaction;
   const QUERY_SPECIALIZATION = req.body.querySpecialization;
@@ -749,10 +749,10 @@ server.post(`${process.env.API_ROUTE}/job-list/load`, bodyParser.json(), async(r
     return res.send(API_RESULT);
   }
 
-  let API_TARGET = (USER_CREATED) ? `https://kbfcpas--gpc.sandbox.my.salesforce.com/services/data/v56.0/query?q=SELECT Id, Description__c, Responsibilities__c, Candidate_Qualifications__c, Benefits__c, Account__c, Account__r.Name, Category__c, Budget__c, Slots__c  FROM Job_Posting__c WHERE Account__c = '${SALESFORCE_ID}'`
-    : `https://kbfcpas--gpc.sandbox.my.salesforce.com/services/data/v56.0/query?q=SELECT Id, Description__c, Responsibilities__c, Candidate_Qualifications__c, Benefits__c, Account__c, Account__r.Name, Category__c, Budget__c, Slots__c FROM Job_Posting__c`;
+  let API_TARGET = (COMPANY_ID) ? `${process.env.SALESFORCE_API}/services/data/v56.0/query?q=SELECT Id, Description__c, Responsibilities__c, Candidate_Qualifications__c, Benefits__c, Account__c, Account__r.Name, Category__c, Budget__c, Slots__c  FROM Job_Posting__c WHERE Account__c = '${COMPANY_ID}'`
+    : `${process.env.SALESFORCE_API}/services/data/v56.0/query?q=SELECT Id, Description__c, Responsibilities__c, Candidate_Qualifications__c, Benefits__c, Account__c, Account__r.Name, Category__c, Budget__c, Slots__c FROM Job_Posting__c`;
   if (QUERY_KEYWORD !== '' && QUERY_KEYWORD !== null) API_TARGET += ` WHERE Category__c LIKE '${QUERY_KEYWORD}'`;
-  fetch(
+  await fetch(
     API_TARGET,
     {
       method: 'GET',
@@ -765,6 +765,77 @@ server.post(`${process.env.API_ROUTE}/job-list/load`, bodyParser.json(), async(r
     .then((data) => {
       API_RESULT.body.jobs = data.records;
       API_RESULT.success = true;
+
+      if (!COMPANY_ID) {
+        return res.send(API_RESULT);
+      }
+    });
+
+  if (COMPANY_ID) {
+    const COMPANY_API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account/${COMPANY_ID}`;
+    fetch(
+      COMPANY_API_TARGET,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        if (data.Id !== undefined) {
+          API_RESULT.body.company = data;
+          API_RESULT.success = true;
+        } else {
+          API_RESULT.success = false;
+          API_RESULT.body.errCode = data[0].errorCode;
+          API_RESULT.body.consoleMessage = data[0].message;
+          API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Company Details)';
+        }
+
+        return res.send(API_RESULT);
+      });
+  }
+});
+
+server.post(`${process.env.API_ROUTE}/job-list/companies/load`, bodyParser.json(), async(req, res) => {
+  const USER_ID = req.body.userId;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
+
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  if (USER_ID === '' || SALESFORCE_ID === '') {
+    API_RESULT.success = 401;
+    return res.send(API_RESULT);
+  }
+
+  const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/query?q=SELECT Id, Name FROM Account`;
+
+  await fetch(
+    API_TARGET,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      if (data.done) {
+        API_RESULT.body.companies = data.records;
+        API_RESULT.success = true;
+      } else {
+        API_RESULT.success = false;
+        API_RESULT.body.errCode = data[0].errorCode;
+        API_RESULT.body.consoleMessage = data[0].message;
+        API_RESULT.body.errMessage = 'Salesforce Data Load Failed: (Get Company List)';
+      }
 
       return res.send(API_RESULT);
     });
