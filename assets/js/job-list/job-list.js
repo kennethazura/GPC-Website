@@ -29,9 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const oSearchInputLocation = u('#search__location');
   const oSearchInputSpecialization = u('#search__specialization');
   const oSearchBtn = u('.search-btn');
-  const oBrandItem = u('.brand-item');
+  const oPageType = u('.page-type');
   const oDocument = u(document);
+  let currentScreenView = 'jobs';
   let JOB_LIST = [];
+  let BRAND_LIST = [];
   let currentIndex = 0;
   let currentPage = 1;
 
@@ -51,14 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
     return '';
   }
 
-  function _setPagination(jobs) {
+  function _setPagination(list, pageType) {
     oPaginationPages.html('');
-    oTotalJobs.text(jobs.length);
-    const totalPages = Math.ceil(jobs.length / 6);
+    oPageType.text(pageType);
+    oTotalJobs.text(list.length);
+    const totalPages = (pageType === 'jobs') ? Math.ceil(list.length / 6) : Math.ceil(list.length / 14);
+    const pageLimit = (pageType === 'jobs') ? 6 : 14;
     oCurrentPage.text(currentPage);
     oPageTotal.text(totalPages);
     let pageNumber = 1;
-    for (let ctr = 1; ctr < jobs.length; ctr += 6) {
+    for (let ctr = 0; ctr < list.length; ctr += pageLimit) {
       if (pageNumber === currentPage) oPaginationPages.append(`<span class="pagination-option active">${pageNumber}</span>`);
       else oPaginationPages.append(`<span class="pagination-option">${pageNumber}</span>`);
       pageNumber += 1;
@@ -81,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     for (let ctr = startIndex; ctr < startIndex + 6; ctr += 1) {
       if (jobs[ctr] === undefined) break;
       if (jobs[ctr].Account__c === currentCompany) {
-        jobButton = `<a href="/job-requirement/${jobs[ctr].Account__c}" target="_blank"><button class="job-apply-btn">Edit</button></a> <a href="/candidate-list/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">View Applicants</button></a>`;
+        jobButton = `<a href="/job-requirement/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">Edit</button></a> <a href="/candidate-list/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">View Applicants</button></a>`;
       } else {
         jobButton = `<a href="/job/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">Apply</button></a>`;
       }
@@ -122,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function toggleNavButtons() {
-    const totalPages = Math.ceil(JOB_LIST.length / 6);
+    const totalPages = (currentScreenView === 'jobs') ? Math.ceil(JOB_LIST.length / 6) : Math.ceil(BRAND_LIST.length / 14);
     oPreviousPage.removeClass('disabled');
     oNextPage.removeClass('disabled');
     if (currentPage === 1) {
@@ -134,18 +138,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function changePage(direction, pageNumber = null) {
+    const pageLimit = (currentScreenView === 'jobs') ? 6 : 14;
     if (pageNumber) {
-      currentIndex = (pageNumber === 1) ? 0 : 6 * (pageNumber - 1);
+      currentIndex = (pageNumber === 1) ? 0 : pageLimit * (pageNumber - 1);
       currentPage = pageNumber;
     } else if (direction === 'next') {
-      currentIndex += 6;
+      currentIndex += pageLimit;
       currentPage += 1;
     } else if (direction === 'prev') {
-      currentIndex -= 6;
+      currentIndex -= pageLimit;
       currentPage -= 1;
     }
-    _populatejobs(JOB_LIST, currentIndex);
-    _setPagination(JOB_LIST);
+    if (currentScreenView === 'jobs') {
+      _populatejobs(JOB_LIST, currentIndex);
+      _setPagination(JOB_LIST, 'jobs');
+    } else {
+      _populateBrands(BRAND_LIST, currentIndex);
+      _setPagination(BRAND_LIST, 'brands');
+    }
+
     toggleNavButtons();
   }
 
@@ -186,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (data.success) {
           JOB_LIST = data.body.jobs;
           _populatejobs(data.body.jobs, 0);
-          _setPagination(data.body.jobs);
+          _setPagination(data.body.jobs, 'jobs');
           toggleNavButtons();
           if (companyId) _loadCompanyDetails(data.body.company, data.body.jobs.length);
         } else if (data.body.errMessage) {
@@ -267,8 +278,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.success === 401) {
           window.location.replace('/');
         } else if (data.success) {
+          BRAND_LIST = data.body.companies;
           _populateBrands(data.body.companies, 0);
-          _setPagination(data.body.companies);
+          _setPagination(data.body.companies, 'brands');
         } else if (data.body.errMessage) {
           alert(data.body.errMessage);
           window.location.replace('/');
@@ -295,6 +307,10 @@ document.addEventListener('DOMContentLoaded', function() {
       oBrandHeadercontainer.removeClass('active');
       oBrandDetailscontainer.removeClass('active');
       oBrandJobCounter.removeClass('active');
+      currentIndex = 0;
+      currentPage = 1;
+      currentScreenView = 'brands';
+      toggleNavButtons();
       _loadAllCompanies();
       // Update pagination to brands;
     });
@@ -318,10 +334,11 @@ document.addEventListener('DOMContentLoaded', function() {
       let companyId = null;
       if (oTarget.classList.contains('brand-name')) {
         companyId = oTarget.parentNode.id;
-      } else {
+        window.location.replace(`/job-list?company=${companyId}`);
+      } else if (oTarget.classList.contains('brand-item')) {
         companyId = oTarget.id;
+        window.location.replace(`/job-list?company=${companyId}`);
       }
-      window.location.replace(`/job-list?company=${companyId}`);
     });
   }
 
