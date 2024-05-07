@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     showLoading();
+    // If job id is not null method should be patch / edit instead
     fetch(
       `${DOMAIN}${API_ROUTE}/job-requirement/save`,
       {

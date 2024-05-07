@@ -584,6 +584,8 @@ server.post(`${process.env.API_ROUTE}/job-requirement/load`, bodyParser.json(), 
   const USER_ID = req.body.userId;
   const SALESFORCE_ID = req.body.salesForceId;
   const ACCESS_TOKEN = req.body.accessToken;
+  const JOB_ID = req.body.jobId;
+
   const API_RESULT = {
     success: true,
     body: {},
@@ -594,7 +596,7 @@ server.post(`${process.env.API_ROUTE}/job-requirement/load`, bodyParser.json(), 
     return res.send(API_RESULT);
   }
 
-  const API_TARGET = `https://kbfcpas--gpc.sandbox.my.salesforce.com/services/data/v56.0/sobjects/Job_Posting__c/a1wEk0000002OFxIAM`;
+  const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Job_Posting__c/${JOB_ID}`;
   fetch(
     API_TARGET,
     {
@@ -623,10 +625,13 @@ server.post(`${process.env.API_ROUTE}/job-requirement/load`, bodyParser.json(), 
 server.post(`${process.env.API_ROUTE}/job-requirement/save`, bodyParser.json(), async(req, res) => {
   const SALESFORCE_ID = req.body.accountId;
   const ACCESS_TOKEN = req.body.accessToken;
+  const JOB_ID = req.body.jobId;
+
   const API_RESULT = {
     success: true,
     body: {},
   };
+
   const JOB_REQUIREMENTS = {
     Account__c: SALESFORCE_ID,
     Slots__c: req.body.slots,
@@ -638,11 +643,13 @@ server.post(`${process.env.API_ROUTE}/job-requirement/save`, bodyParser.json(), 
     Benefits__c: req.body.benefits,
   };
 
-  const APITarget = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Job_Posting__c`;
+  const APITarget = (JOB_ID === 'new') ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Job_Posting__c` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Job_Posting__c/${JOB_ID}`;
+  const APIMethod = (JOB_ID === 'new') ? 'POST' : 'PATCH';
+
   fetch(
     APITarget,
     {
-      method: 'POST',
+      method: APIMethod,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${ACCESS_TOKEN}`,
