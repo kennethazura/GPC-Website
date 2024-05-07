@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const oNavbar = u('.navbar');
   const oCandidateContainer = u('.candidate-list-container');
   const oDocument = u(document);
+  const oPaginationPages = u('.pagination-pages');
+  const oPreviousPage = u('.pagination-prev');
+  const oNextPage = u('.pagination-next');
+  let CANDIDATE_LIST = [];
+  const currentIndex = 0;
+  const currentPage = 1;
 
   function _getCookie(cname) {
     const name = cname + '=';
@@ -37,8 +43,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function _setPagination(candidates) {
+    oPaginationPages.html('');
+    let pageNumber = 1;
+    for (let ctr = 0; ctr < candidates.length; ctr += 4) {
+      if (pageNumber === currentPage) oPaginationPages.append(`<span class="pagination-option active">${pageNumber}</span>`);
+      else oPaginationPages.append(`<span class="pagination-option">${pageNumber}</span>`);
+      pageNumber += 1;
+    }
+  }
+
+  function toggleNavButtons() {
+    const totalPages = Math.ceil(CANDIDATE_LIST.length / 4);
+    oPreviousPage.removeClass('disabled');
+    oNextPage.removeClass('disabled');
+    if (currentPage === 1) {
+      oPreviousPage.addClass('disabled');
+    }
+    if (currentPage === totalPages) {
+      oNextPage.addClass('disabled');
+    }
+  }
+
   function _load() {
     const userId = _getCookie('userId');
+    const salesForceId = _getCookie('salesForceId');
+    const accessToken = _getCookie('accessToken');
+    const jobId = window.location.pathname.split("/")[2];
+
     showLoading();
     fetch(
       `${DOMAIN}${API_ROUTE}/candidate-list/load`,
@@ -47,7 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId }),
+        body: JSON.stringify({
+          userId, salesForceId, jobId, accessToken,
+        }),
       },
     ).then((oResponse) => oResponse.json())
       .then((data) => {
@@ -55,7 +89,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.success === 401) {
           window.location.replace('/');
         } else if (data.success) {
+          CANDIDATE_LIST = data.body.candidates;
           _populateCandidates(data.body.candidates);
+          _setPagination(data.body.candidates);
+          toggleNavButtons();
         } else if (data.body.errMessage) {
           alert(data.body.errMessage);
         } else {

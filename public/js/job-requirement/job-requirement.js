@@ -93,18 +93,20 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function setJobDetails(jobDetails) {
-    oPositionName.attr('value', jobDetails.positionName || '');
-    oJobSummary.text(jobDetails.jobSummary || '');
-    oWorkingHours.nodes[0].value = jobDetails.workingHours || '';
-    oStartDate.text(jobDetails.startDate || '');
+    oPositionName.nodes[0].value = jobDetails.Category__c;
+    oJobSlots.attr('value', jobDetails.Slots__c);
+    oJobBudget.attr('value', jobDetails.Budget__c);
+    oJobSummary.text(jobDetails.Description__c);
+    // oWorkingHours.nodes[0].value = jobDetails.workingHours;
+    // oStartDate.attr('value', jobDetails.startDate);
 
-    const oJobDescription = jobDetails.jobDescription.split(',');
-    const oJobQualifications = jobDetails.qualifications.split(',');
+    const oJobDescription = jobDetails.Responsibilities__c.split('<li>');
+    const oJobQualifications = jobDetails.Candidate_Qualifications__c.split('<li>');
     for (let ctr = 0; ctr < oJobDescription.length; ctr += 1) {
-      addJobDescriptionBullet(oJobDescription[ctr]);
+      addJobDescriptionBullet(oJobDescription[ctr].replace(/<\/?[^>]+(>|$)/g, ""));
     }
     for (let ctr = 0; ctr < oJobQualifications.length; ctr += 1) {
-      addQualificationsBullet(oJobQualifications[ctr]);
+      addQualificationsBullet(oJobQualifications[ctr].replace(/<\/?[^>]+(>|$)/g, ""));
     }
   }
 
@@ -121,10 +123,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function _saveJobRequirement() {
     const accountId = _getCookie('salesForceId');
     const accessToken = _getCookie('accessToken');
+    const jobId = JOB_ID;
 
     const jobRequirementBody = {
       accountId,
       accessToken,
+      jobId,
       slots: oJobSlots.nodes[0].value,
       budget: oJobBudget.nodes[0].value,
       benefits: '',
@@ -137,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     showLoading();
-    // If job id is not null method should be patch / edit instead
     fetch(
       `${DOMAIN}${API_ROUTE}/job-requirement/save`,
       {
@@ -163,30 +166,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function _load() {
     const userId = _getCookie('userId');
-    console.log(JOB_ID);
+    const accessToken = _getCookie('accessToken');
+    const salesForceId = _getCookie('salesForceId');
 
-    // fetch(
-    //   `${DOMAIN}${API_ROUTE}/job-requirement/load`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ userId }),
-    //   },
-    // ).then((oResponse) => oResponse.json())
-    //   .then((data) => {
-    //     if (data.success === 401) {
-    //       window.location.replace('/');
-    //     } else if (data.success) {
-    //       if (data.body) setJobDetails(data.body.jobDetails);
-    //     } else if (data.body.errMessage) {
-    //       alert(data.body.errMessage);
-    //       window.location.replace('/company-profile');
-    //     } else {
-    //       alert('Unfortunately, an error occurred in the server');
-    //     }
-    //   });
+    showLoading();
+    fetch(
+      `${DOMAIN}${API_ROUTE}/job-requirement/load`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId, accessToken, salesForceId, jobId: JOB_ID,
+        }),
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        hideLoading();
+        if (data.success === 401) {
+          window.location.replace('/');
+        } else if (data.success) {
+          setJobDetails(data.body.jobDetails);
+        } else if (data.body.errMessage) {
+          alert(data.body.errMessage);
+          window.location.replace('/');
+        } else {
+          alert('Unfortunately, an error occurred in the server');
+        }
+      });
   }
 
   function _initEventListeners() {
@@ -199,7 +207,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function init() {
     oNavbar.addClass('navbar--white');
-    _load();
+    if (JOB_ID !== 'new') {
+      oSaveBtn.text('Save Changes');
+      _load();
+    }
     _initEventListeners();
   }
 

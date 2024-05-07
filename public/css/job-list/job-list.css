@@ -108,7 +108,7 @@ body {
 }
 
 .search-filters {
-  display: flex;
+  display: none;
   gap: 10px;
   justify-content: start;
   align-items: center;
@@ -117,11 +117,26 @@ body {
   color: #777777;
 }
 
+.search-filters.active {
+  display: flex;
+}
+
 .all-companies-filter,
-.all-jobs-filter {
+.all-jobs-filter,
+.current-brand-filter {
   text-decoration: underline;
   color: #333333;
   transition: all 0.25s ease;
+}
+
+.current-brand-filter {
+  display: none;
+}
+
+.current-brand-filter.active {
+  display: block;
+  font-family: NotoSansBold, sans-serif;
+  color: #204694;
 }
 
 .all-companies-filter:hover,
@@ -157,6 +172,51 @@ body {
   color: #333333;
 }
 
+.brand-header-container {
+  display: none;
+  gap: 50px;
+  padding: 40px 0;
+  border-bottom: 1px solid #555555;
+}
+
+.brand-header-container.active {
+  display: flex;
+}
+
+.brand-logo {
+  width: 100%;
+  height: 100%;
+  max-width: 150px;
+  max-height: 150px;
+  content: url('/public/img/common/job-placeholder.PNG');
+}
+
+.brand-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: #204694;
+}
+
+.brand-jobs-counter {
+  display: none;
+  margin-top: 20px;
+  font-family: NotoSans, sans-serif;
+  font-size: 0.8rem;
+  color: #555555;
+}
+
+.brand-jobs-counter b {
+  font-family: NotoSansBold, sans-serif;
+}
+
+.brand-jobs-counter.active {
+  display: block;
+}
+
 .job-list-container {
   display: none;
   flex-wrap: wrap;
@@ -164,6 +224,70 @@ body {
   gap: 30px;
   width: 100%;
   padding-top: 20px;
+}
+
+.brand-header__btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.brand-header__btn {
+  min-width: 100px;
+  padding: 5px 10px;
+  border: 1px solid #9B9B9B;
+  border-radius: 100px;
+  font-family: NotoSans, sans-serif;
+  font-size: 1.125rem;
+  color: #9B9B9B;
+  background: transparent;
+  transition: all 0.25s ease;
+}
+
+.brand-header__btn:hover,
+.brand-header__btn.active {
+  cursor: pointer;
+  border-color: #00B5E6;
+  font-family: NotoSansBold, sans-serif;
+  color: #FFFFFF;
+  background: #00B5E6;
+}
+
+.brand-details-container {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+  font-family: NotoSans, sans-serif;
+  color: #606060;
+}
+
+.brand-details-container.active {
+  display: flex;
+}
+
+.brand-details__header {
+  margin-bottom: 10px;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.5rem;
+  color: #00B5E6;
+}
+
+.brand-details__label {
+  display: inline-block;
+  min-width: 200px;
+  font-family: NotoSansBold, sans-serif;
+  font-size: 1.125rem;
+  color: #606060;
+}
+
+.brand-details__value {
+
+}
+
+.brand-details__description {
+  margin-top: 10px;
+  font-size: 0.9rem;
 }
 
 .job-list-container.active {
@@ -227,6 +351,7 @@ body {
 }
 
 .job-apply-btn {
+  margin-right: 10px;
   padding: 5px 20px;
   border: 2px solid #00B5E6;
   border-top-left-radius: 16px;
@@ -259,7 +384,12 @@ body {
 }
 
 .brand-item {
+  overflow: hidden;
+  box-sizing: border-box;
+  max-width: 200px;
+  min-width: 200px;
   padding: 80px 35px;
+  text-wrap: nowrap;
   background: #FFFFFF;
   transition: all 0.25s ease;
 }
@@ -270,8 +400,11 @@ body {
 }
 
 .brand-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: MonserattBold, sans-serif;
   font-size: 1.75rem;
+  text-align: center;
   color: #606060;
   transition: all 0.25s ease;
 }
@@ -281,15 +414,19 @@ body {
 }
 
 .job-list-pagination {
-  width: 50%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   gap: 30px;
+  width: 50%;
   margin: 60px auto 0;
   font-family: MonserrattBold, sans-serif;
   font-size: 24px;
   color: #9B9B9B;
+}
+
+.job-list-pagination.active {
+  display: flex;
 }
 
 .pagination-pages {
