@@ -153,6 +153,7 @@ body {
 }
 
 .pagination-option:hover,
+.pagination-option.active,
 .candidate-list-pagination svg:hover {
   cursor: pointer;
   color: #00B5E6;

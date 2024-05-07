@@ -149,7 +149,7 @@ server.get('/company-profile', (req, res) => {
   });
 });
 
-server.get('/candidate-list', (req, res) => {
+server.get('/candidate-list/:jobId', (req, res) => {
   res.render('candidate-list.ejs', {
     assetLink: process.env.ASSET_LINK,
     domain: process.env.DOMAIN,
@@ -711,23 +711,36 @@ server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, r
 
 server.post(`${process.env.API_ROUTE}/candidate-list/load`, bodyParser.json(), async(req, res) => {
   const USER_ID = req.body.userId;
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
+  const JOB_ID = req.body.jobId;
   const API_RESULT = {
     success: true,
     body: {},
   };
 
-  if (USER_ID === '') {
+  if (USER_ID === '' || SALESFORCE_ID === '') {
     API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
 
-  const [candidates, candidatesFields] = await database.query(
-    'SELECT * FROM `candidateprofiletable`',
-  );
+  const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/query?q=SELECT Id, Name, Applicant__c, Applicant__r.FirstName, Applicant__r.LastName, Job_Posting__c FROM Job_Application__c WHERE Job_Posting__c = '${JOB_ID}'`;
+  await fetch(
+    API_TARGET,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((oResponse) => oResponse.json())
+    .then((data) => {
+      API_RESULT.body.candidates = data.records;
+      API_RESULT.success = true;
 
-  API_RESULT.body.candidates = candidates;
-
-  return res.send(API_RESULT);
+      return res.send(API_RESULT);
+    });
 });
 
 server.post(`${process.env.API_ROUTE}/job-list/load`, bodyParser.json(), async(req, res) => {

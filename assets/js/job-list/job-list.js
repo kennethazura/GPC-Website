@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     for (let ctr = startIndex; ctr < startIndex + 6; ctr += 1) {
       if (jobs[ctr] === undefined) break;
       if (jobs[ctr].Account__c === currentCompany) {
-        jobButton = `<a href="/job-requirement/${jobs[ctr].Account__c}" target="_blank"><button class="job-apply-btn">Edit</button></a> <a href="/applicant-list/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">View Applicants</button></a>`;
+        jobButton = `<a href="/job-requirement/${jobs[ctr].Account__c}" target="_blank"><button class="job-apply-btn">Edit</button></a> <a href="/candidate-list/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">View Applicants</button></a>`;
       } else {
         jobButton = `<a href="/job/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">Apply</button></a>`;
       }
