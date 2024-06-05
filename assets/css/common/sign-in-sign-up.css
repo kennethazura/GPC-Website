@@ -37,6 +37,7 @@
 .sign-in {
   flex-shrink: 0;
   width: 100%;
+  min-width: 35vw;
   margin-left: -35vw;
   transform: translateX(-40px);
   transition: all 0.25s ease;
@@ -63,6 +64,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-width: 35vw;
   margin-right: 40px;
   font-family: NotoSans, sans-serif;
   transition: all 0.25s ease;
@@ -144,10 +146,13 @@
 .sign-in__e-mail-container{
   width: 100%;
   display: flex;
-  margin-top: 40px;
-  height: 40%;
+  /* margin-top: 40px; - Old */
+  margin-top: 80px;
+  /* height: 40%; - Old*/
+  height: 100%;
   flex-direction: column;
-  gap: 10px;
+   /* gap: 10px; - Old*/
+   gap: 25px;
   overflow: hidden;
 }
 
@@ -157,15 +162,18 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; - Old*/
+  gap: 25px;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .sign-up__e-mail-container.active {
   opacity: 1;
-  margin-top: 40px;
-  height: 40%;
+  /* margin-top: 40px; - Old */
+  margin-top: 80px;
+  /* height: 40%; - Old*/
+  height: 100%;
   transition: all 0.3s ease;
 }
 
@@ -184,7 +192,8 @@
   width: 100%;
   max-width: 30%;
   padding: 10px;
-  margin-top: 4px;
+  /* margin-top: 4px; */
+  margin-top: 100px;
   border: 2px solid #3CB5E5;
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -193,6 +202,10 @@
   color: #FFFFFF;
   background-color: #3CB5E5;
   transition: all 0.3s ease;
+}
+
+.sign-up__e-mail-container button {
+  margin-top: 40px;
 }
 
 .sign-in__e-mail-container button:hover,
@@ -204,6 +217,7 @@
 
 .sign-in__separator,
 .sign-up__separator {
+  display: none !important;
   margin: 20px 0;
   font-size: 1.25rem;
   font-family: MonserattBold, sans-serif;
@@ -212,6 +226,7 @@
 
 .sign-in__third-party,
 .sign-up__third-party {
+  display: none !important;
   width: 100%;
   gap: 20px;
   display: flex;
@@ -282,6 +297,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-width: 35vw;
   font-family: NotoSans, sans-serif;
   transition: all 0.25s ease;
 }

@@ -54,22 +54,24 @@
         <div class="professional__field">
             <h3 class="second__header">Professional Information</h3>
             <p class="second__subhead">Share with us a brief overview of your professional experience.</p>
-            <form class="professional__form">
-                <input class="current__title" type="text" name="current-title" placeholder="Current Job Title"/>
-                <!-- <select class="current__title" name="current-title">
-                    <option value="" disabled selected hidden>Current Job Title</option>
-                    <option value="title1">Job 1</option>
-                    <option value="title2">Job 2</option>
-                    <option value="title3">Job 3</option>
-                </select> -->
-            <input class="current__company" type="text" name="info-company" placeholder="Current Company"/>
-            <input class="start__date" type="text" name="info-start-date" placeholder="Start Date"/>
-            <input class="end__date" type="text" name="info-end-date" placeholder="End Date"/>
-            <textarea class="work__exp" name="info-workexp" placeholder="Add Work Experience" maxlength="10000"></textarea>
-            </form>
+            <div class="form-container">
+                <form class="professional__form">
+                    <input class="current__title" type="text" name="current-title" placeholder="Current Job Title"/>
+                    <!-- <select class="current__title" name="current-title">
+                        <option value="" disabled selected hidden>Current Job Title</option>
+                        <option value="title1">Job 1</option>
+                        <option value="title2">Job 2</option>
+                        <option value="title3">Job 3</option>
+                    </select> -->
+                <input class="current__company" type="text" name="info-company" placeholder="Current Company"/>
+                <input class="start__date" type="text" name="info-start-date" placeholder="Start Date"/>
+                <input class="end__date" type="text" name="info-end-date" placeholder="End Date"/>
+                <textarea class="work__exp" name="info-workexp" placeholder="Add Work Experience" maxlength="10000"></textarea>
+                </form>
+            </div>
             <div class="exp-btn__container">
                 <button class="add__btn">Add Work Experience</button>
-                <button class="ins__btn">Insert More Information</button>
+                <!-- <button class="ins__btn">Insert More Information</button> -->
             </div>
         </div>
         <div class="cv__field">
@@ -97,5 +99,5 @@
         <input class="check__privacy" type="checkbox" name="privacy-check"/>
         <label class="check-terms__label" for="check__privacy">I have read and agree to the website <a href="www.google.com" target="_blank" class="privacy__link"> privacy policy</a></label>
     </div>
-    <div class="finish-btn__container"><button class="finish__btn">Finish Setting Up Your Profile</button></div>
+    <div class="finish-btn__container"><button class="finish__btn disabled">Finish Setting Up Your Profile</button></div>
 </div>

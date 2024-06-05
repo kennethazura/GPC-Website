@@ -293,6 +293,30 @@ body {
   row-gap: 15px;
 }
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.professional__form-header {
+  width: 100%;
+  font-size: 1.25rem;
+  font-family: NotoSans, sans-serif;
+}
+
+.delete-work-history-btn {
+  max-width: 15px;
+  max-height: 15px;
+  filter: invert(11%) sepia(43%) saturate(6651%) hue-rotate(7deg) brightness(96%) contrast(114%);
+  transition: all 0.25s ease;
+}
+
+.delete-work-history-btn:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
 .professional__form input,
 .professional__form select,
 .professional__form textarea {
@@ -516,6 +540,12 @@ input[type='file'] {
   cursor: pointer;
   color: #3CB5E5;
   background-color: #FFFFFF;
+}
+
+.finish__btn.disabled {
+  pointer-events: none;
+  background-color: grey;
+  border-color: grey;
 }
 
 .copyright {

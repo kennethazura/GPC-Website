@@ -202,6 +202,15 @@ document.addEventListener('DOMContentLoaded', function() {
     oAddJobDescriptionBtn.on('click', () => { addJobDescriptionBullet(''); });
     oAddQualificationsBtn.on('click', () => { addQualificationsBullet(''); });
     oSaveBtn.on('click', _saveJobRequirement);
+    oStartDate.on('focus', (eEvent) => {
+      eEvent.target.type = 'date';
+      eEvent.target.showPicker();
+    });
+    oStartDate.on('focusout', () => {
+      if (!oStartDate.nodes[0].value) {
+        oStartDate.attr('type', 'text');
+      }
+    });
     document.addEventListener('click', removeBulletPoint);
   }
 

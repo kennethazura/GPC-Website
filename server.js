@@ -479,29 +479,35 @@ server.post(`${process.env.API_ROUTE}/candidate/save-work-history`, bodyParser.j
     success: true,
     body: {},
   };
-  const WORK_HISTORY_ID = req.body.workHistoryId;
-  const CANDIDATE_WORK_HISTORY = {
-    Contact__c: req.body.Contact__c || null,
-    Company__c: req.body.Company__c || null,
-    Job_Title__c: req.body.Job_Title__c || null,
-    Start_Date__c: req.body.Start_Date__c || null,
-    End_Date__c: req.body.End_Date__c || null,
-    Description__c: req.body.Description__c || null,
-  };
 
-  const APITarget = (WORK_HISTORY_ID) ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c/${WORK_HISTORY_ID}` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c`;
-  const API_METHOD = (WORK_HISTORY_ID) ? 'PATCH' : 'POST';
-  fetch(
-    APITarget,
-    {
-      method: API_METHOD,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
+  for (let idx = 0; idx < req.body.workHistory.length; idx += 1) {
+    const WORK_HISTORY_ID = (req.body.workHistory[idx].Id) ? req.body.workHistory[idx].Id : null;
+    const CANDIDATE_WORK_HISTORY = {
+      Contact__c: req.body.Contact__c || null,
+      Company__c: req.body.workHistory[idx].Company__c || null,
+      Job_Title__c: req.body.workHistory[idx].Job_Title__c || null,
+      Start_Date__c: req.body.workHistory[idx].Start_Date__c || null,
+      End_Date__c: req.body.workHistory[idx].End_Date__c || null,
+      Description__c: req.body.workHistory[idx].Description__c || null,
+    };
+
+    const APITarget = (WORK_HISTORY_ID) ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c/${WORK_HISTORY_ID}` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c`;
+    const API_METHOD = (WORK_HISTORY_ID) ? 'PATCH' : 'POST';
+    console.log(CANDIDATE_WORK_HISTORY);
+    fetch(
+      APITarget,
+      {
+        method: API_METHOD,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+        body: JSON.stringify(CANDIDATE_WORK_HISTORY),
       },
-      body: JSON.stringify(CANDIDATE_WORK_HISTORY),
-    },
-  ).then((response) => { console.log(response); res.send(API_RESULT); });
+    ).then((response) => { console.log(response); });
+  }
+
+  return res.send(API_RESULT);
 });
 
 server.post(`${process.env.API_ROUTE}/company/load`, bodyParser.json(), async(req, res) => {
