@@ -157,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
       MailingState: oAddressState.nodes[0].value,
       MailingPostalCode: oAddressPostalCode.nodes[0].value,
       MailingCountry: oAddressCountry.nodes[0].value,
-      Personal_Email__c: oRecoveryEmail.nodes[0].value,
       HomePhone: oRecoveryPhone.nodes[0].value,
     } : {
       salesForceId,
@@ -238,6 +237,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     for (let idx = 0; idx < workExperiences.nodes.length; idx += 1) {
       const formData = Object.fromEntries(new FormData(workExperiences.nodes[idx]));
+      if (hasNull(formData)) {
+        hasError = true;
+        break;
+      }
       workExperience.push({
         Id: workExperiences.nodes[idx].dataset.id,
         Company__c: formData['info-company'],
@@ -249,9 +252,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     workHistory = workExperience;
-    hasError = hasNull(profile);
 
-    return (hasError) ? true : hasNull(workExperience[0]);
+    return (hasError) || hasNull(profile);
   }
 
   function _validateCompany() {
@@ -337,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
       oAddressState.attr('value', profile.MailingAddress.state || '');
       oAddressStreet.attr('value', profile.MailingAddress.street || '');
 
-      oRecoveryEmail.attr('value', profile.Personal_Email__c || profile.Email);
+      oRecoveryEmail.attr('value', profile.Email);
       oRecoveryPhone.attr('value', profile.HomePhone || '');
     } else {
       oCompanyName.attr('value', profile.Name || '');
@@ -357,10 +359,10 @@ document.addEventListener('DOMContentLoaded', function() {
   function addWorkExperience(data) {
     const workFormsContainer = u('.form-container');
     const workForm = `<form class="professional__form" data-id="${data.Id || ''}">
-    <h1 class="professional__form-header">
+    <div class="professional__form-header">
+    <p>Additional Work History</p>
     <svg class="delete-work-history-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
-    Additional Work History
-    </h1>
+    </div>
     <input class="current__title" type="text" name="current-title" placeholder="Job Title" value="${data.Job_Title__c || ''}"/>
     <!-- <select class="current__title" name="current-title">
         <option value="" disabled selected hidden>Current Job Title</option>
@@ -386,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
       oWorkExperience.text(loadedWorkHistory[0].Description__c || '');
     }
     if (loadedWorkHistory.length > 1) {
-      for (let idx = 1; idx <= loadedWorkHistory.length; idx += 1) {
+      for (let idx = 1; idx < loadedWorkHistory.length; idx += 1) {
         addWorkExperience(loadedWorkHistory[idx]);
       }
     }

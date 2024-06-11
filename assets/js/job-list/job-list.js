@@ -113,10 +113,19 @@ document.addEventListener('DOMContentLoaded', function() {
     oAllJobsFilter.removeClass('active');
     oBrandHeaderName.text(company.Name);
     const sCompanyWebsite = (company.Website) ? company.Website : 'N/A';
-    oBrandWebsite.html(`: <a href="${sCompanyWebsite}" target="_blank">${sCompanyWebsite}</a>`);
+    const sCompanyWebsiteHTML = (company.Website) ? `: <a href="${sCompanyWebsite}" target="_blank">${sCompanyWebsite}</a>` : `: <span>${sCompanyWebsite}</span>`;
+    oBrandWebsite.html(sCompanyWebsiteHTML);
     const sCompanyIndustry = (company.Industry) ? company.Industry : 'N/A';
     oBrandIndustry.text(`: ${sCompanyIndustry}`);
-    const companyAddress = `${company.ShippingAddress.street}, ${company.ShippingAddress.city}, ${company.ShippingAddress.state}, ${company.ShippingAddress.stateCode} ${company.ShippingAddress.postalCode}, ${company.ShippingAddress.country}`;
+    let companyAddress = ``;
+    let companyAddressPosition = 0;
+    const companyAddressList = [company.ShippingAddress.street, company.ShippingAddress.city, company.ShippingAddress.state, company.ShippingAddress.stateCode, company.ShippingAddress.postalCode, company.ShippingAddress.country];
+    for (let idx = 0; idx < companyAddressList.length; idx += 1) {
+      if (companyAddressList[idx]) {
+        companyAddress += (companyAddressPosition === 0) ? `${companyAddressList[idx]}` : `, ${companyAddressList[idx]}`;
+        companyAddressPosition += 1;
+      }
+    }
     oBrandLocation.text(`: ${companyAddress}`);
     const sCompanyDescription = (company.Company_Description__c) ? company.Company_Description__c : 'N/A';
     oBrandDescription.text(sCompanyDescription);

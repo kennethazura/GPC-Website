@@ -567,6 +567,11 @@ server.post(`${process.env.API_ROUTE}/company/save`, bodyParser.json(), async(re
     BillingState: req.body.BillingState || null,
     BillingPostalCode: req.body.BillingPostalCode || null,
     BillingCountry: req.body.BillingCountry || null,
+    ShippingStreet: req.body.BillingStreet || null,
+    ShippingCity: req.body.BillingCity || null,
+    ShippingState: req.body.BillingState || null,
+    ShippingPostalCode: req.body.BillingPostalCode || null,
+    ShippingCountry: req.body.BillingCountry || null,
     Company_Description__c: req.body.Company_Description__c || null,
   };
 
