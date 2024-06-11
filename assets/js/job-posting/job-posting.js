@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oHeroDescription = u('.hero__description');
   const oJobResponsibilities = u('.responsibilities__container--pc');
   const oJobQualifications = u('.qualifications__container--pc');
+  const oCompanySlots = u('.company__slots');
   let oResponsibilitiesSwiper;
   let oQualificationSwiper;
 
@@ -217,6 +218,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     return '';
+  }
+
+  function loadCompany() {
+    const userId = _getCookie('userId');
+    const accessToken = _getCookie('accessToken');
+    const salesForceId = _getCookie('salesForceId');
   }
 
   function jobData(details) {

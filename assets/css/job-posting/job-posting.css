@@ -74,7 +74,8 @@ body {
   font-family: NotoSans, sans-serif;
   font-size: 1.125rem;
   line-height: 1.5rem;
-  color: #CAEFFF;
+
+  /* color: #CAEFFF; */
 }
 
 .hero__btn {
