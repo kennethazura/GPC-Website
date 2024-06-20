@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const sLoggedInUser = _getCookie('userEmail');
     const sUserId = _getCookie('userId');
     const sAccessToken = _getCookie('accessToken');
-    _deleteCookie('registrationEmail');
-    _deleteCookie('registrationPassword');
+    // _deleteCookie('registrationEmail'); do this only after successful sign-up
+    // _deleteCookie('registrationPassword');
 
     oUserName.text(sLoggedInUser);
 

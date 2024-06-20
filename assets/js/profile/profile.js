@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oAddWorkButton = u('.add__btn');
   const PROGRESS_BAR_VALUES = ['0%', '25%', '50%', '75%', '100%'];
   let workHistory = [];
+  let isNewAccount = false;
 
   /** Candidate - Form Fields */
   const oFirstName = u('.information__first-name');
@@ -73,6 +74,22 @@ document.addEventListener('DOMContentLoaded', function() {
     return '';
   }
 
+  function _deleteCookie(cname, path, domain) {
+    if (_getCookie(cname)) {
+      document.cookie = cname + '='
+        + ((path) ? ';path=' + path : '')
+        + ((domain) ? ';domain=' + domain : '')
+        + ';expires=Thu, 01 Jan 1970 00:00:01 GMT';
+    }
+  }
+
+  function _setCookie(cname, cvalue, exdays = 1) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    const expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  }
+
   function goToStep(targetStep) {
     oCandidateStepsContents.removeClass('step-1');
     oCandidateStepsContents.removeClass('step-2');
@@ -110,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
     );
   }
 
-  function saveWorkHistoryAPI() {
-    const salesForceId = _getCookie('salesForceId');
+  function saveWorkHistoryAPI(newSalesForceId) {
+    const salesForceId = (newSalesForceId) || _getCookie('salesForceId');
     const accessToken = _getCookie('accessToken');
 
     const workHistoryPayload = {
@@ -132,7 +149,11 @@ document.addEventListener('DOMContentLoaded', function() {
     ).then((oResponse) => oResponse.json())
       .then((data) => {
         if (data.success) {
+          if (isNewAccount) {
+            window.location.replace('/search');
+          }
           alert('Your changes have been saved');
+          window.location.reload();
         } else if (data.body.errMessage) {
           alert(data.body.errMessage);
         } else {
@@ -144,10 +165,14 @@ document.addEventListener('DOMContentLoaded', function() {
   function saveAPI() {
     const salesForceId = _getCookie('salesForceId');
     const accessToken = _getCookie('accessToken');
+    const userId = _getCookie('userId');
+    const email = _getCookie('registrationEmail');
+    const password = _getCookie('registrationPassword');
 
     const profileBody = (PROFILE_TYPE === 'candidate') ? {
       salesForceId,
       accessToken,
+      isNewAccount,
       FirstName: oFirstName.nodes[0].value,
       LastName: oLastName.nodes[0].value,
       Birthdate: oBirthDate.nodes[0].value,
@@ -161,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } : {
       salesForceId,
       accessToken,
+      isNewAccount,
       Name: oCompanyName.nodes[0].value,
       Industry: oCompanyIndustry.nodes[0].value,
       Phone: oCompanyPhone.nodes[0].value,
@@ -171,38 +197,78 @@ document.addEventListener('DOMContentLoaded', function() {
       BillingPostalCode: oCompanyAddressPostalCode.nodes[0].value,
       BillingCountry: oCompanyAddressCountry.nodes[0].value,
       Company_Description__c: oCompanyDescription.nodes[0].value,
+      Email: (isNewAccount) ? _getCookie('registrationEmail') : null,
     };
 
     showLoading();
-    fetch(
-      `${DOMAIN}${API_ROUTE}/${PROFILE_TYPE}/save`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+    if (isNewAccount) {
+      fetch(
+        `${DOMAIN}${API_ROUTE}/register-salesforce`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId, email, accountType: PROFILE_TYPE, accessToken, password, profileBody,
+          }),
         },
-        body: JSON.stringify(profileBody),
-      },
-    ).then((oResponse) => oResponse.json())
-      .then((data) => {
-        hideLoading();
-        if (data.success) {
-          if (PROFILE_TYPE === 'candidate') {
-            saveWorkHistoryAPI();
+      ).then((oResponse) => oResponse.json())
+        .then((registrationData) => {
+          hideLoading();
+          _deleteCookie('registrationEmail');
+          _deleteCookie('registrationPassword');
+          if (registrationData.success) {
+            _setCookie('accountType', PROFILE_TYPE);
+            _setCookie('userId', registrationData.body.userId);
+            _setCookie('userEmail', registrationData.body.email);
+            _setCookie('salesForceId', registrationData.body.salesForceId);
+            if (PROFILE_TYPE === 'candidate') {
+              saveWorkHistoryAPI(registrationData.body.salesForceId);
+            } else {
+              window.location.replace('/search');
+            }
+          } else if (registrationData.body.errMessage) {
+            window.location.replace('/');
+            alert('Error: ' + registrationData.body.errCode);
+            console.warn(registrationData.body.errMessage);
+            console.warn(registrationData.body.consoleMessage);
           } else {
-            oCompanyCompleteImg.addClass('finished');
-            oCompanyForm.addClass('finished');
-            oCompanyFinishField.addClass('finished');
-            oCompanyFinishBtn.addClass('finished');
-            window.scrollTo(0, 0);
-            alert('Your changes have been saved');
+            console.warn('Unfortunately, an error occurred in the server');
           }
-        } else if (data.body.errMessage) {
-          alert(data.body.errMessage);
-        } else {
-          alert('Unfortunately, an error occurred in the server');
-        }
-      });
+        });
+    } else {
+      fetch(
+        `${DOMAIN}${API_ROUTE}/${PROFILE_TYPE}/save`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(profileBody),
+        },
+      ).then((oResponse) => oResponse.json())
+        .then((data) => {
+          hideLoading();
+          if (data.success) {
+            if (PROFILE_TYPE === 'candidate') {
+              saveWorkHistoryAPI();
+            } else {
+              oCompanyCompleteImg.addClass('finished');
+              oCompanyForm.addClass('finished');
+              oCompanyFinishField.addClass('finished');
+              oCompanyFinishBtn.addClass('finished');
+              window.scrollTo(0, 0);
+              alert('Your changes have been saved');
+              window.location.reload();
+            }
+          } else if (data.body.errMessage) {
+            alert(data.body.errMessage);
+          } else {
+            alert('Unfortunately, an error occurred in the server');
+          }
+        });
+    }
   }
 
   function hasNull(target) {
@@ -332,14 +398,14 @@ document.addEventListener('DOMContentLoaded', function() {
       oFirstName.attr('value', profile.FirstName || '');
       oLastName.attr('value', profile.LastName || '');
       oBirthDate.attr('value', profile.Birthdate || '');
-      oEmail.attr('value', profile.Email);
-      oAddressCity.attr('value', profile.MailingAddress.city || '');
-      oAddressCountry.attr('value', profile.MailingAddress.country || '');
-      oAddressPostalCode.attr('value', profile.MailingAddress.postalCode || '');
-      oAddressState.attr('value', profile.MailingAddress.state || '');
-      oAddressStreet.attr('value', profile.MailingAddress.street || '');
+      oEmail.attr('value', profile.Email || _getCookie('registrationEmail'));
+      oAddressCity.attr('value', (profile.MailingAddress) ? profile.MailingAddress.city : '');
+      oAddressCountry.attr('value', (profile.MailingAddress) ? profile.MailingAddress.country : '');
+      oAddressPostalCode.attr('value', (profile.MailingAddress) ? profile.MailingAddress.postalCode : '');
+      oAddressState.attr('value', (profile.MailingAddress) ? profile.MailingAddress.state : '');
+      oAddressStreet.attr('value', (profile.MailingAddress) ? profile.MailingAddress.street : '');
 
-      oRecoveryEmail.attr('value', profile.Email);
+      oRecoveryEmail.attr('value', profile.Email || _getCookie('registrationEmail'));
       oRecoveryPhone.attr('value', profile.HomePhone || '');
     } else {
       oCompanyName.attr('value', profile.Name || '');
@@ -379,6 +445,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function setProfileWorkHistory(loadedWorkHistory) {
+    if (!loadedWorkHistory) {
+      return;
+    }
     if (loadedWorkHistory.length > 0) {
       u('.professional__form').attr('data-id', loadedWorkHistory[0].Id);
       oJobtitle.attr('value', loadedWorkHistory[0].Job_Title__c || '');
@@ -415,6 +484,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.success === 401) {
           window.location.replace('/');
         } else if (data.success) {
+          if (data.body.isNew) {
+            isNewAccount = true;
+            setProfileValues(data.body.profile, profileType);
+          }
           setProfileValues(data.body.profile, profileType);
         } else if (data.body.errMessage) {
           alert('Error: ' + data.body.errCode);

@@ -481,11 +481,13 @@ input[type='file'] {
 }
 
 .acc__email {
+  pointer-events: none;
   box-sizing: border-box;
   width: 500px;
   height: 50px;
   padding: 5px;
   font-family: NotoSansBold, sans-serif;
+  background: #D4D4D4;
 }
 
 .acc__number {

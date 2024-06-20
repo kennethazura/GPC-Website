@@ -156,38 +156,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const email = _getCookie('registrationEmail');
     const password = _getCookie('registrationPassword');
     const accessToken = _getCookie('accessToken');
-    showLoading();
-    fetch(
-      `${DOMAIN}${API_ROUTE}/register-salesforce`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId, email, accountType, accessToken, password,
-        }),
-      },
-    ).then((oResponse) => oResponse.json())
-      .then((registrationData) => {
-        hideLoading();
-        _deleteCookie('registrationEmail');
-        _deleteCookie('registrationPassword');
-        if (registrationData.success) {
-          _setCookie('accountType', accountType);
-          _setCookie('userId', registrationData.body.userId);
-          _setCookie('userEmail', registrationData.body.email);
-          _setCookie('salesForceId', registrationData.body.salesForceId);
-          window.location.replace(redirectPage);
-        } else if (registrationData.body.errMessage) {
-          window.location.reload();
-          alert('Error: ' + registrationData.body.errCode);
-          console.warn(registrationData.body.errMessage);
-          console.warn(registrationData.body.consoleMessage);
-        } else {
-          console.warn('Unfortunately, an error occurred in the server');
-        }
-      });
+    window.location.replace(redirectPage);
+    // showLoading();
+    // fetch(
+    //   `${DOMAIN}${API_ROUTE}/register-salesforce`,
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       userId, email, accountType, accessToken, password,
+    //     }),
+    //   },
+    // ).then((oResponse) => oResponse.json())
+    //   .then((registrationData) => {
+    //     hideLoading();
+    //     _deleteCookie('registrationEmail');
+    //     _deleteCookie('registrationPassword');
+    //     if (registrationData.success) {
+    //       _setCookie('accountType', accountType);
+    //       _setCookie('userId', registrationData.body.userId);
+    //       _setCookie('userEmail', registrationData.body.email);
+    //       _setCookie('salesForceId', registrationData.body.salesForceId);
+    //       window.location.replace(redirectPage);
+    //     } else if (registrationData.body.errMessage) {
+    //       window.location.reload();
+    //       alert('Error: ' + registrationData.body.errCode);
+    //       console.warn(registrationData.body.errMessage);
+    //       console.warn(registrationData.body.consoleMessage);
+    //     } else {
+    //       console.warn('Unfortunately, an error occurred in the server');
+    //     }
+    //   });
   }
 
   function initEventListeners() {

@@ -263,24 +263,35 @@ server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), a
     body: {},
   };
 
-  await database.query(
-    'INSERT INTO `usertable` (email, password, accountType) VALUES (?, ?, ?)',
-    [EMAIL, PASSWORD, ACCOUNT_TYPE],
-  );
-  const [results] = await database.query(
-    'SELECT * FROM `usertable` WHERE `email` = ?',
-    [EMAIL],
-  );
-  API_RESULT.body.userId = results[0].id;
-  API_RESULT.body.email = results[0].email;
-
   const ACCOUNT_DETAILS = (ACCOUNT_TYPE === 'candidate') ? {
-    FirstName: EMAIL,
-    LastName: EMAIL,
-    Email: EMAIL,
-    AccountId: process.env.SALESFORCE_CANDIDATE_ACCOUNT,
+    FirstName: req.body.profileBody.FirstName || null,
+    LastName: req.body.profileBody.LastName || null,
+    Birthdate: req.body.profileBody.Birthdate || null,
+    Email: req.body.profileBody.Email || null,
+    AccountId: process.env.SALESFORCE_CANDIDATE_ACCOUNT || null,
+    MailingStreet: req.body.profileBody.MailingStreet || null,
+    MailingCity: req.body.profileBody.MailingCity || null,
+    MailingState: req.body.profileBody.MailingState || null,
+    MailingPostalCode: req.body.profileBody.MailingPostalCode || null,
+    MailingCountry: req.body.profileBody.MailingCountry || null,
+    Personal_Email__c: req.body.profileBody.Personal_Email__c || null,
+    HomePhone: req.body.profileBody.HomePhone || null,
   } : {
-    Name: EMAIL,
+    Name: req.body.profileBody.Name || null,
+    Industry: req.body.profileBody.Industry || null,
+    Phone: req.body.profileBody.Phone || null,
+    Website: req.body.profileBody.Website || null,
+    BillingStreet: req.body.profileBody.BillingStreet || null,
+    BillingCity: req.body.profileBody.BillingCity || null,
+    // BillingState: req.body.profileBody.BillingState || null, Need officially list of accepted states
+    BillingPostalCode: req.body.profileBody.BillingPostalCode || null,
+    BillingCountry: req.body.profileBody.BillingCountry || null,
+    ShippingStreet: req.body.profileBody.BillingStreet || null,
+    ShippingCity: req.body.profileBody.BillingCity || null,
+    // ShippingState: req.body.profileBody.BillingState || null, Need officially list of accepted states
+    ShippingPostalCode: req.body.profileBody.BillingPostalCode || null,
+    ShippingCountry: req.body.profileBody.BillingCountry || null,
+    Company_Description__c: req.body.profileBody.Company_Description__c || null,
   };
 
   const API_TARGET = (ACCOUNT_TYPE === 'candidate') ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account`;
@@ -301,6 +312,16 @@ server.post(`${process.env.API_ROUTE}/register-salesforce`, bodyParser.json(), a
     .then(async(data) => {
       if (data.success === true) {
         API_RESULT.body.salesForceId = data.id;
+        await database.query(
+          'INSERT INTO `usertable` (email, password, accountType, salesForceId) VALUES (?, ?, ?, ?)',
+          [EMAIL, PASSWORD, ACCOUNT_TYPE, data.id],
+        );
+        const [results] = await database.query(
+          'SELECT * FROM `usertable` WHERE `email` = ?',
+          [EMAIL],
+        );
+        API_RESULT.body.userId = results[0].id;
+        API_RESULT.body.email = results[0].email;
       } else {
         API_RESULT.success = false;
         API_RESULT.body.errCode = data[0].errorCode;
@@ -364,13 +385,17 @@ server.post(`${process.env.API_ROUTE}/candidate/load`, bodyParser.json(), async(
   const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
-    body: {},
+    body: {
+      isNew: true,
+      profile: {},
+    },
   };
 
   if (USER_ID === '' || SALESFORCE_ID === '') {
-    API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
+
+  API_RESULT.body.isNew = false;
 
   const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact/${SALESFORCE_ID}`;
   fetch(
@@ -405,13 +430,17 @@ server.post(`${process.env.API_ROUTE}/candidate-work-history/load`, bodyParser.j
   const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
-    body: {},
+    body: {
+      isNew: true,
+      profile: {},
+    },
   };
 
   if (USER_ID === '' || SALESFORCE_ID === '') {
-    API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
+
+  API_RESULT.body.isNew = false;
 
   const workHistoryAPITarget = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Contact/${SALESFORCE_ID}/Candidate_Work_Experiences__r`;
   fetch(
@@ -516,13 +545,17 @@ server.post(`${process.env.API_ROUTE}/company/load`, bodyParser.json(), async(re
   const ACCESS_TOKEN = req.body.accessToken;
   const API_RESULT = {
     success: true,
-    body: {},
+    body: {
+      isNew: true,
+      profile: {},
+    },
   };
 
   if (USER_ID === '' || SALESFORCE_ID === '') {
-    API_RESULT.success = 401;
     return res.send(API_RESULT);
   }
+
+  API_RESULT.body.isNew = false;
 
   const API_TARGET = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account/${SALESFORCE_ID}`;
   fetch(
