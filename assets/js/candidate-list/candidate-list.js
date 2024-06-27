@@ -65,6 +65,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function showjobOfferModal() {
+
+  }
+
+  function sendOffer(event) {
+    const candidateId = event.target.dataset;
+    showjobOfferModal();
+  }
+
   function _load() {
     const userId = _getCookie('userId');
     const salesForceId = _getCookie('salesForceId');
@@ -103,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function _initEventListeners() {
     oDocument.on('click', '.send-offer-btn', function(eEvent) {
-      alert('Congratulations on finding new talent!');
+      sendOffer(eEvent);
     });
   }
 

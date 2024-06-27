@@ -1,0 +1,52 @@
+<div class="job-offer__backdrop"></div>
+<div class="job-offer">
+    
+    <div class="step-1">
+        <h2 class="job-offer__header">Congratulations on finding new talent!</h2>
+        <h3 class="job-offer__sub-header">Before we send the job offer to your preferred candidate, we will need the following details:</h3>
+        <div class="job-offer__container">
+            <div class="job-offer__line-container">
+                <input class="job-offer__salary" type="number" placeholder="Monthly Salary (PHP)"/>
+                <input class="job-offer__start-date" type="date" placeholder="Start date"/>
+            </div>
+            <span class="container__label">Employee's Work Hours</span>
+            <div class="job-offer__line-container">
+                <div class="form__group">
+                    <input class="job-offer__start-time" type="text" placeholder="Start Time"/>
+                    <span>to</span>
+                    <input class="job-offer__end-time" type="text" placeholder="End Time"/>
+                </div>
+                <input class="job-offer__timezone" type="text" placeholder="Timezone"/>
+            </div>
+            <button class="job-offer__btn">Next</button>
+        </div>
+    </div>
+
+    <div class="step-2">
+        <h2 class="job-offer__header">ACH Transactions</h2>
+        <h3 class="job-offer__sub-header">We will need to bill you directly for the employee’s monthly salary. Please fill out the fields below</h3>
+        <div class="job-offer__container">
+            <div class="job-offer__line-container">
+                <input class="job-offer__ach-first-name" type="text" placeholder="First Name"/>
+                <input class="job-offer__ach-last-name" type="text" placeholder="Last Name"/>
+            </div>
+            <div class="job-offer__line-container">
+                <input class="job-offer__ach-routing-no" type="number" placeholder="Routing/ABA Number"/>
+                <input class="job-offer__ach-accounting-no" type="number" placeholder="Accounting Number"/>
+            </div>
+            <span class="container__label">Type of Account</span>
+            <div class="job-offer__line-container">
+                <div class="form__group">
+                    <input type="radio" class="job-offer__account-type" id="business-account" name="accountType" value="Business"><label for="business-account">Business</label><br>
+                    <input type="radio" class="job-offer__account-type" id="personal-account" name="accountType" value="Personal"><label for="personal-account">Personal</label><br>  
+                </div>
+                <input class="job-offer__transaction-amount" type="number" placeholder="Transaction Amount"/>
+            </div>
+            <div class="job-offer__acknowledgement-container">
+                <input type="checkbox" class="job-offer__acknowledgement-checkbox"/><span class="job-offer__acknowledgement">I hereby authorize GPC to collect funds in my account through ACH debit transactions</span>
+            </div>
+            <button class="job-offer__btn">Done</button>
+        </div>
+    </div>
+
+</div>
