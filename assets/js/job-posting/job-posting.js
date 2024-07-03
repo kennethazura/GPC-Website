@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const oHeroDescription = u('.hero__description');
   const oJobResponsibilities = u('.responsibilities__container--pc');
   const oJobQualifications = u('.qualifications__container--pc');
+  const oApplyBtn = u('.hero__btn');
   let oResponsibilitiesSwiper;
   let oQualificationSwiper;
+  let JOB_ID = null;
 
   // const oDocument = u(document);
   // const oNavButtons = u('.navbar__link');
@@ -153,6 +155,22 @@ document.addEventListener('DOMContentLoaded', function() {
   //   oHeroSwiper.on('touchEnd', function() { oHeroSwiper.autoplay.start(); });
   // }
 
+  function _getCookie(cname) {
+    const name = cname + '=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i += 1) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
+
   function _cleanUp() {
     if (sDevice === 'mobile') {
       oQualificationHeader.html('Qualifications<br>/Requirements');
@@ -189,7 +207,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function sendJobApplication() {
+    const accountId = _getCookie('salesForceId');
+    const accessToken = _getCookie('accessToken');
+
+    const API_PAYLOAD = {
+      accountId,
+      accessToken,
+      jobId: JOB_ID,
+      status: 'Not Started',
+    };
+
+    showLoading();
+    fetch(
+      `${DOMAIN}${API_ROUTE}/job-application/send`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(API_PAYLOAD),
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        hideLoading();
+        if (data.success) {
+          alert('Your application has been sent');
+          window.location.reload();
+        } else if (data.body.errMessage) {
+          alert(data.body.errMessage);
+        } else {
+          alert('Unfortunately, an error occurred in the server');
+        }
+      });
+  }
+
   function initEventListeners() {
+    oApplyBtn.on('click', function() {
+      sendJobApplication();
+    });
     oNavbarMenuBtn.on('click', function() { oNavbar.toggleClass('active'); oBody.toggleClass('no-scroll'); });
     if (sDevice === 'mobile') {
       if (oResponsibilitiesSwiper !== undefined) {
@@ -270,6 +326,50 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
+  function _disableApplyButton() {
+    oApplyBtn.text('Application Sent');
+    oApplyBtn.addClass('disabled');
+  }
+
+  function checkApplyButton(data) {
+    const user = data.candidates.find((candidate) => candidate.Applicant__c === _getCookie('salesForceId'));
+    if (user) {
+      _disableApplyButton();
+    }
+  }
+
+  function _getJobApplicants() {
+    const userId = _getCookie('userId');
+    const salesForceId = _getCookie('salesForceId');
+    const accessToken = _getCookie('accessToken');
+
+    showLoading();
+    fetch(
+      `${DOMAIN}${API_ROUTE}/candidate-list/load`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId, salesForceId, jobId: JOB_ID, accessToken,
+        }),
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        hideLoading();
+        if (data.success === 401) {
+          window.location.replace('/');
+        } else if (data.success) {
+          checkApplyButton(data.body);
+        } else if (data.body.errMessage) {
+          alert(data.body.errMessage);
+        } else {
+          alert('Unfortunately, an error occurred in the server');
+        }
+      });
+  }
+
   function init() {
     // const oHeroTimeline = gsap.timeline();
     // oHeroTimeline.fromTo(['.navbar'], 0.5, { opacity: 0 }, { opacity: 1, onComplete: function() {
@@ -280,7 +380,9 @@ document.addEventListener('DOMContentLoaded', function() {
       _cleanUp();
       initSwipers();
     }
+    JOB_ID = window.location.pathname.split('/')[2];
     _load();
+    _getJobApplicants();
     initEventListeners();
   }
 

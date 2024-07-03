@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const oPaginationPages = u('.pagination-pages');
   const oPreviousPage = u('.pagination-prev');
   const oNextPage = u('.pagination-next');
+  const oEmptyList = u('.empty-list');
   let CANDIDATE_LIST = [];
   const currentIndex = 0;
   const currentPage = 1;
+  const CANDIDATE_ID = null;
 
   function _getCookie(cname) {
     const name = cname + '=';
@@ -34,10 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
       const oCandidate = `<div class="candidate">
         <img class="candidate-image" />
         <div class="candidate-details">
-            <span class="candidate-name">${candidates[ctr].firstName || 'John'} ${candidates[ctr].lastName || 'Doe'}</span>
+            <span class="candidate-name">${candidates[ctr].Applicant__r.FirstName || 'John'} ${candidates[ctr].Applicant__r.LastName || 'Doe'}</span>
             <span class="candidate-position">${oJobDetails[0].jobTitle || 'Job Title Placeholder'}</span>
         </div>
-        <button class="send-offer-btn">SEND JOB OFFER</button>
+        <button class="send-offer-btn" data-id=${candidates[ctr].Applicant__c}>SEND JOB OFFER</button>
       </div>`;
       oCandidateContainer.append(oCandidate);
     }
@@ -90,9 +92,15 @@ document.addEventListener('DOMContentLoaded', function() {
           window.location.replace('/');
         } else if (data.success) {
           CANDIDATE_LIST = data.body.candidates;
-          _populateCandidates(data.body.candidates);
-          _setPagination(data.body.candidates);
-          toggleNavButtons();
+          if (CANDIDATE_LIST.length > 0) {
+            _populateCandidates(data.body.candidates);
+            _setPagination(data.body.candidates);
+            toggleNavButtons();
+          } else {
+            oEmptyList.removeClass('hidden');
+            oPreviousPage.addClass('hidden');
+            oNextPage.addClass('hidden');
+          }
         } else if (data.body.errMessage) {
           alert(data.body.errMessage);
         } else {
@@ -102,9 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function _initEventListeners() {
-    oDocument.on('click', '.send-offer-btn', function(eEvent) {
-      alert('Congratulations on finding new talent!');
-    });
   }
 
   function init() {

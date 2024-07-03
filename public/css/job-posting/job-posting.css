@@ -354,7 +354,13 @@ body {
     font-size: 0.875rem;
   }
 
-  .hero__btn:hover {
+  .hero__btn.disabled {
+    pointer-events: none;
+    color: #FFFFFF;
+    background: transparent;
+  }
+
+  .hero__btn:not(.disabled):hover {
     cursor: pointer;
     border: 2px solid #FFFFFF;
     color: #FFFFFF;

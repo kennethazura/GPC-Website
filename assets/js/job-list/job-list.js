@@ -85,9 +85,9 @@ document.addEventListener('DOMContentLoaded', function() {
     for (let ctr = startIndex; ctr < startIndex + 6; ctr += 1) {
       if (jobs[ctr] === undefined) break;
       if (jobs[ctr].Account__c === currentCompany) {
-        jobButton = `<a href="/job-requirement/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">Edit</button></a> <a href="/candidate-list/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">View Applicants</button></a>`;
+        jobButton = `<a href="/job-requirement/${jobs[ctr].Id}" target="_blank"><button class="job-btn">Edit</button></a> <a href="/candidate-list/${jobs[ctr].Id}" target="_blank"><button class="job-btn">View Applicants</button></a>`;
       } else {
-        jobButton = `<a href="/job/${jobs[ctr].Id}" target="_blank"><button class="job-apply-btn">Apply</button></a>`;
+        jobButton = `<button data-id="${jobs[ctr].Id}" class="job-apply-btn">Apply</button>`;
       }
       const salary = `$${jobs[ctr].Budget__c}`;
       const oJob = `<div class="job-item">
@@ -299,6 +299,40 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
+  function sendJobApplication(button) {
+    const accountId = _getCookie('salesForceId');
+    const accessToken = _getCookie('accessToken');
+
+    const API_PAYLOAD = {
+      accountId,
+      accessToken,
+      jobId: button.dataset.id,
+      status: 'Not Started',
+    };
+
+    showLoading();
+    fetch(
+      `${DOMAIN}${API_ROUTE}/job-application/send`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(API_PAYLOAD),
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        hideLoading();
+        if (data.success) {
+          alert('Your application has been sent');
+        } else if (data.body.errMessage) {
+          alert(data.body.errMessage);
+        } else {
+          alert('Unfortunately, an error occurred in the server');
+        }
+      });
+  }
+
   function _initEventListeners() {
     oDocument.on('click', '.pagination-option', function(eEvent) {
       changePage('click', parseInt(eEvent.target.innerHTML, 10));
@@ -347,6 +381,12 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (oTarget.classList.contains('brand-item')) {
         companyId = oTarget.id;
         window.location.replace(`/job-list?company=${companyId}`);
+      }
+    });
+
+    oDocument.on('click', '.job-apply-btn', (event) => {
+      if (event.target.classList.contains('job-apply-btn')) {
+        sendJobApplication(event.target);
       }
     });
   }

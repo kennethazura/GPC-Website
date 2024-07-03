@@ -711,6 +711,85 @@ server.post(`${process.env.API_ROUTE}/job-requirement/save`, bodyParser.json(), 
     });
 });
 
+server.post(`${process.env.API_ROUTE}/job-application/send`, bodyParser.json(), async(req, res) => {
+  const SALESFORCE_ID = req.body.accountId;
+  const ACCESS_TOKEN = req.body.accessToken;
+  const JOB_ID = req.body.jobId;
+  const STATUS = req.body.status;
+
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const JOB_APPLICATION = {
+    Applicant__c: SALESFORCE_ID,
+    Job_Posting__c: JOB_ID,
+    Status__c: STATUS,
+  };
+
+  fetch(
+    `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Job_Application__c`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(JOB_APPLICATION),
+    },
+  ).then((response) => {
+    console.log(response);
+    res.send(API_RESULT);
+  }).catch((error) => {
+    API_RESULT.success = false;
+    API_RESULT.body.message = error;
+    res.send(API_RESULT);
+  });
+});
+
+server.post(`${process.env.API_ROUTE}/job-application/update`, bodyParser.json(), async(req, res) => {
+  const CANDIDATE_ID = req.body.accountId;
+  const ACCESS_TOKEN = req.body.accessToken;
+  const JOB_ID = req.body.jobId;
+  const STATUS = req.body.status;
+  const START_DATE = req.body.startDate;
+  const SALARY = req.body.salary;
+
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const JOB_APPLICATION = {
+    Applicant__c: CANDIDATE_ID,
+    Job_Posting__c: JOB_ID,
+    Status__c: STATUS,
+    Start_Date__c: START_DATE,
+    Expected_Salary__c: SALARY,
+    Minimum_Expected_Salary__c: SALARY,
+  };
+
+  fetch(
+    `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Job_Application__c`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(JOB_APPLICATION),
+    },
+  ).then((response) => {
+    console.log(response);
+    res.send(API_RESULT);
+  }).catch((error) => {
+    API_RESULT.success = false;
+    API_RESULT.body.message = error;
+    res.send(API_RESULT);
+  });
+});
+
 server.post(`${process.env.API_ROUTE}/send-mail`, urlencodedParser, async(req, res) => {
   const NAME = req.body['c-name'];
   const EMAIL = req.body['c-email'];

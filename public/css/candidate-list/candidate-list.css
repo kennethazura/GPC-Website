@@ -67,6 +67,17 @@ body {
   width: 100%;
 }
 
+.empty-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 145px;
+  width: 100%;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 2rem;
+  color: grey;
+}
+
 .candidate {
   width: 25%;
 }

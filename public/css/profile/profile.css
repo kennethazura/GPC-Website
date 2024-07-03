@@ -296,11 +296,15 @@ body {
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 }
 
 .professional__form-header {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+  padding-top: 20px;
+  border-top: 1px solid grey;
   font-size: 1.25rem;
   font-family: NotoSans, sans-serif;
 }
@@ -477,11 +481,13 @@ input[type='file'] {
 }
 
 .acc__email {
+  pointer-events: none;
   box-sizing: border-box;
   width: 500px;
   height: 50px;
   padding: 5px;
   font-family: NotoSansBold, sans-serif;
+  background: #D4D4D4;
 }
 
 .acc__number {
