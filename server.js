@@ -5,11 +5,26 @@ const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
 const https = require('https');
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3();
 
 if (process.env.ENVIRONMENT !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config();
 }
+
+// File Upload - WORKING LET'S GO
+// (async() => {
+//   await s3.putObject({
+//     Bucket: process.env.S3_BUCKET,
+//     Key: 'test.txt', // Shuld be encrypted
+//     Body: 'Hello World', // File use fs node library?
+//   }, function(res) {
+//     console.log('Successfully uploaded file.');
+//   })
+//     .promise();
+// })();
 
 const database = mysql.createPool({
   host: process.env.DB_HOST,
@@ -504,10 +519,26 @@ server.post(`${process.env.API_ROUTE}/candidate/save`, bodyParser.json(), async(
 
 server.post(`${process.env.API_ROUTE}/candidate/save-work-history`, bodyParser.json(), async(req, res) => {
   const ACCESS_TOKEN = req.body.accessToken;
+  let WORK_HISTORIES_TO_DELETE = req.body.workHistoryToDelete;
+  if (WORK_HISTORIES_TO_DELETE.length > 0) {
+    WORK_HISTORIES_TO_DELETE = WORK_HISTORIES_TO_DELETE.toString();
+  }
   const API_RESULT = {
     success: true,
     body: {},
   };
+
+  // Delete work histories first
+  fetch(
+    `${process.env.SALESFORCE_API}/services/data/v56.0/composite/sobjects?ids=${WORK_HISTORIES_TO_DELETE}&allOrNone=false`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    },
+  ).then((response) => { console.log(response); });
 
   for (let idx = 0; idx < req.body.workHistory.length; idx += 1) {
     const WORK_HISTORY_ID = (req.body.workHistory[idx].Id) ? req.body.workHistory[idx].Id : null;
@@ -522,7 +553,8 @@ server.post(`${process.env.API_ROUTE}/candidate/save-work-history`, bodyParser.j
 
     const APITarget = (WORK_HISTORY_ID) ? `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c/${WORK_HISTORY_ID}` : `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Candidate_Work_Experience__c`;
     const API_METHOD = (WORK_HISTORY_ID) ? 'PATCH' : 'POST';
-    console.log(CANDIDATE_WORK_HISTORY);
+
+    // Save / Update Work Histories
     fetch(
       APITarget,
       {

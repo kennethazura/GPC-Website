@@ -15,6 +15,7 @@
   "author": "Kenneth Jayson Azura",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1653.0",
     "body-parser": "^1.20.2",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
