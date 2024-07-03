@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oAddWorkButton = u('.add__btn');
   const PROGRESS_BAR_VALUES = ['0%', '25%', '50%', '75%', '100%'];
   let workHistory = [];
+  const workHistoryToDelete = [];
   let isNewAccount = false;
 
   /** Candidate - Form Fields */
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
       accessToken,
       Contact__c: salesForceId,
       workHistory,
+      workHistoryToDelete,
     };
 
     fetch(
@@ -537,6 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function deleteWorkHistory(eEvent) {
     const oTarget = (eEvent.target.classList.contains('delete-work-history-btn')) ? eEvent.target : eEvent.target.parentElement;
     const targetWorkForm = oTarget.parentElement.parentElement;
+    workHistoryToDelete.push(targetWorkForm.dataset.id);
     targetWorkForm.remove();
   }
 
