@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
 const https = require('https');
 const AWS = require('aws-sdk');
+const multer = require('multer');
+
+const upload = multer({ dest: 'uploads/' });
+const fs = require('fs');
 
 const s3 = new AWS.S3();
 
@@ -622,6 +626,70 @@ server.post(`${process.env.API_ROUTE}/company/save`, bodyParser.json(), async(re
     success: true,
     body: {},
   };
+
+  console.log(req.body);
+  return;
+  const COMPANY_PROFILE = {
+    Name: req.body.Name || null,
+    Industry: req.body.Industry || null,
+    Phone: req.body.Phone || null,
+    Website: req.body.Website || null,
+    BillingStreet: req.body.BillingStreet || null,
+    BillingCity: req.body.BillingCity || null,
+    BillingState: req.body.BillingState || null,
+    BillingPostalCode: req.body.BillingPostalCode || null,
+    BillingCountry: req.body.BillingCountry || null,
+    ShippingStreet: req.body.BillingStreet || null,
+    ShippingCity: req.body.BillingCity || null,
+    ShippingState: req.body.BillingState || null,
+    ShippingPostalCode: req.body.BillingPostalCode || null,
+    ShippingCountry: req.body.BillingCountry || null,
+    Company_Description__c: req.body.Company_Description__c || null,
+  };
+
+  const APITarget = `${process.env.SALESFORCE_API}/services/data/v56.0/sobjects/Account/${SALESFORCE_ID}`;
+  fetch(
+    APITarget,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(COMPANY_PROFILE),
+    },
+  ).then(() => {
+    res.send(API_RESULT);
+  });
+});
+
+server.post(`${process.env.API_ROUTE}/upload`, upload.single('file'), async(req, res) => {
+  const SALESFORCE_ID = req.body.salesForceId;
+  const ACCESS_TOKEN = req.body.accessToken;
+  const API_RESULT = {
+    success: true,
+    body: {},
+  };
+
+  const contents = fs.readFileSync(req.file.path);
+  (async() => {
+    await s3.putObject({
+      Bucket: process.env.S3_BUCKET,
+      Key: 'test.png',
+      Body: contents,
+      ContentType: req.file.mimetype,
+    }, function(res) {
+      console.log('Successfully uploaded file.');
+    })
+      .promise();
+  })();
+
+  try {
+    fs.unlinkSync(req.file.path);
+  } catch (error) {
+    console.log(error);
+  }
+  return;
   const COMPANY_PROFILE = {
     Name: req.body.Name || null,
     Industry: req.body.Industry || null,
