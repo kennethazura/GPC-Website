@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
   let workHistory = [];
   const workHistoryToDelete = [];
   let isNewAccount = false;
+  let fileToUpload = null;
+  const fileSelector = document.createElement('input');
+  fileSelector.type = 'file';
 
   /** Candidate - Form Fields */
   const oFirstName = u('.information__first-name');
@@ -41,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const oCompanyFinishField = u('.company__finish-field');
   const oCompanyFinishBtn = u('.finish-btn__container');
   const oCompanyCompleteImg = u('.finish-img__field.company');
+  const oCompanyImg = u('.company__logo');
   const oCompanyName = u('.company__name');
   const oCompanyIndustry = u('.industry__title');
   const oCompanyAddress = u('.company__address');
@@ -89,6 +93,35 @@ document.addEventListener('DOMContentLoaded', function() {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     const expires = 'expires=' + d.toUTCString();
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  }
+
+  function _validateImage(image) {
+    const ACCEPTED_FILE_TYPES = ['image/png', 'image/gif', 'image/jpeg'];
+    const MAX_FILE_SIZE = 10240;
+
+    if (!ACCEPTED_FILE_TYPES.includes(image.type)) {
+      return {
+        success: false,
+        message: 'Please select a valid image file',
+      };
+    }
+
+    if (image.size / 1024 > MAX_FILE_SIZE) {
+      return {
+        success: false,
+        message: 'Please select an image that is smaller than 10MB',
+      };
+    }
+
+    return {
+      success: true,
+      message: 'File uploaded successfully',
+    };
+  }
+
+  function _prepareImage(image) {
+    oCompanyImg.attr('src', URL.createObjectURL(image));
+    fileToUpload = image;
   }
 
   function goToStep(targetStep) {
@@ -164,13 +197,49 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 
-  function saveAPI() {
+  function uploadFile(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    fetch(
+      `${DOMAIN}${API_ROUTE}/upload`,
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then((oResponse) => oResponse.json())
+      .then((data) => {
+        if (data.success) {
+          if (PROFILE_TYPE === 'candidate') {
+            saveWorkHistoryAPI();
+          } else {
+            oCompanyCompleteImg.addClass('finished');
+            oCompanyForm.addClass('finished');
+            oCompanyFinishField.addClass('finished');
+            oCompanyFinishBtn.addClass('finished');
+            window.scrollTo(0, 0);
+            alert('Your changes have been saved');
+            window.location.reload();
+          }
+        } else if (data.body.errMessage) {
+          alert(data.body.errMessage);
+        } else {
+          alert('Unfortunately, an error occurred in the server');
+        }
+      });
+  }
+
+  async function saveAPI() {
     const salesForceId = _getCookie('salesForceId');
     const accessToken = _getCookie('accessToken');
     const userId = _getCookie('userId');
     const email = _getCookie('registrationEmail');
     const password = _getCookie('registrationPassword');
 
+    if (fileToUpload) {
+      await uploadFile(fileToUpload);
+    }
+
+    return;
     const profileBody = (PROFILE_TYPE === 'candidate') ? {
       salesForceId,
       accessToken,
@@ -189,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
       salesForceId,
       accessToken,
       isNewAccount,
+      Logo: fileToUpload,
       Name: oCompanyName.nodes[0].value,
       Industry: oCompanyIndustry.nodes[0].value,
       Phone: oCompanyPhone.nodes[0].value,
@@ -559,6 +629,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     oAddWorkButton.on('click', addWorkExperience);
     oFinishButton.on('click', saveProfile);
+    oCompanyImg.on('click', () => { fileSelector.click(); });
+    fileSelector.onchange = () => {
+      const uploadedFile = Array.from(fileSelector.files)[0];
+      const validationResults = _validateImage(uploadedFile);
+      if (validationResults.success) {
+        _prepareImage(uploadedFile);
+      } else {
+        alert(validationResults.message);
+      }
+    };
     oHomeButton.on('click', function() { window.location.replace('/'); });
     u(document).on('click', (eEvent) => {
       const { target } = eEvent;
