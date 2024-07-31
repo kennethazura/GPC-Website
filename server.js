@@ -18,18 +18,6 @@ if (process.env.ENVIRONMENT !== 'production') {
   dotenv.config();
 }
 
-// File Upload - WORKING LET'S GO
-// (async() => {
-//   await s3.putObject({
-//     Bucket: process.env.S3_BUCKET,
-//     Key: 'test.txt', // Shuld be encrypted
-//     Body: 'Hello World', // File use fs node library?
-//   }, function(res) {
-//     console.log('Successfully uploaded file.');
-//   })
-//     .promise();
-// })();
-
 const database = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,

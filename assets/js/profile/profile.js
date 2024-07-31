@@ -235,11 +235,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const email = _getCookie('registrationEmail');
     const password = _getCookie('registrationPassword');
 
-    if (fileToUpload) {
-      await uploadFile(fileToUpload);
-    }
+    // If an upload is needed. uploadFile -> Retrieve file details from Amazon S3 -> Include file details when calling salesforce API
+    // if (fileToUpload) {
+    //   await uploadFile(fileToUpload);
+    // }
 
-    return;
     const profileBody = (PROFILE_TYPE === 'candidate') ? {
       salesForceId,
       accessToken,
